@@ -26,4 +26,5 @@ The user has the ability to indicate dietary traits that they want to avoid. The
 
 ## External libraries
 [CircleImageView](https://github.com/hdodenhof/CircleImageView)
+
 [Firebase Job Dispatcher](https://github.com/firebase/firebase-jobdispatcher-android)
