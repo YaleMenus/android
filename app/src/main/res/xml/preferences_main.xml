@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <MultiSelectListPreference
+        android:entries="@array/traits"
+        android:entryValues="@array/traits"
+        android:key="traitPrefs"
+        android:summary="The dietary traits that you selected to avoid."
+        android:title="Traits" />
+    <com.adisa.diningplus.FollowDialogPreference
+        android:summary="Receive notifications when these items are being served."
+        android:title="Followed items" />
+</PreferenceScreen>

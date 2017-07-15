@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array
+        name="traits">
+        <item>Alcohol</item>
+        <item>Dairy</item>
+        <item>Eggs</item>
+        <item>Fish</item>
+        <item>Gluten</item>
+        <item>Nuts</item>
+        <item>Peanut</item>
+        <item>Pork</item>
+        <item>Shellfish</item>
+        <item>Soy</item>
+        <item>Wheat</item>
+    </array>
+</resources>
