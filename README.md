@@ -23,3 +23,7 @@ The item detail page displays all the nutritional information for a menu item. T
 The user has the ability to indicate dietary traits that they want to avoid. The app then uses this information to highlight menu items on the menu page that contain these traits, making it easier for the user to see which dishes they should avoid.
 
 <img src="https://raw.githubusercontent.com/amalik12/dining_plus/master/readme/pic5.png" width="350"> <img src="https://raw.githubusercontent.com/amalik12/dining_plus/master/readme/pic6.png" width="350">
+
+## External libraries
+[CircleImageView](https://github.com/hdodenhof/CircleImageView)
+[Firebase Job Dispatcher](https://github.com/firebase/firebase-jobdispatcher-android)
