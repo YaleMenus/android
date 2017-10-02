@@ -1,5 +1,5 @@
 # Dining Plus
-For my senior thesis, I decided to create a new version of Yale's dining hall app for Android. The existing Yale Dining app on Android is not very pleasant to use, due to dated visuals, usability issues, and several recurring bugs. Much like the existing app, the app created for this project displays the current menu items and nutritional information for each dining hall on campus, using information retrieved from the Yale Dining API. It also includes the ability to set a dining hall as a favorite, and have the app automatically navigate to that hall’s menu when launched.
+For my senior thesis, I decided to create a new version of [Yale's dining hall app](https://play.google.com/store/apps/details?id=org.yaledining.app&hl=en) for Android. The existing Yale Dining app on Android is not very pleasant to use, due to dated visuals, usability issues, and several recurring bugs. Much like the existing app, the app created for this project displays the current menu items and nutritional information for each dining hall on campus, using information retrieved from the Yale Dining API. It also includes the ability to set a dining hall as a favorite, and have the app automatically navigate to that hall’s menu when launched.
 
 ## Features
 The app contains several useful features not included in the original app.
