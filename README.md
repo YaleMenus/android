@@ -7,7 +7,7 @@ The app contains several useful features not included in the original app.
 ### Main menu
 The dining halls in the main menu are sorted by their distance to the user's location, in addition to displaying their capacity and open/closed status like the original app.
 
-<img src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/18193719_10209112153388656_3669380309161002886_n.jpg?oh=44c205e2b591ca90f7369a35912d2558&oe=5A11969A" width="350">
+<img src="https://raw.githubusercontent.com/amalik12/dining_plus/master/readme/pic.png" width="350">
 
 ### Menu page
 The menu page for each dining hall displays the menus for each meal being served in the dining hall for that day, and includes an option to favorite the dining hall. If the hall has already stopped serving a meal, it is excluded from the list.
