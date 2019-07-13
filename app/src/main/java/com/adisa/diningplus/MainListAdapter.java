@@ -45,11 +45,11 @@ class MainListAdapter extends BaseAdapter {
         this.context = context;
         crestMap.put("Berkeley", R.drawable.berkeley);
         crestMap.put("Branford", R.drawable.branford);
-        crestMap.put("Hopper", R.drawable.hopper);
+        crestMap.put("Grace Hopper", R.drawable.hopper);
         crestMap.put("Stiles", R.drawable.stiles);
         crestMap.put("Davenport", R.drawable.davenport);
         crestMap.put("Franklin", R.drawable.franklin);
-        crestMap.put("Murray", R.drawable.murray);
+        crestMap.put("Pauli Murray", R.drawable.murray);
         crestMap.put("Jonathan Edwards", R.drawable.je);
         crestMap.put("Morse", R.drawable.morse);
         crestMap.put("Pierson", R.drawable.pierson);

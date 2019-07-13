@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     }
                 }
             } catch (Exception e) {
-                Log.e("URI", "uri was invalid or api request failed");
+                Log.e("URI", "URI was invalid or API request failed");
                 e.printStackTrace();
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
             }
