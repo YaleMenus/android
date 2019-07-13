@@ -65,12 +65,12 @@ class MainListAdapter extends BaseAdapter {
         Collections.sort(openList, hallSort);
         Collections.sort(closedList, hallSort);
         if (openList.size() > 0){
-            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open now", -1, -1 , -1, -1);
+            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open now", -1, -1 , -1, -1, false);
             hallList.add(openHeader);
             hallList.addAll(openList);
         }
         if (closedList.size() > 0){
-            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed now", -1, -1 , -1, -1);
+            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed now", -1, -1 , -1, -1, false);
             hallList.add(closedHeader);
             hallList.addAll(closedList);
         }
