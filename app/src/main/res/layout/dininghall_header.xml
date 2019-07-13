@@ -15,7 +15,7 @@
         android:paddingBottom="16dp"
         android:paddingLeft="72dp"
         android:paddingTop="16dp"
-        android:text="Open now"
+        android:text="Open"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         tools:layout_editor_absoluteX="31dp"
         tools:layout_editor_absoluteY="16dp" />
