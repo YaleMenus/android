@@ -127,7 +127,7 @@ class MainListAdapter extends BaseAdapter {
             if (capacity >= 80){
                 viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
             }
-            viewHolder.occupancy.setText(capacity + "%");
+            viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
         } else {
             viewHolder.name.setText(item.name);
         }
