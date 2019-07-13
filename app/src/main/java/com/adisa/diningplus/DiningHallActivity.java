@@ -109,8 +109,7 @@ public class DiningHallActivity extends AppCompatActivity {
 
         headerMap.put("Berkeley", R.drawable.berkeley_header);
         headerMap.put("Branford", R.drawable.branford_header);
-        headerMap.put("Calhoun", R.drawable.calhoun_header);
-        headerMap.put("Grace Hopper", R.drawable.calhoun_header);
+        headerMap.put("Hopper", R.drawable.hopper_header);
         headerMap.put("Stiles", R.drawable.stiles_header);
         headerMap.put("Davenport", R.drawable.davenport_header);
         headerMap.put("Jonathan Edwards", R.drawable.je_header);
