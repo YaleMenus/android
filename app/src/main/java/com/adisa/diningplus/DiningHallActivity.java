@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 
 public class DiningHallActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbar;
@@ -232,19 +233,19 @@ public class DiningHallActivity extends AppCompatActivity {
             menuItem.put(DiningContract.MenuItem.MENU_NAME, resArray.getString(3));
             menuItem.put(DiningContract.MenuItem.MENU_CODE, resArray.getInt(4));
             String dateString = resArray.getString(5);
-            Date date = new SimpleDateFormat("MMMMM, dd yyyy HH:mm:ss").parse(dateString);
-            menuItem.put(DiningContract.MenuItem.DATE, new SimpleDateFormat("yyyy-MM-dd").format(date));
+            Date date = new SimpleDateFormat("MMMMM, dd yyyy HH:mm:ss", Locale.US).parse(dateString);
+            menuItem.put(DiningContract.MenuItem.DATE, new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(date));
             menuItem.put(DiningContract.MenuItem._ID, resArray.getInt(6));
             menuItem.put(DiningContract.MenuItem.NUTRITION_ID, resArray.getInt(9));
             menuItem.put(DiningContract.MenuItem.NAME, resArray.getString(10));
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             Calendar time = Calendar.getInstance();
-            time.setTime(new SimpleDateFormat("h:mm a").parse(resArray.getString(12)));
+            time.setTime(new SimpleDateFormat("h:mm a", Locale.US).parse(resArray.getString(12)));
             cal.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
             cal.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
             menuItem.put(DiningContract.MenuItem.START_TIME, new SimpleDateFormat("HH:mm:ss").format(cal.getTime()));
-            time.setTime(new SimpleDateFormat("h:mm a").parse(resArray.getString(13)));
+            time.setTime(new SimpleDateFormat("h:mm a", Locale.US).parse(resArray.getString(13)));
             cal.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
             cal.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
             menuItem.put(DiningContract.MenuItem.END_TIME, new SimpleDateFormat("HH:mm:ss").format(cal.getTime()));
