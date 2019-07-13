@@ -63,8 +63,6 @@ class MenuAdapter extends BaseExpandableListAdapter {
         if (item.marked){
             expandedListTextView.setBackgroundColor(context.getResources().getColor(R.color.backgroundMarked));
             expandedListTextView.setTextColor(context.getResources().getColor(R.color.colorMarked));
-        } else {
-            expandedListTextView.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         }
         return convertView;
     }
