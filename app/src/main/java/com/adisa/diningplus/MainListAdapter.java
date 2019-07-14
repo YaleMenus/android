@@ -45,14 +45,11 @@ class MainListAdapter extends BaseAdapter {
         this.context = context;
         crestMap.put("Berkeley", R.drawable.berkeley);
         crestMap.put("Branford", R.drawable.branford);
-        crestMap.put("Commons", R.drawable.commons);
-        crestMap.put("Calhoun", R.drawable.calhoun);
-        crestMap.put("Grace Hopper", R.drawable.calhoun);
+        crestMap.put("Grace Hopper", R.drawable.hopper);
         crestMap.put("Stiles", R.drawable.stiles);
         crestMap.put("Davenport", R.drawable.davenport);
         crestMap.put("Franklin", R.drawable.franklin);
-        crestMap.put("Murray", R.drawable.murray);
-        crestMap.put("Hall of Graduate Studies", R.drawable.grad);
+        crestMap.put("Pauli Murray", R.drawable.murray);
         crestMap.put("Jonathan Edwards", R.drawable.je);
         crestMap.put("Morse", R.drawable.morse);
         crestMap.put("Pierson", R.drawable.pierson);
@@ -68,12 +65,12 @@ class MainListAdapter extends BaseAdapter {
         Collections.sort(openList, hallSort);
         Collections.sort(closedList, hallSort);
         if (openList.size() > 0){
-            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open now", -1, -1 , -1, -1);
+            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open", -1, -1 , -1, -1, false);
             hallList.add(openHeader);
             hallList.addAll(openList);
         }
         if (closedList.size() > 0){
-            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed now", -1, -1 , -1, -1);
+            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed", -1, -1 , -1, -1, false);
             hallList.add(closedHeader);
             hallList.addAll(closedList);
         }
@@ -130,7 +127,7 @@ class MainListAdapter extends BaseAdapter {
             if (capacity >= 80){
                 viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
             }
-            viewHolder.occupancy.setText(capacity + "%");
+            viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
         } else {
             viewHolder.name.setText(item.name);
         }

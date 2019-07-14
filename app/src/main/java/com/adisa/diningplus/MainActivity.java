@@ -211,12 +211,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         double latitude;
         double longitude;
         double distance;
-        HallItem (String name, int occupancy, double latitude, double longitude, int id){
+        boolean open;
+        HallItem (String name, int occupancy, double latitude, double longitude, int id, boolean open){
             this.name = name;
             this.occupancy = occupancy;
             this.latitude = latitude;
             this.longitude = longitude;
             this.id = id;
+            this.open = open;
         }
 
         void setDistance(Location location){
@@ -291,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     }
                 }
             } catch (Exception e) {
-                Log.e("URI", "uri was invalid or api request failed");
+                Log.e("URI", "URI was invalid or API request failed");
                 e.printStackTrace();
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
             }
@@ -301,9 +303,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         result.getInt(result.getColumnIndex(DiningContract.DiningHall.CAPACITY)),
                         result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LATITUDE)),
                         result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LONGITUDE)),
-                        result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID)));
+                        result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID)),
+                        result.getInt(result.getColumnIndex(DiningContract.DiningHall.IS_CLOSED)) == 0);
                 newItem.setDistance(currentLocation);
-                if (result.getInt(result.getColumnIndex(DiningContract.DiningHall.IS_CLOSED)) == 0){
+                if (newItem.open){
                     openList.add(newItem);
                 } else {
                     closedList.add(newItem);

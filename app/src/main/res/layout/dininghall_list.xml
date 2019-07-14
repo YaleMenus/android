@@ -28,18 +28,6 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/dhall_dist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:text="TextView"
-        android:textAlignment="textStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="16sp" />
-
-    <TextView
         android:id="@+id/dhall_occupancy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,5 +37,17 @@
         android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#64dd17"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/dhall_dist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="16sp" />
 </LinearLayout>
