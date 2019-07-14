@@ -1,6 +1,7 @@
 package com.adisa.diningplus;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +108,7 @@ class MenuAdapter extends BaseExpandableListAdapter {
 
         TextView mealTimeTextView = (TextView) convertView.findViewById(R.id.mealTime);
         Date startTime = null, endTime = null;
-        SimpleDateFormat hourFormat = new SimpleDateFormat("h:mm a"),
+        SimpleDateFormat hourFormat = new SimpleDateFormat(DateFormat.is24HourFormat(context.getApplicationContext()) ? "k:mm" : "h:mm a"),
                          timeFormat = new SimpleDateFormat("HH:mm:ss");
         try {
             startTime = timeFormat.parse(item.getStartTime());
