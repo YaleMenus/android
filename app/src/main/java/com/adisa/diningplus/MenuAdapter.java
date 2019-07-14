@@ -107,13 +107,15 @@ class MenuAdapter extends BaseExpandableListAdapter {
 
         TextView mealTimeTextView = (TextView) convertView.findViewById(R.id.mealTime);
         Date startTime = null, endTime = null;
+        SimpleDateFormat hourFormat = new SimpleDateFormat("h:mm a"),
+                         timeFormat = new SimpleDateFormat("HH:mm:ss");
         try {
-            startTime = new SimpleDateFormat("HH:mm:ss").parse(item.getStartTime());
-            endTime = new SimpleDateFormat("HH:mm:ss").parse(item.getEndTime());
+            startTime = timeFormat.parse(item.getStartTime());
+            endTime = timeFormat.parse(item.getEndTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        mealTimeTextView.setText(new SimpleDateFormat("h:mm a").format(startTime) + "–" + new SimpleDateFormat("h:mm a").format(endTime));
+        mealTimeTextView.setText(hourFormat.format(startTime) + "–" + hourFormat.format(endTime));
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.help_group_indicator);
         if (isExpanded){
             groupIndicator.setImageResource(R.drawable.ic_expand_less_black_24dp);
