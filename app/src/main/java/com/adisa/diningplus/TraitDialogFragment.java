@@ -37,8 +37,8 @@ public class TraitDialogFragment extends android.support.v4.app.DialogFragment {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         HashSet<String> currTraits = (HashSet<String>) preferences.getStringSet("traitPrefs", new HashSet<String>());
 
-        for (int i = 0; i < traitArray.length; i++){
-            if (currTraits.contains(traitArray[i])){
+        for (int i = 0; i < traitArray.length; i++) {
+            if (currTraits.contains(traitArray[i])) {
                 selections[i] = true;
             } else {
                 selections[i] = false;
@@ -64,8 +64,8 @@ public class TraitDialogFragment extends android.support.v4.app.DialogFragment {
                         SharedPreferences.Editor editor = preferences.edit();
                         HashSet<String> traitSet = new HashSet<String>();
                         String[] traitArray = getResources().getStringArray(R.array.traits);
-                        for (int i = 0; i < finalSelections.length; i++){
-                            if (finalSelections[i]){
+                        for (int i = 0; i < finalSelections.length; i++) {
+                            if (finalSelections[i]) {
                                 traitSet.add(traitArray[i]);
                             }
                         }

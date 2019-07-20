@@ -53,10 +53,12 @@ public class DiningHallActivity extends AppCompatActivity {
     SharedPreferences preferences;
     View emptyView;
     View loadingView;
+
     class FoodItem {
         int id;
         String name;
         boolean marked;
+
         FoodItem(int id, String name) {
             this.id = id;
             this.name = name;
@@ -71,6 +73,7 @@ public class DiningHallActivity extends AppCompatActivity {
             return id;
         }
     }
+
     class Meal {
         String startTime;
         String endTime;
@@ -167,7 +170,7 @@ public class DiningHallActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_dining_hall, menu);
-        if (preferences.getInt("startHall", -1) == hallId){
+        if (preferences.getInt("startHall", -1) == hallId) {
             menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_favorite_black_24dp);
         }
         return super.onCreateOptionsMenu(menu);
@@ -178,7 +181,7 @@ public class DiningHallActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 SharedPreferences.Editor editor = preferences.edit();
-                if (preferences.getInt("startHall", -1) != hallId){
+                if (preferences.getInt("startHall", -1) != hallId) {
                     item.setIcon(R.drawable.ic_favorite_black_24dp);
                     editor.putInt("startHall", hallId);
                     editor.putString("startHallName", hallName);
@@ -226,9 +229,9 @@ public class DiningHallActivity extends AppCompatActivity {
         JSONArray menuData = MainActivity.getJSON("http://www.yaledining.org/fasttrack/menus.cfm?location=" +
                 hallId + "&version=3");
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM, dd yyyy HH:mm:ss", Locale.US),
-                         shortDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US),
-                         hourFormat = new SimpleDateFormat("h:mm a", Locale.US),
-                         timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
+                shortDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US),
+                hourFormat = new SimpleDateFormat("h:mm a", Locale.US),
+                timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
         for (int j = 0; j < menuData.length(); j++) {
             JSONArray resArray = menuData.getJSONArray(j);
@@ -254,13 +257,14 @@ public class DiningHallActivity extends AppCompatActivity {
             cal.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
             cal.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
             menuItem.put(DiningContract.MenuItem.END_TIME, timeFormat.format(cal.getTime()));
-            if (!dbHelper.itemInDb(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem._ID, menuItem.getAsInteger(DiningContract.MenuItem._ID).toString())){
+            if (!dbHelper.itemInDb(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem._ID, menuItem.getAsInteger(DiningContract.MenuItem._ID).toString())) {
                 dbHelper.insertMenuItem(menuItem);
             } else {
                 dbHelper.updateMenuItem(menuItem);
             }
         }
     }
+
     private class MenuTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
@@ -274,9 +278,9 @@ public class DiningHallActivity extends AppCompatActivity {
             try {
                 Cursor result = dbHelper.getHall(hallId);
                 Date lastUpdated = new Date();
-                while (result.moveToNext()){
+                while (result.moveToNext()) {
                     String updateString = result.getString(result.getColumnIndex(DiningContract.DiningHall.LAST_UPDATED));
-                    if (!updateString.equals("")){
+                    if (!updateString.equals("")) {
                         lastUpdated = new SimpleDateFormat("yyyy-MM-dd").parse(updateString);
                     }
                 }
@@ -333,15 +337,15 @@ public class DiningHallActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                for (Meal meal : mealList){
+                for (Meal meal : mealList) {
                     ArrayList<FoodItem> newList = new ArrayList<>();
-                    for (FoodItem foodItem : mealMap.get(meal.getName())){
+                    for (FoodItem foodItem : mealMap.get(meal.getName())) {
                         ItemDetailActivity.setNutItem(dbHelper, foodItem.getId());
                         Cursor result = dbHelper.getNutritionItem(foodItem.getId());
-                        while (result.moveToNext()){
+                        while (result.moveToNext()) {
                             HashSet<String> traitList = (HashSet<String>) preferences.getStringSet("traitPrefs", new HashSet<String>());
-                            for (String trait : traitList){
-                                if (result.getInt(result.getColumnIndex(trait.toLowerCase())) == 1){
+                            for (String trait : traitList) {
+                                if (result.getInt(result.getColumnIndex(trait.toLowerCase())) == 1) {
                                     foodItem.marked = true;
                                     Log.d("traitTask", "marked");
                                     break;

@@ -64,18 +64,19 @@ class MainListAdapter extends BaseAdapter {
         hallList = new ArrayList<>();
         Collections.sort(openList, hallSort);
         Collections.sort(closedList, hallSort);
-        if (openList.size() > 0){
-            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open", -1, -1 , -1, -1, false);
+        if (openList.size() > 0) {
+            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open", -1, -1, -1, -1, false);
             hallList.add(openHeader);
             hallList.addAll(openList);
         }
-        if (closedList.size() > 0){
-            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed", -1, -1 , -1, -1, false);
+        if (closedList.size() > 0) {
+            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed", -1, -1, -1, -1, false);
             hallList.add(closedHeader);
             hallList.addAll(closedList);
         }
         super.notifyDataSetChanged();
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
@@ -84,7 +85,7 @@ class MainListAdapter extends BaseAdapter {
         MainActivity.HallItem item = getItem(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            if (getItemViewType(position) == TYPE_ITEM){
+            if (getItemViewType(position) == TYPE_ITEM) {
                 convertView = inflater.inflate(R.layout.dininghall_list, null);
                 viewHolder.crest = (ImageView) convertView.findViewById(R.id.crest);
                 viewHolder.name = (TextView) convertView.findViewById(R.id.dhall_name);
@@ -101,9 +102,9 @@ class MainListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (getItemViewType(position) == TYPE_ITEM){
+        if (getItemViewType(position) == TYPE_ITEM) {
             Integer crestId = crestMap.get(item.name);
-            if (crestId != null){
+            if (crestId != null) {
                 viewHolder.crest.setImageDrawable(context.getResources().getDrawable(crestId));
             } else {
                 viewHolder.crest.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
@@ -124,7 +125,7 @@ class MainListAdapter extends BaseAdapter {
             if (capacity >= 40) {
                 viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
             }
-            if (capacity >= 80){
+            if (capacity >= 80) {
                 viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
             }
             viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
@@ -135,7 +136,7 @@ class MainListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setLists(ArrayList<MainActivity.HallItem> openList, ArrayList<MainActivity.HallItem> closedList){
+    public void setLists(ArrayList<MainActivity.HallItem> openList, ArrayList<MainActivity.HallItem> closedList) {
         this.openList = openList;
         this.closedList = closedList;
     }

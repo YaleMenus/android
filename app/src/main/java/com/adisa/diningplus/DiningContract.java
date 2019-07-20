@@ -9,7 +9,8 @@ import java.util.HashMap;
  */
 
 final class DiningContract {
-    private DiningContract(){}
+    private DiningContract() {
+    }
 
     static class DiningHall implements BaseColumns {
         static final String TABLE_NAME = "dining_hall";

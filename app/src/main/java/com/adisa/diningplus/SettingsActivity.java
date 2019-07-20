@@ -44,14 +44,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         setupActionBar();
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
-
     }
 
-    public static class MyPreferenceFragment extends PreferenceFragment
-    {
+    public static class MyPreferenceFragment extends PreferenceFragment {
         @Override
-        public void onCreate(final Bundle savedInstanceState)
-        {
+        public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences_main);
             MultiSelectListPreference multiSelectListPreference = (MultiSelectListPreference) findPreference("traitPrefs");
@@ -59,6 +56,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             multiSelectListPreference.setValues(stringSet);
         }
     }
+
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
@@ -72,14 +70,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
-
 }

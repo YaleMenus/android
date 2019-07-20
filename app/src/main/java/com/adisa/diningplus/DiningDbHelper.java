@@ -51,9 +51,9 @@ class DiningDbHelper extends SQLiteOpenHelper {
                     DiningContract.MenuItem.END_TIME + " text," +
                     DiningContract.MenuItem.NUTRITION_ID + " text," +
                     "foreign key (" + DiningContract.MenuItem.DINING_HALL + ") references " + DiningContract.DiningHall.TABLE_NAME + "("
-                        + DiningContract.DiningHall._ID + ")," +
+                    + DiningContract.DiningHall._ID + ")," +
                     "foreign key (" + DiningContract.MenuItem.NUTRITION_ID + ") references " + DiningContract.NutritionItem.TABLE_NAME +
-                        "(" + DiningContract.NutritionItem._ID + ")" +
+                    "(" + DiningContract.NutritionItem._ID + ")" +
                     ");";
 
     private static final String SQL_NUTRITIONITEM_CREATE =
@@ -109,12 +109,14 @@ class DiningDbHelper extends SQLiteOpenHelper {
     DiningDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_DININGHALL_CREATE);
         db.execSQL(SQL_NUTRITIONITEM_CREATE);
         db.execSQL(SQL_MENUITEM_CREATE);
         db.execSQL(SQL_INGREDIENT_CREATE);
     }
+
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DININGHALL_DELETE);
         db.execSQL(SQL_NUTRITIONITEM_DELETE);
@@ -123,17 +125,18 @@ class DiningDbHelper extends SQLiteOpenHelper {
         Log.d("SQL", "upgrade");
         onCreate(db);
     }
+
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    void resetMenus(){
+    void resetMenus() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(SQL_DININGHALL_DELETE);
         db.execSQL(SQL_DININGHALL_CREATE);
     }
 
-    void reset(){
+    void reset() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(SQL_DININGHALL_DELETE);
         db.execSQL(SQL_NUTRITIONITEM_DELETE);
@@ -141,53 +144,54 @@ class DiningDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_INGREDIENT_DELETE);
         onCreate(db);
     }
-    void insertHall(ContentValues values){
+
+    void insertHall(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DiningContract.DiningHall.TABLE_NAME, null, values);
     }
 
-    void updateHall(ContentValues values){
+    void updateHall(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] args =  {"" + values.getAsInteger(DiningContract.DiningHall._ID)};
+        String[] args = {"" + values.getAsInteger(DiningContract.DiningHall._ID)};
         int result = db.update(DiningContract.DiningHall.TABLE_NAME, values, DiningContract.DiningHall._ID + " = ?", args);
         if (BuildConfig.DEBUG && result != 1)
             throw new AssertionError();
     }
 
-    void updateTime(int hallId){
+    void updateTime(int hallId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values =  new ContentValues();
-        String [] args =  {"" + hallId};
-        values.put(DiningContract.DiningHall.LAST_UPDATED,  new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        ContentValues values = new ContentValues();
+        String[] args = {"" + hallId};
+        values.put(DiningContract.DiningHall.LAST_UPDATED, new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         int result = db.update(DiningContract.DiningHall.TABLE_NAME, values, DiningContract.DiningHall._ID + " = ?", args);
         if (BuildConfig.DEBUG && result != 1)
             throw new AssertionError();
     }
 
-    void insertMenuItem(ContentValues values){
+    void insertMenuItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DiningContract.MenuItem.TABLE_NAME, null, values);
     }
 
-    void updateMenuItem(ContentValues values){
+    void updateMenuItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] args =  {"" + values.getAsInteger(DiningContract.MenuItem._ID)};
+        String[] args = {"" + values.getAsInteger(DiningContract.MenuItem._ID)};
         int result = db.update(DiningContract.MenuItem.TABLE_NAME, values, DiningContract.MenuItem._ID + " = ?", args);
         if (BuildConfig.DEBUG && result != 1)
             throw new AssertionError();
     }
 
-    void insertNutritionItem(ContentValues values){
+    void insertNutritionItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DiningContract.NutritionItem.TABLE_NAME, null, values);
     }
 
-    void insertIngredient(ContentValues values){
+    void insertIngredient(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         String Query = "Select * from " + DiningContract.Ingredient.TABLE_NAME + " where " + DiningContract.Ingredient.NUTRITION_ID + " = " +
                 values.getAsInteger(DiningContract.Ingredient.NUTRITION_ID) + " and " + DiningContract.Ingredient.NAME + " = '" + values.getAsString(DiningContract.Ingredient.NAME) + "'";
         Cursor cursor = db.rawQuery(Query, null);
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.close();
             return;
         }
@@ -198,7 +202,7 @@ class DiningDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String Query = "Select * from " + tableName + " where " + dbfield + " = " + fieldValue;
         Cursor cursor = db.rawQuery(Query, null);
-        if(cursor.getCount() <= 0){
+        if (cursor.getCount() <= 0) {
             cursor.close();
             return false;
         }
@@ -206,15 +210,15 @@ class DiningDbHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    Cursor getHall(int id){
+    Cursor getHall(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String Query = "Select " + DiningContract.DiningHall.LAST_UPDATED + " from " + DiningContract.DiningHall.TABLE_NAME + " where " + DiningContract.DiningHall._ID + " = " + id;
         return db.rawQuery(Query, null);
     }
 
-    Cursor getHalls(){
+    Cursor getHalls() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DiningContract.DiningHall.NAME + ", " + DiningContract.DiningHall.CAPACITY  + ", " + DiningContract.DiningHall.LATITUDE + ", " +  DiningContract.DiningHall.LONGITUDE + ", " + DiningContract.DiningHall._ID + ", " + DiningContract.DiningHall.IS_CLOSED + " from " + DiningContract.DiningHall.TABLE_NAME;
+        String Query = "Select " + DiningContract.DiningHall.NAME + ", " + DiningContract.DiningHall.CAPACITY + ", " + DiningContract.DiningHall.LATITUDE + ", " + DiningContract.DiningHall.LONGITUDE + ", " + DiningContract.DiningHall._ID + ", " + DiningContract.DiningHall.IS_CLOSED + " from " + DiningContract.DiningHall.TABLE_NAME;
         return db.rawQuery(Query, null);
     }
 
@@ -224,13 +228,13 @@ class DiningDbHelper extends SQLiteOpenHelper {
         return db.rawQuery(Query, null);
     }
 
-    Cursor getNutritionItem(int id){
+    Cursor getNutritionItem(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String Query = "Select * from " + DiningContract.NutritionItem.TABLE_NAME + " where " + DiningContract.NutritionItem._ID + " = " + id;
         return db.rawQuery(Query, null);
     }
 
-    Cursor getIngredients(int id){
+    Cursor getIngredients(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String Query = "Select " + DiningContract.Ingredient.NAME + " from " + DiningContract.Ingredient.TABLE_NAME + " where " + DiningContract.Ingredient.NUTRITION_ID + " = " + id;
         return db.rawQuery(Query, null);

@@ -15,14 +15,14 @@ import java.util.HashSet;
  * Created by Adisa on 5/4/2017.
  */
 
-public class FollowDialogPreference extends DialogPreference{
+public class FollowDialogPreference extends DialogPreference {
     public FollowDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         setDialogLayoutResource(R.layout.follow_dialog);
     }
 
     @Override
-    public void onBindDialogView(View view){
+    public void onBindDialogView(View view) {
         ListView listView = (ListView) view.findViewById(R.id.followList);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         HashSet<String> stringSet = (HashSet<String>) preferences.getStringSet("followedItems", new HashSet<String>());
