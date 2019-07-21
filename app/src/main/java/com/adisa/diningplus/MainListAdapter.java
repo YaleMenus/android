@@ -116,11 +116,17 @@ class MainListAdapter extends BaseAdapter {
             viewHolder.name.setText(item.name);
 
             DecimalFormat numberFormat = new DecimalFormat("0.00");
-            String unit = "km";
             double distance = item.distance;
-            if (preferences.getString("unitPrefs", "").equals("Imperial")) {
-                unit = "mi";
-                distance *= 0.621371;
+            String unit = "";
+            switch (preferences.getString("unitPrefs", "Imperial")) {
+                case "Metric":
+                    unit = "km";
+                    // No adjustment of distance needed as it's stored in kilometers
+                    break;
+                case "Imperial":
+                    distance *= 0.621371;
+                    unit = "mi";
+                    break;
             }
             if (distance > 50) {
                 viewHolder.distance.setText("> 50" + unit);
