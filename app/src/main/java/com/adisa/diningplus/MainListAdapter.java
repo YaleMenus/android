@@ -117,15 +117,15 @@ class MainListAdapter extends BaseAdapter {
 
             DecimalFormat numberFormat = new DecimalFormat("0.00");
             double distance = item.distance;
-            String unit = "";
+            String unit = " ";
             switch (preferences.getString("unitPrefs", "Imperial")) {
                 case "Metric":
-                    unit = "km";
+                    unit += "km";
                     // No adjustment of distance needed as it's stored in kilometers
                     break;
                 case "Imperial":
                     distance *= 0.621371;
-                    unit = "mi";
+                    unit += "mi";
                     break;
             }
             if (distance > 50) {
