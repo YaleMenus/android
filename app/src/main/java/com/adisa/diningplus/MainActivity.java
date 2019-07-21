@@ -3,7 +3,6 @@ package com.adisa.diningplus;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,7 +16,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     Location currentLocation;
     GoogleApiClient mGoogleApiClient;
     CoordinatorLayout coordinatorLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,12 +128,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         updateTask.execute();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (preferences.getBoolean("firstRun", true)){
+        if (preferences.getBoolean("firstRun", true)) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("firstRun", false);
             editor.apply();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("traits");
-            if (prev == null){
+            if (prev == null) {
                 DialogFragment traitDialog = new TraitDialogFragment();
                 traitDialog.show(getSupportFragmentManager(), "traits");
             }
@@ -147,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mGoogleApiClient.connect();
         super.onStart();
     }
+
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
@@ -204,7 +204,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 return super.onOptionsItemSelected(item);
         }
     }
-    static class HallItem{
+
+    static class HallItem {
         String name;
         int occupancy;
         int id;
@@ -212,7 +213,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         double longitude;
         double distance;
         boolean open;
-        HallItem (String name, int occupancy, double latitude, double longitude, int id, boolean open){
+
+        HallItem(String name, int occupancy, double latitude, double longitude, int id, boolean open) {
             this.name = name;
             this.occupancy = occupancy;
             this.latitude = latitude;
@@ -221,12 +223,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             this.open = open;
         }
 
-        void setDistance(Location location){
-            if (location != null){
+        void setDistance(Location location) {
+            if (location != null) {
                 Location loc = new Location("");
                 loc.setLatitude(latitude);
                 loc.setLongitude(longitude);
-                distance = location.distanceTo(loc) * 0.000621371;
+                // Convert m -> km
+                distance = location.distanceTo(loc) / 1000;
             }
         }
     }
@@ -284,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         values.put(DiningContract.DiningHall.MANAGER3_EMAIL, array.getString(14));
                         values.put(DiningContract.DiningHall.MANAGER4_NAME, array.getString(15));
                         values.put(DiningContract.DiningHall.MANAGER4_EMAIL, array.getString(16));
-                        if (!dbHelper.itemInDb(DiningContract.DiningHall.TABLE_NAME, DiningContract.DiningHall._ID, values.getAsInteger(DiningContract.MenuItem._ID).toString())){
+                        if (!dbHelper.itemInDb(DiningContract.DiningHall.TABLE_NAME, DiningContract.DiningHall._ID, values.getAsInteger(DiningContract.MenuItem._ID).toString())) {
                             values.put(DiningContract.DiningHall.LAST_UPDATED, "");
                             dbHelper.insertHall(values);
                         } else {
@@ -298,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
             }
             Cursor result = dbHelper.getHalls();
-            while (result.moveToNext()){
+            while (result.moveToNext()) {
                 HallItem newItem = new HallItem(result.getString(result.getColumnIndex(DiningContract.DiningHall.NAME)),
                         result.getInt(result.getColumnIndex(DiningContract.DiningHall.CAPACITY)),
                         result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LATITUDE)),
@@ -306,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID)),
                         result.getInt(result.getColumnIndex(DiningContract.DiningHall.IS_CLOSED)) == 0);
                 newItem.setDistance(currentLocation);
-                if (newItem.open){
+                if (newItem.open) {
                     openList.add(newItem);
                 } else {
                     closedList.add(newItem);

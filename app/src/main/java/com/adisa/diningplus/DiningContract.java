@@ -2,14 +2,13 @@ package com.adisa.diningplus;
 
 import android.provider.BaseColumns;
 
-import java.util.HashMap;
-
 /**
  * Created by Adisa on 3/19/2017.
  */
 
 final class DiningContract {
-    private DiningContract(){}
+    private DiningContract() {
+    }
 
     static class DiningHall implements BaseColumns {
         static final String TABLE_NAME = "dining_hall";

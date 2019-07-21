@@ -1,7 +1,9 @@
 package com.adisa.diningplus;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import java.util.HashMap;
 
 class MainListAdapter extends BaseAdapter {
     private Context context;
+    private SharedPreferences preferences;
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private HashMap<String, Integer> crestMap = new HashMap<>();
@@ -43,6 +46,7 @@ class MainListAdapter extends BaseAdapter {
 
     MainListAdapter(Context context) {
         this.context = context;
+        this.preferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         crestMap.put("Berkeley", R.drawable.berkeley);
         crestMap.put("Branford", R.drawable.branford);
         crestMap.put("Grace Hopper", R.drawable.hopper);
@@ -64,18 +68,19 @@ class MainListAdapter extends BaseAdapter {
         hallList = new ArrayList<>();
         Collections.sort(openList, hallSort);
         Collections.sort(closedList, hallSort);
-        if (openList.size() > 0){
-            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open", -1, -1 , -1, -1, false);
+        if (openList.size() > 0) {
+            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open", -1, -1, -1, -1, false);
             hallList.add(openHeader);
             hallList.addAll(openList);
         }
-        if (closedList.size() > 0){
-            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed", -1, -1 , -1, -1, false);
+        if (closedList.size() > 0) {
+            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed", -1, -1, -1, -1, false);
             hallList.add(closedHeader);
             hallList.addAll(closedList);
         }
         super.notifyDataSetChanged();
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
@@ -84,7 +89,7 @@ class MainListAdapter extends BaseAdapter {
         MainActivity.HallItem item = getItem(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            if (getItemViewType(position) == TYPE_ITEM){
+            if (getItemViewType(position) == TYPE_ITEM) {
                 convertView = inflater.inflate(R.layout.dininghall_list, null);
                 viewHolder.crest = (ImageView) convertView.findViewById(R.id.crest);
                 viewHolder.name = (TextView) convertView.findViewById(R.id.dhall_name);
@@ -101,9 +106,9 @@ class MainListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (getItemViewType(position) == TYPE_ITEM){
+        if (getItemViewType(position) == TYPE_ITEM) {
             Integer crestId = crestMap.get(item.name);
-            if (crestId != null){
+            if (crestId != null) {
                 viewHolder.crest.setImageDrawable(context.getResources().getDrawable(crestId));
             } else {
                 viewHolder.crest.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
@@ -111,10 +116,22 @@ class MainListAdapter extends BaseAdapter {
             viewHolder.name.setText(item.name);
 
             DecimalFormat numberFormat = new DecimalFormat("0.00");
-            if (item.distance > 50){
-                viewHolder.distance.setText("> 50 mi");
+            double distance = item.distance;
+            String unit = " ";
+            switch (preferences.getString("unitPrefs", "Imperial")) {
+                case "Metric":
+                    unit += "km";
+                    // No adjustment of distance needed as it's stored in kilometers
+                    break;
+                case "Imperial":
+                    distance *= 0.621371;
+                    unit += "mi";
+                    break;
+            }
+            if (distance > 50) {
+                viewHolder.distance.setText("> 50" + unit);
             } else {
-                viewHolder.distance.setText("" + numberFormat.format(item.distance) + " mi");
+                viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
             }
             int capacity = item.occupancy * 10;
 
@@ -124,7 +141,7 @@ class MainListAdapter extends BaseAdapter {
             if (capacity >= 40) {
                 viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
             }
-            if (capacity >= 80){
+            if (capacity >= 80) {
                 viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
             }
             viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
@@ -135,7 +152,7 @@ class MainListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setLists(ArrayList<MainActivity.HallItem> openList, ArrayList<MainActivity.HallItem> closedList){
+    public void setLists(ArrayList<MainActivity.HallItem> openList, ArrayList<MainActivity.HallItem> closedList) {
         this.openList = openList;
         this.closedList = closedList;
     }

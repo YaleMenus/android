@@ -35,7 +35,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     class Detail {
         int image;
         String name;
-        Detail(int image, String name){
+
+        Detail(int image, String name) {
             this.image = image;
             this.name = name;
         }
@@ -56,12 +57,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         dbHelper = new DiningDbHelper(getApplicationContext());
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (preferences.getBoolean("followTut", true)){
+        if (preferences.getBoolean("followTut", true)) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("followTut", false);
             editor.apply();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("follow");
-            if (prev == null){
+            if (prev == null) {
                 DialogFragment followDialog = new FollowDialogFragment();
                 followDialog.show(getSupportFragmentManager(), "follow");
             }
@@ -76,14 +77,14 @@ public class ItemDetailActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_item_detail, menu);
         HashSet<String> current = (HashSet<String>) preferences.getStringSet("followedItems", new HashSet<String>());
-        if (current.contains(itemName)){
+        if (current.contains(itemName)) {
             menu.findItem(R.id.action_notify).setIcon(R.drawable.notifications_enabled);
         }
         return super.onCreateOptionsMenu(menu);
     }
 
     public static void setNutItem(DiningDbHelper dbHelper, int nutId) throws IOException, JSONException {
-        if (!dbHelper.itemInDb(DiningContract.NutritionItem.TABLE_NAME, DiningContract.NutritionItem._ID, nutId + "")){
+        if (!dbHelper.itemInDb(DiningContract.NutritionItem.TABLE_NAME, DiningContract.NutritionItem._ID, nutId + "")) {
             JSONArray nutData = MainActivity.getJSON("http://www.yaledining.org/fasttrack/menuitem-nutrition.cfm?MENUITEMID="
                     + nutId + "&version=3");
             ContentValues nutItem = new ContentValues();
@@ -152,7 +153,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Cursor itemDetails = dbHelper.getNutritionItem(nutId);
-            while (itemDetails.moveToNext()){
+            while (itemDetails.moveToNext()) {
                 if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.ALCOHOL)) == 1)
                     detailList.add(new Detail(R.drawable.key_alcohol, "Alcohol"));
                 if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.NUTS)) == 1)
@@ -203,7 +204,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             Cursor ingredients = dbHelper.getIngredients(nutId);
             detailList.add(new Detail(-1, "Ingredients"));
-            while (ingredients.moveToNext()){
+            while (ingredients.moveToNext()) {
                 detailList.add(new Detail(-3, ingredients.getString(ingredients.getColumnIndex(DiningContract.Ingredient.NAME))));
             }
 
@@ -229,7 +230,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 HashSet<String> currentSet = (HashSet<String>) preferences.getStringSet("followedItems", new HashSet<String>());
                 HashSet<String> newSet = new HashSet<String>();
                 newSet.addAll(currentSet);
-                if (!currentSet.contains(itemName)){
+                if (!currentSet.contains(itemName)) {
                     item.setIcon(R.drawable.notifications_enabled);
                     newSet.add(itemName);
                 } else {
