@@ -12,6 +12,7 @@
     <ListPreference
         android:entries="@array/units"
         android:entryValues="@array/units"
+        android:defaultValue="Imperial"
         android:key="unitPrefs"
         android:summary="System of measurement to use for representing distances."
         android:title="Units" />
