@@ -118,7 +118,7 @@ class MainListAdapter extends BaseAdapter {
             DecimalFormat numberFormat = new DecimalFormat("0.00");
             String unit = "km";
             double distance = item.distance;
-            if (!preferences.getString("unitPrefs", "").equals("Imperial")) {
+            if (preferences.getString("unitPrefs", "").equals("Imperial")) {
                 unit = "mi";
                 distance *= 0.621371;
             }
