@@ -1,6 +1,5 @@
 package com.adisa.diningplus;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

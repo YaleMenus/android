@@ -2,8 +2,6 @@ package com.adisa.diningplus;
 
 import android.provider.BaseColumns;
 
-import java.util.HashMap;
-
 /**
  * Created by Adisa on 3/19/2017.
  */
