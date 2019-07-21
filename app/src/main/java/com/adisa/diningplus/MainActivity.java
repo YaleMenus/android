@@ -228,7 +228,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 Location loc = new Location("");
                 loc.setLatitude(latitude);
                 loc.setLongitude(longitude);
-                distance = location.distanceTo(loc) * 0.000621371;
+                // Convert m -> km
+                distance = location.distanceTo(loc) / 1000;
             }
         }
     }

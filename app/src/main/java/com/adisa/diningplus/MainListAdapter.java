@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 class MainListAdapter extends BaseAdapter {
     private Context context;
+    private SharedPreferences preferences;
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private HashMap<String, Integer> crestMap = new HashMap<>();
@@ -45,6 +46,7 @@ class MainListAdapter extends BaseAdapter {
 
     MainListAdapter(Context context) {
         this.context = context;
+        this.preferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         crestMap.put("Berkeley", R.drawable.berkeley);
         crestMap.put("Branford", R.drawable.branford);
         crestMap.put("Grace Hopper", R.drawable.hopper);
@@ -114,10 +116,16 @@ class MainListAdapter extends BaseAdapter {
             viewHolder.name.setText(item.name);
 
             DecimalFormat numberFormat = new DecimalFormat("0.00");
-            if (item.distance > 50){
-                viewHolder.distance.setText("> 50 mi");
+            String unit = "km";
+            double distance = item.distance;
+            if (!preferences.getString("unitPrefs", "").equals("Imperial")) {
+                unit = "mi";
+                distance *= 0.621371;
+            }
+            if (distance > 50) {
+                viewHolder.distance.setText("> 50" + unit);
             } else {
-                viewHolder.distance.setText("" + numberFormat.format(item.distance) + " mi");
+                viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
             }
             int capacity = item.occupancy * 10;
 
