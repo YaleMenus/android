@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.firebase.jobdispatcher.JobParameters;
@@ -63,7 +62,7 @@ public class DatabaseUpdateService extends JobService {
             preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             dbHelper = new DiningDbHelper(getApplicationContext());
             Cursor result = dbHelper.getHalls();
-            while (result.moveToNext()){
+            while (result.moveToNext()) {
                 int id = result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID));
                 try {
                     DiningHallActivity.setMenu(dbHelper, id);
@@ -73,8 +72,8 @@ public class DatabaseUpdateService extends JobService {
                 }
                 dbHelper.updateTime(id);
                 Cursor menu = dbHelper.getMenu(id);
-                while (menu.moveToNext()){
-                    if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DiningContract.MenuItem.NAME)))){
+                while (menu.moveToNext()) {
+                    if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DiningContract.MenuItem.NAME)))) {
                         Intent localIntent = new Intent(BROADCAST_ACTION);
                         localIntent.putExtra("itemName", menu.getString(menu.getColumnIndex(DiningContract.MenuItem.NAME)));
                         localIntent.putExtra("diningHall", menu.getInt(menu.getColumnIndex(DiningContract.MenuItem.DINING_HALL)));
@@ -90,7 +89,7 @@ public class DatabaseUpdateService extends JobService {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if (!result){
+            if (!result) {
                 Log.d("service", "done");
             } else {
                 Log.d("service", "failed");

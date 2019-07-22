@@ -6,13 +6,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by Adisa on 4/30/2017.
@@ -37,8 +33,8 @@ public class TraitDialogFragment extends android.support.v4.app.DialogFragment {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         HashSet<String> currTraits = (HashSet<String>) preferences.getStringSet("traitPrefs", new HashSet<String>());
 
-        for (int i = 0; i < traitArray.length; i++){
-            if (currTraits.contains(traitArray[i])){
+        for (int i = 0; i < traitArray.length; i++) {
+            if (currTraits.contains(traitArray[i])) {
                 selections[i] = true;
             } else {
                 selections[i] = false;
@@ -64,8 +60,8 @@ public class TraitDialogFragment extends android.support.v4.app.DialogFragment {
                         SharedPreferences.Editor editor = preferences.edit();
                         HashSet<String> traitSet = new HashSet<String>();
                         String[] traitArray = getResources().getStringArray(R.array.traits);
-                        for (int i = 0; i < finalSelections.length; i++){
-                            if (finalSelections[i]){
+                        for (int i = 0; i < finalSelections.length; i++) {
+                            if (finalSelections[i]) {
                                 traitSet.add(traitArray[i]);
                             }
                         }

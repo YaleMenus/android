@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array
-        name="traits">
+    <array name="traits">
         <item>Alcohol</item>
         <item>Dairy</item>
         <item>Eggs</item>

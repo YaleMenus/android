@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
  * Created by Adisa on 5/3/2017.
  */
 
-public class FollowDialogFragment extends android.support.v4.app.DialogFragment{
+public class FollowDialogFragment extends android.support.v4.app.DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

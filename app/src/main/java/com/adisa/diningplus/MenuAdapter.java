@@ -1,6 +1,7 @@
 package com.adisa.diningplus;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,13 @@ class MenuAdapter extends BaseExpandableListAdapter {
     private HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail;
 
     MenuAdapter(Context context, List<DiningHallActivity.Meal> expandableListTitle,
-                                       HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail) {
+                HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
     }
 
-    void setMap(HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail){
+    void setMap(HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail) {
         this.expandableListDetail = expandableListDetail;
         notifyDataSetChanged();
     }
@@ -60,7 +61,7 @@ class MenuAdapter extends BaseExpandableListAdapter {
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
         expandedListTextView.setText(item.getName());
-        if (item.marked){
+        if (item.marked) {
             expandedListTextView.setBackgroundColor(context.getResources().getColor(R.color.backgroundMarked));
             expandedListTextView.setTextColor(context.getResources().getColor(R.color.colorMarked));
         } else {
@@ -107,15 +108,17 @@ class MenuAdapter extends BaseExpandableListAdapter {
 
         TextView mealTimeTextView = (TextView) convertView.findViewById(R.id.mealTime);
         Date startTime = null, endTime = null;
+        SimpleDateFormat hourFormat = new SimpleDateFormat(DateFormat.is24HourFormat(context.getApplicationContext()) ? "k:mm" : "h:mm a"),
+                         timeFormat = new SimpleDateFormat("HH:mm:ss");
         try {
-            startTime = new SimpleDateFormat("HH:mm:ss").parse(item.getStartTime());
-            endTime = new SimpleDateFormat("HH:mm:ss").parse(item.getEndTime());
+            startTime = timeFormat.parse(item.getStartTime());
+            endTime = timeFormat.parse(item.getEndTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        mealTimeTextView.setText(new SimpleDateFormat("h:mm a").format(startTime) + "–" + new SimpleDateFormat("h:mm a").format(endTime));
+        mealTimeTextView.setText(hourFormat.format(startTime) + "–" + hourFormat.format(endTime));
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.help_group_indicator);
-        if (isExpanded){
+        if (isExpanded) {
             groupIndicator.setImageResource(R.drawable.ic_expand_less_black_24dp);
         } else {
             groupIndicator.setImageResource(R.drawable.ic_expand_more_black_24dp);

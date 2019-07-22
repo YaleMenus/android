@@ -37,6 +37,7 @@ class ItemDetailAdapter extends BaseAdapter {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
@@ -45,7 +46,7 @@ class ItemDetailAdapter extends BaseAdapter {
         ItemDetailActivity.Detail item = detailList.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            switch (getItemViewType(position)){
+            switch (getItemViewType(position)) {
                 case TYPE_HEADER:
                     convertView = inflater.inflate(R.layout.item_detail_header, null);
                     viewHolder.name = (TextView) convertView.findViewById(R.id.subheader);
@@ -99,7 +100,7 @@ class ItemDetailAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        switch (detailList.get(position).image){
+        switch (detailList.get(position).image) {
             case TYPE_HEADER:
                 return TYPE_HEADER;
             case TYPE_ITEM:
