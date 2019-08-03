@@ -225,7 +225,7 @@ public class DiningHallActivity extends AppCompatActivity {
     }
 
     public static void setMenu(DiningDbHelper dbHelper, int hallId) throws IOException, JSONException, ParseException {
-        JSONArray menuData = MainActivity.getJSON("http://www.yaledining.org/fasttrack/menus.cfm?location=" +
+        JSONArray menuData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menus.cfm?location=" +
                 hallId + "&version=3");
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM, dd yyyy HH:mm:ss", Locale.US),
                 shortDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US),

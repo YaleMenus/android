@@ -85,7 +85,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     public static void setNutItem(DiningDbHelper dbHelper, int nutId) throws IOException, JSONException {
         if (!dbHelper.itemInDb(DiningContract.NutritionItem.TABLE_NAME, DiningContract.NutritionItem._ID, nutId + "")) {
-            JSONArray nutData = MainActivity.getJSON("http://www.yaledining.org/fasttrack/menuitem-nutrition.cfm?MENUITEMID="
+            JSONArray nutData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menuitem-nutrition.cfm?MENUITEMID="
                     + nutId + "&version=3");
             ContentValues nutItem = new ContentValues();
             for (int k = 0; k < nutData.length(); k++) {
@@ -105,7 +105,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 nutItem.put(DiningContract.NutritionItem.VITAMIN_A, nutarray.getString(12));
                 nutItem.put(DiningContract.NutritionItem.IRON, nutarray.getString(13));
             }
-            JSONArray traitData = MainActivity.getJSON("http://www.yaledining.org/fasttrack/menuitem-codes.cfm?MENUITEMID="
+            JSONArray traitData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menuitem-codes.cfm?MENUITEMID="
                     + nutId + "&version=3");
             for (int l = 0; l < traitData.length(); l++) {
                 JSONArray traitarray = traitData.getJSONArray(l);
@@ -126,7 +126,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 nutItem.put(DiningContract.NutritionItem.WARNING, traitarray.getString(16));
             }
             dbHelper.insertNutritionItem(nutItem);
-            JSONArray ingredientData = MainActivity.getJSON("http://www.yaledining.org/fasttrack/menuitem-ingredients.cfm?MENUITEMID="
+            JSONArray ingredientData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menuitem-ingredients.cfm?MENUITEMID="
                     + nutId + "&version=3");
             for (int l = 0; l < ingredientData.length(); l++) {
                 JSONArray ingredarray = ingredientData.getJSONArray(l);
