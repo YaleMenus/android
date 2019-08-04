@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         protected Void doInBackground(Void... params) {
             try {
                 Log.d("URI", "making request");
-                JSONArray resultData = getJSON("http://www.yaledining.org/fasttrack/locations.cfm?version=3");
+                JSONArray resultData = getJSON("https://www.yaledining.org/fasttrack/locations.cfm?version=3");
                 for (int i = 0; i < resultData.length(); i++) {
                     JSONArray array = resultData.getJSONArray(i);
                     if (array.getString(3).equals("Residential")) {

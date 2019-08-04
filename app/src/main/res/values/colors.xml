@@ -6,4 +6,5 @@
     <color name="transparent">#00000000</color>
     <color name="backgroundMarked">#ff5252</color>
     <color name="colorMarked">#ffffff</color>
+    <color name="background">#ffffff</color>
 </resources>

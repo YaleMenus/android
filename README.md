@@ -1,8 +1,12 @@
-# Dining Plus
-For my senior thesis, I decided to create a new version of [Yale's dining hall app](https://play.google.com/store/apps/details?id=org.yaledining.app&hl=en) for Android. The existing Yale Dining app on Android is not very pleasant to use, due to dated visuals, usability issues, and several recurring bugs. Much like the existing app, the app created for this project displays the current menu items and nutritional information for each dining hall on campus, using information retrieved from the Yale Dining API. It also includes the ability to set a dining hall as a favorite, and have the app automatically navigate to that hall’s menu when launched.
+# Yale Dining Plus
+> A new version of the Yale Dining app for Android.
+
+[<img src="https://cdn.rawgit.com/steverichey/google-play-badge-svg/master/img/en_get.svg" width="25%">](https://play.google.com/store/apps/details?id=com.adisa.diningplus)
+
+The [existing Yale Dining app](https://play.google.com/store/apps/details?id=org.yaledining.app) on Android is not very pleasant to use, due to outdated graphics, usability issues, and several recurring bugs. This project replaces the official app by displaying current menu items and nutritional information for each dining hall on campus, using information retrieved from the Yale Dining API. Beyond this, it adds new features such as the ability to set a dining hall as an auto-opening favorite, marking menu items as favorites to be notified when they're served, and setting up visual warnings when a recipie violates your dietary restrictions.
 
 ## Features
-The app contains several useful features not included in the original app.
+Yale Dining Plus contains several useful features not included in the original app.
 
 ### Main menu
 The dining halls in the main menu are sorted by their distance to the user's location, in addition to displaying their capacity and open/closed status like the original app.
@@ -26,5 +30,7 @@ The user has the ability to indicate dietary traits that they want to avoid. The
 
 ## External libraries
 [CircleImageView](https://github.com/hdodenhof/CircleImageView)
-
 [Firebase Job Dispatcher](https://github.com/firebase/firebase-jobdispatcher-android)
+
+## Contributors
+This application was created by [Adisa Malik](https://adisamalik.com) for his 2017 senior thesis. It is maintained by [Erik Boesen](https://github.com/ErikBoesen).
