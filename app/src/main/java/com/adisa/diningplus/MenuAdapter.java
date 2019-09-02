@@ -108,11 +108,10 @@ class MenuAdapter extends BaseExpandableListAdapter {
 
         TextView mealTimeTextView = (TextView) convertView.findViewById(R.id.mealTime);
         Date startTime = null, endTime = null;
-        SimpleDateFormat hourFormat = new SimpleDateFormat(DateFormat.is24HourFormat(context.getApplicationContext()) ? "k:mm" : "h:mm a"),
-                         timeFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat hourFormat = new SimpleDateFormat(DateFormat.is24HourFormat(context.getApplicationContext()) ? "k:mm" : "h:mm a");
         try {
-            startTime = timeFormat.parse(item.getStartTime());
-            endTime = timeFormat.parse(item.getEndTime());
+            startTime = DateFormatProvider.time.parse(item.getStartTime());
+            endTime = DateFormatProvider.time.parse(item.getEndTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
