@@ -50,7 +50,6 @@ public class DiningHallActivity extends AppCompatActivity {
     SharedPreferences preferences;
     View emptyView;
     View loadingView;
-    DateFormatProvider dates;
 
     class FoodItem {
         int id;
