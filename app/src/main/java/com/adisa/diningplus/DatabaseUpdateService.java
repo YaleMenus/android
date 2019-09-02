@@ -47,7 +47,6 @@ public class DatabaseUpdateService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters job) {
-
         return false; // Answers the question: "Should this job be retried?"
     }
 

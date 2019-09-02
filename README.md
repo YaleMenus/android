@@ -11,7 +11,7 @@ Yale Dining Plus contains several useful features not included in the original a
 ### Main menu
 The dining halls in the main menu are sorted by their distance to the user's location, in addition to displaying their capacity and open/closed status like the original app.
 
-<img src="https://raw.githubusercontent.com/amalik12/dining_plus/master/readme/pic.png" width="350">
+<img src="https://raw.githubusercontent.com/amalik12/dining_plus/master/readme/pic1.png" width="350">
 
 ### Menu page
 The menu page for each dining hall displays the menus for each meal being served in the dining hall for that day, and includes an option to favorite the dining hall. If the hall has already stopped serving a meal, it is excluded from the list.
