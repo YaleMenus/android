@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -162,7 +161,7 @@ class DiningDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         String[] args = {"" + hallId};
-        values.put(DiningContract.DiningHall.LAST_UPDATED, new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        values.put(DiningContract.DiningHall.LAST_UPDATED, DateFormatProvider.date.format(new Date()));
         int result = db.update(DiningContract.DiningHall.TABLE_NAME, values, DiningContract.DiningHall._ID + " = ?", args);
         if (BuildConfig.DEBUG && result != 1)
             throw new AssertionError();

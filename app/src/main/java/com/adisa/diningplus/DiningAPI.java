@@ -76,7 +76,7 @@ public class DiningAPI {
                 } else {
                     dbHelper.updateHall(values);
                 }
-            //}
+            }
         }
     }
 
@@ -155,8 +155,7 @@ public class DiningAPI {
                 nutItem.put(DiningContract.NutritionItem.WARNING, traitarray.getString(16));
             }
             dbHelper.insertNutritionItem(nutItem);
-            JSONArray ingredientData = getJSON("https://www.yaledining.org/fasttrack/menuitem-ingredients.cfm?MENUITEMID="
-                    + nutId + "&version=3");
+            JSONArray ingredientData = getJSON("menuitem-ingredients", "MENUITEMID=" + nutId);
             for (int l = 0; l < ingredientData.length(); l++) {
                 JSONArray ingredarray = ingredientData.getJSONArray(l);
                 ContentValues ingredients = new ContentValues();
