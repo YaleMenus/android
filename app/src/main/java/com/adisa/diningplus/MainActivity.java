@@ -1,7 +1,6 @@
 package com.adisa.diningplus;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -37,20 +36,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     DiningDbHelper dbHelper;
+    DiningAPI api;
     private MainListAdapter adapter;
     ArrayList<HallItem> openHalls = new ArrayList<>();
     ArrayList<HallItem> closedHalls = new ArrayList<>();
@@ -127,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         UpdateTask updateTask = new UpdateTask();
         updateTask.execute();
 
+        api = new DiningAPI(dbHelper);
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences.getBoolean("firstRun", true)) {
             SharedPreferences.Editor editor = preferences.edit();
@@ -138,8 +130,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 traitDialog.show(getSupportFragmentManager(), "traits");
             }
         }
-
-
     }
 
     protected void onStart() {
@@ -240,23 +230,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    public static JSONArray getJSON(String urlString) throws IOException, JSONException {
-        URL url = new URL(urlString);
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setRequestMethod("GET");
-        urlConnection.connect();
-
-        //read all the data
-        InputStream inputStream = urlConnection.getInputStream();
-        StringBuilder buffer = new StringBuilder();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            buffer.append(line).append("\n");
-        }
-        return new JSONObject(buffer.toString()).getJSONArray("DATA");
-    }
-
     private class UpdateTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
@@ -267,40 +240,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Log.d("URI", "making request");
-                JSONArray resultData = getJSON("https://www.yaledining.org/fasttrack/locations.cfm?version=3");
-                for (int i = 0; i < resultData.length(); i++) {
-                    JSONArray array = resultData.getJSONArray(i);
-                    if (array.getString(3).equals("Residential")) {
-                        ContentValues values = new ContentValues();
-                        values.put(DiningContract.DiningHall._ID, array.getInt(0));
-                        values.put(DiningContract.DiningHall.NAME, array.getString(2));
-                        values.put(DiningContract.DiningHall.TYPE, array.getString(3));
-                        values.put(DiningContract.DiningHall.CAPACITY, array.getInt(4));
-
-                        String[] coords = array.getString(5).split(",");
-                        values.put(DiningContract.DiningHall.LATITUDE, coords[0]);
-                        values.put(DiningContract.DiningHall.LONGITUDE, coords[1]);
-
-                        values.put(DiningContract.DiningHall.IS_CLOSED, array.getInt(6));
-                        values.put(DiningContract.DiningHall.ADDRESS, array.getString(7));
-                        values.put(DiningContract.DiningHall.PHONE, array.getString(8));
-                        values.put(DiningContract.DiningHall.MANAGER1_NAME, array.getString(9));
-                        values.put(DiningContract.DiningHall.MANAGER1_EMAIL, array.getString(10));
-                        values.put(DiningContract.DiningHall.MANAGER2_NAME, array.getString(11));
-                        values.put(DiningContract.DiningHall.MANAGER2_EMAIL, array.getString(12));
-                        values.put(DiningContract.DiningHall.MANAGER3_NAME, array.getString(13));
-                        values.put(DiningContract.DiningHall.MANAGER3_EMAIL, array.getString(14));
-                        values.put(DiningContract.DiningHall.MANAGER4_NAME, array.getString(15));
-                        values.put(DiningContract.DiningHall.MANAGER4_EMAIL, array.getString(16));
-                        if (!dbHelper.itemInDb(DiningContract.DiningHall.TABLE_NAME, DiningContract.DiningHall._ID, values.getAsInteger(DiningContract.MenuItem._ID).toString())) {
-                            values.put(DiningContract.DiningHall.LAST_UPDATED, "");
-                            dbHelper.insertHall(values);
-                        } else {
-                            dbHelper.updateHall(values);
-                        }
-                    }
-                }
+                api.fetchHalls();
             } catch (Exception e) {
                 Log.e("URI", "URI was invalid or API request failed");
                 e.printStackTrace();
@@ -309,11 +249,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Cursor result = dbHelper.getHalls();
             while (result.moveToNext()) {
                 HallItem newItem = new HallItem(result.getString(result.getColumnIndex(DiningContract.DiningHall.NAME)),
-                        result.getInt(result.getColumnIndex(DiningContract.DiningHall.CAPACITY)),
-                        result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LATITUDE)),
-                        result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LONGITUDE)),
-                        result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID)),
-                        result.getInt(result.getColumnIndex(DiningContract.DiningHall.IS_CLOSED)) == 0);
+                                                result.getInt(result.getColumnIndex(DiningContract.DiningHall.CAPACITY)),
+                                                result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LATITUDE)),
+                                                result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LONGITUDE)),
+                                                result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID)),
+                                                result.getInt(result.getColumnIndex(DiningContract.DiningHall.IS_CLOSED)) == 0);
                 newItem.setDistance(currentLocation);
                 if (newItem.open) {
                     openHalls.add(newItem);

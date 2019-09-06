@@ -1,6 +1,5 @@
 package com.adisa.diningplus;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -38,6 +36,7 @@ import java.util.HashSet;
 public class DiningHallActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbar;
     DiningDbHelper dbHelper;
+    DiningAPI api;
     String hallName;
     int hallId;
     HashMap<String, ArrayList<FoodItem>> mealMap;
@@ -150,6 +149,7 @@ public class DiningHallActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         dbHelper = new DiningDbHelper(getApplicationContext());
+        api = new DiningAPI(dbHelper);
         hallName = i.getStringExtra("Name");
         hallId = i.getIntExtra("HallId", -1);
         collapsingToolbar.setTitle(hallName);
@@ -221,41 +221,6 @@ public class DiningHallActivity extends AppCompatActivity {
         return calendar.getTime();
     }
 
-    public static void setMenu(DiningDbHelper dbHelper, int hallId) throws IOException, JSONException, ParseException {
-        JSONArray menuData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menus.cfm?location=" +
-                hallId + "&version=3");
-        for (int j = 0; j < menuData.length(); j++) {
-            JSONArray resArray = menuData.getJSONArray(j);
-
-            ContentValues menuItem = new ContentValues();
-            menuItem.put(DiningContract.MenuItem.DINING_HALL, resArray.getInt(0));
-            menuItem.put(DiningContract.MenuItem.MENU_NAME, resArray.getString(3));
-            menuItem.put(DiningContract.MenuItem.MENU_CODE, resArray.getInt(4));
-            String dateString = resArray.getString(5);
-            Date date = DateFormatProvider.full.parse(dateString);
-            menuItem.put(DiningContract.MenuItem.DATE, DateFormatProvider.date.format(date));
-            menuItem.put(DiningContract.MenuItem._ID, resArray.getInt(6));
-            menuItem.put(DiningContract.MenuItem.NUTRITION_ID, resArray.getInt(9));
-            menuItem.put(DiningContract.MenuItem.NAME, resArray.getString(10));
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            Calendar time = Calendar.getInstance();
-            time.setTime(DateFormatProvider.hour.parse(resArray.getString(12)));
-            cal.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
-            cal.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
-            menuItem.put(DiningContract.MenuItem.START_TIME, DateFormatProvider.time.format(cal.getTime()));
-            time.setTime(DateFormatProvider.hour.parse(resArray.getString(13)));
-            cal.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
-            cal.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
-            menuItem.put(DiningContract.MenuItem.END_TIME, DateFormatProvider.time.format(cal.getTime()));
-            if (!dbHelper.itemInDb(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem._ID, menuItem.getAsInteger(DiningContract.MenuItem._ID).toString())) {
-                dbHelper.insertMenuItem(menuItem);
-            } else {
-                dbHelper.updateMenuItem(menuItem);
-            }
-        }
-    }
-
     private class MenuTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
@@ -278,7 +243,7 @@ public class DiningHallActivity extends AppCompatActivity {
                 Date currentDate = resetTime(new Date());
                 if (!dbHelper.itemInDb(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem.DINING_HALL, "" + hallId) ||
                         lastUpdated.compareTo(currentDate) != 0) {
-                    setMenu(dbHelper, hallId);
+                    api.fetchMenu(hallId);
                 }
                 dbHelper.updateTime(hallId);
             } catch (JSONException | ParseException | IOException e) {
@@ -331,7 +296,7 @@ public class DiningHallActivity extends AppCompatActivity {
                 for (Meal meal : meals) {
                     ArrayList<FoodItem> newList = new ArrayList<>();
                     for (FoodItem foodItem : mealMap.get(meal.getName())) {
-                        ItemDetailActivity.setNutItem(dbHelper, foodItem.getId());
+                        api.fetchItem(foodItem.getId());
                         Cursor result = dbHelper.getNutritionItem(foodItem.getId());
                         while (result.moveToNext()) {
                             HashSet<String> traitList = (HashSet<String>) preferences.getStringSet("traitPrefs", new HashSet<String>());

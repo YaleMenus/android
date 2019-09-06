@@ -19,6 +19,7 @@ import java.util.HashSet;
 
 public class DatabaseUpdateService extends JobService {
     DiningDbHelper dbHelper;
+    DiningAPI api;
     SharedPreferences preferences;
     DatabaseUpdateReceiver mDownloadStateReceiver;
     public static final String BROADCAST_ACTION =
@@ -64,7 +65,7 @@ public class DatabaseUpdateService extends JobService {
             while (result.moveToNext()) {
                 int id = result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID));
                 try {
-                    DiningHallActivity.setMenu(dbHelper, id);
+                    api.fetchMenu(id);
                 } catch (IOException | JSONException | ParseException e) {
                     e.printStackTrace();
                     return true;

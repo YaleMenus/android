@@ -118,14 +118,12 @@ class MainListAdapter extends BaseAdapter {
         }
         int capacity = item.occupancy * 10;
 
-        if (capacity <= 30) {
-            viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
-        }
-        if (capacity >= 40) {
-            viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
-        }
         if (capacity >= 80) {
             viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
+        } else if (capacity >= 30) {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
+        } else {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
         }
         viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
         // Gray out closed location
