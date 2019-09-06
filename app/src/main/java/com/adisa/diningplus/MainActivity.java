@@ -52,8 +52,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     DiningDbHelper dbHelper;
     private MainListAdapter adapter;
-    ArrayList<HallItem> openList = new ArrayList<>();
-    ArrayList<HallItem> closedList = new ArrayList<>();
+    ArrayList<HallItem> openHalls = new ArrayList<>();
+    ArrayList<HallItem> closedHalls = new ArrayList<>();
     SwipeRefreshLayout swipeContainer;
     Location currentLocation;
     GoogleApiClient mGoogleApiClient;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setTheme(R.style.AppTheme);
 
         adapter = new MainListAdapter(this);
-        ListView mainList = findViewById(R.id.hallList);
+        ListView mainList = findViewById(R.id.halls);
         mainList.setAdapter(adapter);
         mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -260,8 +260,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private class UpdateTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
-            closedList = new ArrayList<>();
-            openList = new ArrayList<>();
+            closedHalls = new ArrayList<>();
+            openHalls = new ArrayList<>();
         }
 
         @Override
@@ -316,9 +316,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         result.getInt(result.getColumnIndex(DiningContract.DiningHall.IS_CLOSED)) == 0);
                 newItem.setDistance(currentLocation);
                 if (newItem.open) {
-                    openList.add(newItem);
+                    openHalls.add(newItem);
                 } else {
-                    closedList.add(newItem);
+                    closedHalls.add(newItem);
                 }
             }
             return null;
@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         @Override
         protected void onPostExecute(Void result) {
             Log.d("URI", "done");
-            adapter.setLists(openList, closedList);
+            adapter.setLists(openHalls, closedHalls);
             adapter.notifyDataSetChanged();
             swipeContainer.setRefreshing(false);
         }

@@ -24,12 +24,11 @@ import java.util.HashMap;
 class MainListAdapter extends BaseAdapter {
     private Context context;
     private SharedPreferences preferences;
-    private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
     private HashMap<String, Integer> shieldMap = new HashMap<>();
-    private ArrayList<MainActivity.HallItem> hallList = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> openList = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> closedList = new ArrayList<>();
+    private ArrayList<MainActivity.HallItem> halls = new ArrayList<>();
+    private ArrayList<MainActivity.HallItem> openHalls = new ArrayList<>();
+    private ArrayList<MainActivity.HallItem> closedHalls = new ArrayList<>();
     private Comparator<MainActivity.HallItem> hallSort = new Comparator<MainActivity.HallItem>() {
         @Override
         public int compare(MainActivity.HallItem o1, MainActivity.HallItem o2) {
@@ -65,19 +64,11 @@ class MainListAdapter extends BaseAdapter {
 
     @Override
     public void notifyDataSetChanged() {
-        hallList = new ArrayList<>();
-        Collections.sort(openList, hallSort);
-        Collections.sort(closedList, hallSort);
-        if (openList.size() > 0) {
-            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open", -1, -1, -1, -1, false);
-            hallList.add(openHeader);
-            hallList.addAll(openList);
-        }
-        if (closedList.size() > 0) {
-            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed", -1, -1, -1, -1, false);
-            hallList.add(closedHeader);
-            hallList.addAll(closedList);
-        }
+        halls = new ArrayList<>();
+        Collections.sort(openHalls, hallSort);
+        Collections.sort(closedHalls, hallSort);
+        halls.addAll(openHalls);
+        halls.addAll(closedHalls);
         super.notifyDataSetChanged();
     }
 
@@ -154,19 +145,19 @@ class MainListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setLists(ArrayList<MainActivity.HallItem> openList, ArrayList<MainActivity.HallItem> closedList) {
-        this.openList = openList;
-        this.closedList = closedList;
+    public void setLists(ArrayList<MainActivity.HallItem> openHalls, ArrayList<MainActivity.HallItem> closedHalls) {
+        this.openHalls = openHalls;
+        this.closedHalls = closedHalls;
     }
 
     @Override
     public int getCount() {
-        return hallList.size();
+        return halls.size();
     }
 
     @Override
     public MainActivity.HallItem getItem(int position) {
-        return hallList.get(position);
+        return halls.get(position);
     }
 
     @Override
@@ -177,10 +168,5 @@ class MainListAdapter extends BaseAdapter {
     @Override
     public int getViewTypeCount() {
         return 2;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return hallList.get(position).occupancy == -1 ? TYPE_HEADER : TYPE_ITEM;
     }
 }
