@@ -80,65 +80,54 @@ class MainListAdapter extends BaseAdapter {
         MainActivity.HallItem item = getItem(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            if (getItemViewType(position) == TYPE_ITEM) {
-                convertView = inflater.inflate(R.layout.dininghall_list, null);
-                viewHolder.shield = (ImageView) convertView.findViewById(R.id.shield);
-                viewHolder.name = (TextView) convertView.findViewById(R.id.dhall_name);
-                viewHolder.distance = (TextView) convertView.findViewById(R.id.dhall_dist);
-                viewHolder.occupancy = (TextView) convertView.findViewById(R.id.dhall_occupancy);
-            } else {
-                convertView = inflater.inflate(R.layout.dininghall_header, null);
-                viewHolder.name = (TextView) convertView.findViewById(R.id.header_name);
-                convertView.setEnabled(false);
-                convertView.setOnClickListener(null);
-            }
+            convertView = inflater.inflate(R.layout.hall_list, null);
+            viewHolder.shield = (ImageView) convertView.findViewById(R.id.shield);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.hall_name);
+            viewHolder.distance = (TextView) convertView.findViewById(R.id.hall_distance);
+            viewHolder.occupancy = (TextView) convertView.findViewById(R.id.hall_occupancy);
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (getItemViewType(position) == TYPE_ITEM) {
-            Integer shieldId = shieldMap.get(item.name);
-            if (shieldId != null) {
-                viewHolder.shield.setImageDrawable(context.getResources().getDrawable(shieldId));
-            } else {
-                viewHolder.shield.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
-            }
-            viewHolder.name.setText(item.name);
-
-            DecimalFormat numberFormat = new DecimalFormat("0.00");
-            double distance = item.distance;
-            String unit = " ";
-            switch (preferences.getString("unitPrefs", "Imperial")) {
-                case "Metric":
-                    unit += "km";
-                    // No adjustment of distance needed as it's stored in kilometers
-                    break;
-                case "Imperial":
-                    distance *= 0.621371;
-                    unit += "mi";
-                    break;
-            }
-            if (distance > 50) {
-                viewHolder.distance.setText("> 50" + unit);
-            } else {
-                viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
-            }
-            int capacity = item.occupancy * 10;
-
-            if (capacity <= 30) {
-                viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
-            }
-            if (capacity >= 40) {
-                viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
-            }
-            if (capacity >= 80) {
-                viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
-            }
-            viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
+        Integer shieldId = shieldMap.get(item.name);
+        if (shieldId != null) {
+            viewHolder.shield.setImageDrawable(context.getResources().getDrawable(shieldId));
         } else {
-            viewHolder.name.setText(item.name);
+            viewHolder.shield.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
         }
+        viewHolder.name.setText(item.name);
+
+        DecimalFormat numberFormat = new DecimalFormat("0.00");
+        double distance = item.distance;
+        String unit = " ";
+        switch (preferences.getString("unitPrefs", "Imperial")) {
+            case "Metric":
+                unit += "km";
+                // No adjustment of distance needed as it's stored in kilometers
+                break;
+            case "Imperial":
+                distance *= 0.621371;
+                unit += "mi";
+                break;
+        }
+        if (distance > 50) {
+            viewHolder.distance.setText("> 50" + unit);
+        } else {
+            viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
+        }
+        int capacity = item.occupancy * 10;
+
+        if (capacity <= 30) {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
+        }
+        if (capacity >= 40) {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
+        }
+        if (capacity >= 80) {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
+        }
+        viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
         // Gray out closed location
         convertView.setAlpha(item.open ? 1f : 0.4f);
 

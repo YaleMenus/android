@@ -29,7 +29,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,7 +42,7 @@ public class DiningHallActivity extends AppCompatActivity {
     int hallId;
     HashMap<String, ArrayList<FoodItem>> mealMap;
     HashMap<String, Integer> headerMap = new HashMap<>();
-    ArrayList<Meal> mealList;
+    ArrayList<Meal> meals;
     MenuAdapter menuAdapter;
     ExpandableListView expandableListView;
     CoordinatorLayout coordinatorLayout;
@@ -98,7 +97,7 @@ public class DiningHallActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dining_hall);
+        setContentView(R.layout.activity_hall);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
@@ -156,8 +155,8 @@ public class DiningHallActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(hallName);
         ImageView header = (ImageView) findViewById(R.id.header);
         header.setImageDrawable(getResources().getDrawable(headerMap.get(hallName)));
-        emptyView = findViewById(R.id.dining_hall_empty);
-        loadingView = findViewById(R.id.dining_hall_progress);
+        emptyView = findViewById(R.id.hall_empty);
+        loadingView = findViewById(R.id.hall_progress);
         expandableListView.setEmptyView(emptyView);
         MenuTask menuTask = new MenuTask();
         menuTask.execute();
@@ -261,7 +260,7 @@ public class DiningHallActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("get", "start");
-            expandableListView.setEmptyView(findViewById(R.id.dining_hall_progress));
+            expandableListView.setEmptyView(findViewById(R.id.hall_progress));
             emptyView.setVisibility(View.GONE);
         }
 
@@ -290,7 +289,7 @@ public class DiningHallActivity extends AppCompatActivity {
 
             Cursor result = dbHelper.getMenu(hallId);
             mealMap = new HashMap<>();
-            mealList = new ArrayList<Meal>();
+            meals = new ArrayList<Meal>();
             while (result.moveToNext()) {
                 String mealName = result.getString(result.getColumnIndex(DiningContract.MenuItem.MENU_NAME));
                 ArrayList<FoodItem> newList;
@@ -298,7 +297,7 @@ public class DiningHallActivity extends AppCompatActivity {
                     newList = mealMap.get(mealName);
                 } else {
                     newList = new ArrayList<>();
-                    mealList.add(new Meal(mealName, result.getString(result.getColumnIndex(DiningContract.MenuItem.START_TIME)), result.getString(result.getColumnIndex(DiningContract.MenuItem.END_TIME))));
+                    meals.add(new Meal(mealName, result.getString(result.getColumnIndex(DiningContract.MenuItem.START_TIME)), result.getString(result.getColumnIndex(DiningContract.MenuItem.END_TIME))));
                 }
                 newList.add(new FoodItem(result.getInt(result.getColumnIndex(DiningContract.MenuItem.NUTRITION_ID)), result.getString(result.getColumnIndex(DiningContract.MenuItem.NAME))));
                 mealMap.put(mealName, newList);
@@ -308,11 +307,11 @@ public class DiningHallActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            menuAdapter = new MenuAdapter(DiningHallActivity.this, mealList, mealMap);
+            menuAdapter = new MenuAdapter(DiningHallActivity.this, meals, mealMap);
             expandableListView.setAdapter(menuAdapter);
             if (menuAdapter.getGroupCount() > 0)
                 expandableListView.expandGroup(0);
-            expandableListView.setEmptyView(findViewById(R.id.dining_hall_empty));
+            expandableListView.setEmptyView(findViewById(R.id.hall_empty));
             loadingView.setVisibility(View.GONE);
             TraitTask traitTask = new TraitTask();
             traitTask.execute();
@@ -329,7 +328,7 @@ public class DiningHallActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                for (Meal meal : mealList) {
+                for (Meal meal : meals) {
                     ArrayList<FoodItem> newList = new ArrayList<>();
                     for (FoodItem foodItem : mealMap.get(meal.getName())) {
                         ItemDetailActivity.setNutItem(dbHelper, foodItem.getId());
