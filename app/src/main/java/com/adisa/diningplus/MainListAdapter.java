@@ -26,7 +26,7 @@ class MainListAdapter extends BaseAdapter {
     private SharedPreferences preferences;
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEM = 0;
-    private HashMap<String, Integer> crestMap = new HashMap<>();
+    private HashMap<String, Integer> shieldMap = new HashMap<>();
     private ArrayList<MainActivity.HallItem> hallList = new ArrayList<>();
     private ArrayList<MainActivity.HallItem> openList = new ArrayList<>();
     private ArrayList<MainActivity.HallItem> closedList = new ArrayList<>();
@@ -38,7 +38,7 @@ class MainListAdapter extends BaseAdapter {
     };
 
     class ViewHolder {
-        ImageView crest;
+        ImageView shield;
         TextView name;
         TextView distance;
         TextView occupancy;
@@ -47,20 +47,20 @@ class MainListAdapter extends BaseAdapter {
     MainListAdapter(Context context) {
         this.context = context;
         this.preferences = PreferenceManager.getDefaultSharedPreferences(this.context);
-        crestMap.put("Berkeley", R.drawable.berkeley);
-        crestMap.put("Branford", R.drawable.branford);
-        crestMap.put("Grace Hopper", R.drawable.hopper);
-        crestMap.put("Stiles", R.drawable.stiles);
-        crestMap.put("Davenport", R.drawable.davenport);
-        crestMap.put("Franklin", R.drawable.franklin);
-        crestMap.put("Pauli Murray", R.drawable.murray);
-        crestMap.put("Jonathan Edwards", R.drawable.je);
-        crestMap.put("Morse", R.drawable.morse);
-        crestMap.put("Pierson", R.drawable.pierson);
-        crestMap.put("Saybrook", R.drawable.saybrook);
-        crestMap.put("Silliman", R.drawable.silliman);
-        crestMap.put("Timothy Dwight", R.drawable.td);
-        crestMap.put("Trumbull", R.drawable.trumbull);
+        shieldMap.put("Berkeley", R.drawable.berkeley);
+        shieldMap.put("Branford", R.drawable.branford);
+        shieldMap.put("Grace Hopper", R.drawable.hopper);
+        shieldMap.put("Stiles", R.drawable.stiles);
+        shieldMap.put("Davenport", R.drawable.davenport);
+        shieldMap.put("Franklin", R.drawable.franklin);
+        shieldMap.put("Pauli Murray", R.drawable.murray);
+        shieldMap.put("Jonathan Edwards", R.drawable.je);
+        shieldMap.put("Morse", R.drawable.morse);
+        shieldMap.put("Pierson", R.drawable.pierson);
+        shieldMap.put("Saybrook", R.drawable.saybrook);
+        shieldMap.put("Silliman", R.drawable.silliman);
+        shieldMap.put("Timothy Dwight", R.drawable.td);
+        shieldMap.put("Trumbull", R.drawable.trumbull);
     }
 
     @Override
@@ -91,7 +91,7 @@ class MainListAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             if (getItemViewType(position) == TYPE_ITEM) {
                 convertView = inflater.inflate(R.layout.dininghall_list, null);
-                viewHolder.crest = (ImageView) convertView.findViewById(R.id.crest);
+                viewHolder.shield = (ImageView) convertView.findViewById(R.id.shield);
                 viewHolder.name = (TextView) convertView.findViewById(R.id.dhall_name);
                 viewHolder.distance = (TextView) convertView.findViewById(R.id.dhall_dist);
                 viewHolder.occupancy = (TextView) convertView.findViewById(R.id.dhall_occupancy);
@@ -107,11 +107,11 @@ class MainListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         if (getItemViewType(position) == TYPE_ITEM) {
-            Integer crestId = crestMap.get(item.name);
-            if (crestId != null) {
-                viewHolder.crest.setImageDrawable(context.getResources().getDrawable(crestId));
+            Integer shieldId = shieldMap.get(item.name);
+            if (shieldId != null) {
+                viewHolder.shield.setImageDrawable(context.getResources().getDrawable(shieldId));
             } else {
-                viewHolder.crest.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
+                viewHolder.shield.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
             }
             viewHolder.name.setText(item.name);
 
@@ -148,6 +148,8 @@ class MainListAdapter extends BaseAdapter {
         } else {
             viewHolder.name.setText(item.name);
         }
+        // Gray out closed location
+        convertView.setAlpha(item.open ? 1f : 0.4f);
 
         return convertView;
     }
