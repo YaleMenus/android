@@ -24,14 +24,14 @@ public class DiningAPI {
         this.dbHelper = dbHelper;
     }
 
-    public static JSONArray getJSON(String urlString) throws IOException, JSONException {
-        URL url = new URL(urlString);
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setRequestMethod("GET");
-        urlConnection.connect();
+    public static JSONArray getJSON(String endpoint, String param) throws IOException, JSONException {
+        URL url = new URL("https://www.yaledining.org/fasttrack/" + endpoint + ".cfm" + "?version=3&" + param);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
 
-        //read all the data
-        InputStream inputStream = urlConnection.getInputStream();
+        // Read data from connection
+        InputStream inputStream = connection.getInputStream();
         StringBuilder buffer = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
@@ -43,7 +43,7 @@ public class DiningAPI {
 
     public void fetchHalls() throws IOException, JSONException {
         Log.d("URI", "making request");
-        JSONArray resultData = getJSON("https://www.yaledining.org/fasttrack/locations.cfm?version=3");
+        JSONArray resultData = getJSON("locations", "");
         for (int i = 0; i < resultData.length(); i++) {
             JSONArray array = resultData.getJSONArray(i);
             if (array.getString(3).equals("Residential")) {
@@ -76,13 +76,12 @@ public class DiningAPI {
                 } else {
                     dbHelper.updateHall(values);
                 }
-            }
+            //}
         }
     }
 
     public void fetchMenu(int hallId) throws JSONException, ParseException, IOException {
-        JSONArray menuData = getJSON("https://www.yaledining.org/fasttrack/menus.cfm?location=" +
-                hallId + "&version=3");
+        JSONArray menuData = getJSON("menus", "location=" + hallId);
         for (int j = 0; j < menuData.length(); j++) {
             JSONArray resArray = menuData.getJSONArray(j);
 
@@ -117,8 +116,7 @@ public class DiningAPI {
 
     public void fetchItem(int nutId) throws IOException, JSONException {
         if (!dbHelper.itemInDb(DiningContract.NutritionItem.TABLE_NAME, DiningContract.NutritionItem._ID, nutId + "")) {
-            JSONArray nutData = getJSON("https://www.yaledining.org/fasttrack/menuitem-nutrition.cfm?MENUITEMID="
-                    + nutId + "&version=3");
+            JSONArray nutData = getJSON("menuitem-nutrition", "MENUITEMID=" + nutId);
             ContentValues nutItem = new ContentValues();
             for (int k = 0; k < nutData.length(); k++) {
                 JSONArray nutarray = nutData.getJSONArray(k);
@@ -137,8 +135,7 @@ public class DiningAPI {
                 nutItem.put(DiningContract.NutritionItem.VITAMIN_A, nutarray.getString(12));
                 nutItem.put(DiningContract.NutritionItem.IRON, nutarray.getString(13));
             }
-            JSONArray traitData = getJSON("https://www.yaledining.org/fasttrack/menuitem-codes.cfm?MENUITEMID="
-                    + nutId + "&version=3");
+            JSONArray traitData = getJSON("menuitem-codes", "MENUITEMID=" + nutId);
             for (int l = 0; l < traitData.length(); l++) {
                 JSONArray traitarray = traitData.getJSONArray(l);
                 nutItem.put(DiningContract.NutritionItem.ALCOHOL, traitarray.getInt(2));
