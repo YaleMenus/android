@@ -277,7 +277,6 @@ public class DiningHallActivity extends AppCompatActivity {
             if (menuAdapter.getGroupCount() > 0)
                 expandableListView.expandGroup(0);
             expandableListView.setEmptyView(findViewById(R.id.hall_empty));
-            loadingView.setVisibility(View.GONE);
             TraitTask traitTask = new TraitTask();
             traitTask.execute();
             Log.d("get", "done");
@@ -323,6 +322,7 @@ public class DiningHallActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             menuAdapter.setMap(mealMap);
+            loadingView.setVisibility(View.GONE);
             Log.d("get", "done");
         }
     }
