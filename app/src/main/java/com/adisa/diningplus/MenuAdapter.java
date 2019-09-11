@@ -60,7 +60,7 @@ class MenuAdapter extends BaseExpandableListAdapter {
         }
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
-        expandedListTextView.setText(item.getName());
+        expandedListTextView.setText(item.getName().replace('`', '\''));
         if (item.marked) {
             expandedListTextView.setBackgroundColor(context.getResources().getColor(R.color.backgroundMarked));
             expandedListTextView.setTextColor(context.getResources().getColor(R.color.colorMarked));
