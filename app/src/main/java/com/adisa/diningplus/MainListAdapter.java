@@ -24,7 +24,6 @@ import java.util.HashMap;
 class MainListAdapter extends BaseAdapter {
     private Context context;
     private SharedPreferences preferences;
-    private static final int TYPE_ITEM = 0;
     private HashMap<String, Integer> shieldMap = new HashMap<>();
     private ArrayList<MainActivity.HallItem> halls = new ArrayList<>();
     private ArrayList<MainActivity.HallItem> openHalls = new ArrayList<>();
