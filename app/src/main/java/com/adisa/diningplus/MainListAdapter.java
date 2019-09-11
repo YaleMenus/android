@@ -124,7 +124,7 @@ class MainListAdapter extends BaseAdapter {
         } else {
             viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
         }
-        viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
+        viewHolder.occupancy.setText(item.open ? capacity + "%" : "Closed");
         // Gray out closed location
         convertView.setAlpha(item.open ? 1f : 0.4f);
 
