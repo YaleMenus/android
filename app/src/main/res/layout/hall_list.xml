@@ -48,6 +48,6 @@
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="?android:attr/textColorSecondary"
+        android:textColor="#A8030303"
         android:textSize="16sp" />
 </LinearLayout>
