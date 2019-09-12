@@ -117,7 +117,9 @@ class MainListAdapter extends BaseAdapter {
         }
         int capacity = item.occupancy * 10;
 
-        if (capacity >= 80) {
+        if (!item.open) {
+            viewHolder.occupancy.setTextColor(R.attr.colorSecondary);
+        } else if (capacity >= 80) {
             viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
         } else if (capacity >= 30) {
             viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
