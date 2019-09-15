@@ -24,12 +24,10 @@ import java.util.HashMap;
 class MainListAdapter extends BaseAdapter {
     private Context context;
     private SharedPreferences preferences;
-    private static final int TYPE_HEADER = 1;
-    private static final int TYPE_ITEM = 0;
-    private HashMap<String, Integer> crestMap = new HashMap<>();
-    private ArrayList<MainActivity.HallItem> hallList = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> openList = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> closedList = new ArrayList<>();
+    private HashMap<String, Integer> shieldMap = new HashMap<>();
+    private ArrayList<MainActivity.HallItem> halls = new ArrayList<>();
+    private ArrayList<MainActivity.HallItem> openHalls = new ArrayList<>();
+    private ArrayList<MainActivity.HallItem> closedHalls = new ArrayList<>();
     private Comparator<MainActivity.HallItem> hallSort = new Comparator<MainActivity.HallItem>() {
         @Override
         public int compare(MainActivity.HallItem o1, MainActivity.HallItem o2) {
@@ -38,7 +36,7 @@ class MainListAdapter extends BaseAdapter {
     };
 
     class ViewHolder {
-        ImageView crest;
+        ImageView shield;
         TextView name;
         TextView distance;
         TextView occupancy;
@@ -47,37 +45,29 @@ class MainListAdapter extends BaseAdapter {
     MainListAdapter(Context context) {
         this.context = context;
         this.preferences = PreferenceManager.getDefaultSharedPreferences(this.context);
-        crestMap.put("Berkeley", R.drawable.berkeley);
-        crestMap.put("Branford", R.drawable.branford);
-        crestMap.put("Grace Hopper", R.drawable.hopper);
-        crestMap.put("Stiles", R.drawable.stiles);
-        crestMap.put("Davenport", R.drawable.davenport);
-        crestMap.put("Franklin", R.drawable.franklin);
-        crestMap.put("Pauli Murray", R.drawable.murray);
-        crestMap.put("Jonathan Edwards", R.drawable.je);
-        crestMap.put("Morse", R.drawable.morse);
-        crestMap.put("Pierson", R.drawable.pierson);
-        crestMap.put("Saybrook", R.drawable.saybrook);
-        crestMap.put("Silliman", R.drawable.silliman);
-        crestMap.put("Timothy Dwight", R.drawable.td);
-        crestMap.put("Trumbull", R.drawable.trumbull);
+        shieldMap.put("Berkeley", R.drawable.berkeley);
+        shieldMap.put("Branford", R.drawable.branford);
+        shieldMap.put("Grace Hopper", R.drawable.hopper);
+        shieldMap.put("Stiles", R.drawable.stiles);
+        shieldMap.put("Davenport", R.drawable.davenport);
+        shieldMap.put("Franklin", R.drawable.franklin);
+        shieldMap.put("Pauli Murray", R.drawable.murray);
+        shieldMap.put("Jonathan Edwards", R.drawable.je);
+        shieldMap.put("Morse", R.drawable.morse);
+        shieldMap.put("Pierson", R.drawable.pierson);
+        shieldMap.put("Saybrook", R.drawable.saybrook);
+        shieldMap.put("Silliman", R.drawable.silliman);
+        shieldMap.put("Timothy Dwight", R.drawable.td);
+        shieldMap.put("Trumbull", R.drawable.trumbull);
     }
 
     @Override
     public void notifyDataSetChanged() {
-        hallList = new ArrayList<>();
-        Collections.sort(openList, hallSort);
-        Collections.sort(closedList, hallSort);
-        if (openList.size() > 0) {
-            MainActivity.HallItem openHeader = new MainActivity.HallItem("Open", -1, -1, -1, -1, false);
-            hallList.add(openHeader);
-            hallList.addAll(openList);
-        }
-        if (closedList.size() > 0) {
-            MainActivity.HallItem closedHeader = new MainActivity.HallItem("Closed", -1, -1, -1, -1, false);
-            hallList.add(closedHeader);
-            hallList.addAll(closedList);
-        }
+        halls = new ArrayList<>();
+        Collections.sort(openHalls, hallSort);
+        Collections.sort(closedHalls, hallSort);
+        halls.addAll(openHalls);
+        halls.addAll(closedHalls);
         super.notifyDataSetChanged();
     }
 
@@ -89,82 +79,73 @@ class MainListAdapter extends BaseAdapter {
         MainActivity.HallItem item = getItem(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            if (getItemViewType(position) == TYPE_ITEM) {
-                convertView = inflater.inflate(R.layout.dininghall_list, null);
-                viewHolder.crest = (ImageView) convertView.findViewById(R.id.crest);
-                viewHolder.name = (TextView) convertView.findViewById(R.id.dhall_name);
-                viewHolder.distance = (TextView) convertView.findViewById(R.id.dhall_dist);
-                viewHolder.occupancy = (TextView) convertView.findViewById(R.id.dhall_occupancy);
-            } else {
-                convertView = inflater.inflate(R.layout.dininghall_header, null);
-                viewHolder.name = (TextView) convertView.findViewById(R.id.header_name);
-                convertView.setEnabled(false);
-                convertView.setOnClickListener(null);
-            }
+            convertView = inflater.inflate(R.layout.hall_list, null);
+            viewHolder.shield = (ImageView) convertView.findViewById(R.id.shield);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.hall_name);
+            viewHolder.distance = (TextView) convertView.findViewById(R.id.hall_distance);
+            viewHolder.occupancy = (TextView) convertView.findViewById(R.id.hall_occupancy);
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (getItemViewType(position) == TYPE_ITEM) {
-            Integer crestId = crestMap.get(item.name);
-            if (crestId != null) {
-                viewHolder.crest.setImageDrawable(context.getResources().getDrawable(crestId));
-            } else {
-                viewHolder.crest.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
-            }
-            viewHolder.name.setText(item.name);
-
-            DecimalFormat numberFormat = new DecimalFormat("0.00");
-            double distance = item.distance;
-            String unit = " ";
-            switch (preferences.getString("unitPrefs", "Imperial")) {
-                case "Metric":
-                    unit += "km";
-                    // No adjustment of distance needed as it's stored in kilometers
-                    break;
-                case "Imperial":
-                    distance *= 0.621371;
-                    unit += "mi";
-                    break;
-            }
-            if (distance > 50) {
-                viewHolder.distance.setText("> 50" + unit);
-            } else {
-                viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
-            }
-            int capacity = item.occupancy * 10;
-
-            if (capacity <= 30) {
-                viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
-            }
-            if (capacity >= 40) {
-                viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
-            }
-            if (capacity >= 80) {
-                viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
-            }
-            viewHolder.occupancy.setText(item.open ? capacity + "%" : "");
+        Integer shieldId = shieldMap.get(item.name);
+        if (shieldId != null) {
+            viewHolder.shield.setImageDrawable(context.getResources().getDrawable(shieldId));
         } else {
-            viewHolder.name.setText(item.name);
+            viewHolder.shield.setImageDrawable(context.getResources().getDrawable(R.drawable.commons));
         }
+        viewHolder.name.setText(item.name);
+
+        DecimalFormat numberFormat = new DecimalFormat("0.00");
+        double distance = item.distance;
+        String unit = " ";
+        switch (preferences.getString("unitPrefs", "Imperial")) {
+            case "Metric":
+                unit += "km";
+                // No adjustment of distance needed as it's stored in kilometers
+                break;
+            case "Imperial":
+                distance *= 0.621371;
+                unit += "mi";
+                break;
+        }
+        if (distance > 50) {
+            viewHolder.distance.setText("> 50" + unit);
+        } else {
+            viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
+        }
+        int capacity = item.occupancy * 10;
+
+        if (!item.open) {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#A8030303"));
+        } else if (capacity >= 80) {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
+        } else if (capacity >= 30) {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
+        } else {
+            viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
+        }
+        viewHolder.occupancy.setText(item.open ? capacity + "%" : "Closed");
+        // Gray out closed location
+        convertView.setAlpha(item.open ? 1f : 0.4f);
 
         return convertView;
     }
 
-    public void setLists(ArrayList<MainActivity.HallItem> openList, ArrayList<MainActivity.HallItem> closedList) {
-        this.openList = openList;
-        this.closedList = closedList;
+    public void setLists(ArrayList<MainActivity.HallItem> openHalls, ArrayList<MainActivity.HallItem> closedHalls) {
+        this.openHalls = openHalls;
+        this.closedHalls = closedHalls;
     }
 
     @Override
     public int getCount() {
-        return hallList.size();
+        return halls.size();
     }
 
     @Override
     public MainActivity.HallItem getItem(int position) {
-        return hallList.get(position);
+        return halls.get(position);
     }
 
     @Override
@@ -175,10 +156,5 @@ class MainListAdapter extends BaseAdapter {
     @Override
     public int getViewTypeCount() {
         return 2;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return hallList.get(position).occupancy == -1 ? TYPE_HEADER : TYPE_ITEM;
     }
 }

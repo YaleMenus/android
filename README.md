@@ -1,4 +1,4 @@
-# Yale Dining Plus
+# Yale Menus (formerly Yale Dining Plus)
 > A new version of the Yale Dining app for Android.
 
 [<img src="https://cdn.rawgit.com/steverichey/google-play-badge-svg/master/img/en_get.svg" width="25%">](https://play.google.com/store/apps/details?id=com.adisa.diningplus)
@@ -6,7 +6,7 @@
 The [existing Yale Dining app](https://play.google.com/store/apps/details?id=org.yaledining.app) on Android is not very pleasant to use, due to outdated graphics, usability issues, and several recurring bugs. This project replaces the official app by displaying current menu items and nutritional information for each dining hall on campus, using information retrieved from the Yale Dining API. Beyond this, it adds new features such as the ability to set a dining hall as an auto-opening favorite, marking menu items as favorites to be notified when they're served, and setting up visual warnings when a recipe violates your dietary restrictions.
 
 ## Features
-Yale Dining Plus contains several useful features not included in the original app.
+Yale Menus for Android contains several useful features not included in the original app.
 
 ### Main menu
 The dining halls in the main menu are sorted by their distance to the user's location, in addition to displaying their capacity and open/closed status like the original app.

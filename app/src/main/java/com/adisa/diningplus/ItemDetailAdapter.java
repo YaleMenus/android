@@ -111,5 +111,4 @@ class ItemDetailAdapter extends BaseAdapter {
                 return TYPE_TRAIT;
         }
     }
-
 }

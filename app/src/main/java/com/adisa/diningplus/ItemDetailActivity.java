@@ -1,6 +1,5 @@
 package com.adisa.diningplus;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -16,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -27,6 +25,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     String itemName;
     int nutId;
     DiningDbHelper dbHelper;
+    DiningAPI api;
     ListView itemDetailListView;
     ItemDetailAdapter itemDetailAdapter;
     ArrayList<Detail> detailList = new ArrayList<>();
@@ -56,6 +55,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dbHelper = new DiningDbHelper(getApplicationContext());
 
+        api = new DiningAPI(dbHelper);
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences.getBoolean("followTut", true)) {
             SharedPreferences.Editor editor = preferences.edit();
@@ -83,62 +84,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public static void setNutItem(DiningDbHelper dbHelper, int nutId) throws IOException, JSONException {
-        if (!dbHelper.itemInDb(DiningContract.NutritionItem.TABLE_NAME, DiningContract.NutritionItem._ID, nutId + "")) {
-            JSONArray nutData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menuitem-nutrition.cfm?MENUITEMID="
-                    + nutId + "&version=3");
-            ContentValues nutItem = new ContentValues();
-            for (int k = 0; k < nutData.length(); k++) {
-                JSONArray nutarray = nutData.getJSONArray(k);
-                nutItem.put(DiningContract.NutritionItem._ID, nutarray.getInt(0));
-                nutItem.put(DiningContract.NutritionItem.NAME, nutarray.getString(1));
-                nutItem.put(DiningContract.NutritionItem.SERVING_SIZE, nutarray.getString(2));
-                nutItem.put(DiningContract.NutritionItem.CALORIES, nutarray.getString(3));
-                nutItem.put(DiningContract.NutritionItem.PROTEIN, nutarray.getString(4));
-                nutItem.put(DiningContract.NutritionItem.FAT, nutarray.getString(5));
-                nutItem.put(DiningContract.NutritionItem.SATURATED_FAT, nutarray.getString(6));
-                nutItem.put(DiningContract.NutritionItem.CHOLESTEROL, nutarray.getString(7));
-                nutItem.put(DiningContract.NutritionItem.CARBOHYDRATES, nutarray.getString(8));
-                nutItem.put(DiningContract.NutritionItem.SUGAR, nutarray.getString(9));
-                nutItem.put(DiningContract.NutritionItem.DIETARY_FIBER, nutarray.getString(10));
-                nutItem.put(DiningContract.NutritionItem.VITAMIN_C, nutarray.getString(11));
-                nutItem.put(DiningContract.NutritionItem.VITAMIN_A, nutarray.getString(12));
-                nutItem.put(DiningContract.NutritionItem.IRON, nutarray.getString(13));
-            }
-            JSONArray traitData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menuitem-codes.cfm?MENUITEMID="
-                    + nutId + "&version=3");
-            for (int l = 0; l < traitData.length(); l++) {
-                JSONArray traitarray = traitData.getJSONArray(l);
-                nutItem.put(DiningContract.NutritionItem.ALCOHOL, traitarray.getInt(2));
-                nutItem.put(DiningContract.NutritionItem.NUTS, traitarray.getInt(3));
-                nutItem.put(DiningContract.NutritionItem.SHELLFISH, traitarray.getInt(4));
-                nutItem.put(DiningContract.NutritionItem.PEANUT, traitarray.getInt(5));
-                nutItem.put(DiningContract.NutritionItem.DAIRY, traitarray.getInt(6));
-                nutItem.put(DiningContract.NutritionItem.EGGS, traitarray.getInt(7));
-                nutItem.put(DiningContract.NutritionItem.VEGAN, traitarray.getInt(8));
-                nutItem.put(DiningContract.NutritionItem.PORK, traitarray.getInt(9));
-                nutItem.put(DiningContract.NutritionItem.FISH, traitarray.getInt(10));
-                nutItem.put(DiningContract.NutritionItem.SOY, traitarray.getInt(11));
-                nutItem.put(DiningContract.NutritionItem.WHEAT, traitarray.getInt(12));
-                nutItem.put(DiningContract.NutritionItem.GLUTEN, traitarray.getInt(13));
-                nutItem.put(DiningContract.NutritionItem.VEGETARIAN, traitarray.getInt(14));
-                nutItem.put(DiningContract.NutritionItem.GLUTEN_FREE, traitarray.getInt(15));
-                nutItem.put(DiningContract.NutritionItem.WARNING, traitarray.getString(16));
-            }
-            dbHelper.insertNutritionItem(nutItem);
-            JSONArray ingredientData = MainActivity.getJSON("https://www.yaledining.org/fasttrack/menuitem-ingredients.cfm?MENUITEMID="
-                    + nutId + "&version=3");
-            for (int l = 0; l < ingredientData.length(); l++) {
-                JSONArray ingredarray = ingredientData.getJSONArray(l);
-                ContentValues ingred = new ContentValues();
-                ingred.put(DiningContract.Ingredient.NUTRITION_ID, ingredarray.getInt(0));
-                ingred.put(DiningContract.NutritionItem.NAME, ingredarray.getString(1));
-                dbHelper.insertIngredient(ingred);
-            }
-        }
-
-    }
-
     private class NutTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
@@ -148,7 +93,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                setNutItem(dbHelper, nutId);
+                api.fetchItem(nutId);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }

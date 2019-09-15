@@ -9,14 +9,14 @@
     android:paddingTop="12dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/crest"
+        android:id="@+id/shield"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginRight="16dp"
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/dhall_name"
+        android:id="@+id/hall_name"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -28,7 +28,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/dhall_occupancy"
+        android:id="@+id/hall_occupancy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -40,7 +40,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/dhall_dist"
+        android:id="@+id/hall_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -48,6 +48,6 @@
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="?android:attr/textColorSecondary"
+        android:textColor="#A8030303"
         android:textSize="16sp" />
 </LinearLayout>
