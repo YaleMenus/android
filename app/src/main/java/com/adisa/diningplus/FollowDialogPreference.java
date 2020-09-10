@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ListView;
 
+import com.adisa.diningplus.adapters.FollowDialogAdapter;
+
 import java.util.HashSet;
 
 /**

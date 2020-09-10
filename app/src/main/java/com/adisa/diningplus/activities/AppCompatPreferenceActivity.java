@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

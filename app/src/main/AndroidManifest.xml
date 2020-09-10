@@ -13,20 +13,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activities.MainActivity" />
         <activity
-            android:name=".DiningHallActivity"
+            android:name=".activities.DiningHallActivity"
             android:label="@string/title_activity_dining_hall"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.adisa.diningplus.MainActivity" />
+                android:value="com.adisa.diningplus.activities.MainActivity" />
         </activity>
-        <activity android:name=".ItemDetailActivity" />
+        <activity android:name=".activities.ItemDetailActivity" />
 
         <service
-            android:name=".DatabaseUpdateService"
+            android:name=".db.DatabaseUpdateService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
@@ -34,7 +34,7 @@
         </service>
 
         <receiver
-            android:name=".DatabaseUpdateReceiver"
+            android:name=".db.DatabaseUpdateReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.adisa.diningplus.threadsample.BROADCAST" />
@@ -42,7 +42,7 @@
         </receiver>
 
         <activity
-            android:name=".BlankActivity"
+            android:name=".activities.BlankActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,12 +51,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activities.SettingsActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:label="@string/title_activity_settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.adisa.diningplus.MainActivity" />
+                android:value="com.adisa.diningplus.activities.MainActivity" />
         </activity>
     </application>
 

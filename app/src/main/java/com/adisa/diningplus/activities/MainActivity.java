@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -26,6 +26,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.adisa.diningplus.db.DatabaseUpdateService;
+import com.adisa.diningplus.network.DiningAPI;
+import com.adisa.diningplus.db.DiningDbHelper;
+import com.adisa.diningplus.adapters.MainListAdapter;
+import com.adisa.diningplus.R;
+import com.adisa.diningplus.fragments.TraitDialogFragment;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
@@ -201,13 +207,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    static class HallItem {
+    public static class HallItem {
         String name;
         int occupancy;
         int id;
         double latitude;
         double longitude;
-        double distance;
+        public double distance;
         boolean open;
 
         HallItem(String name, int occupancy, double latitude, double longitude, int id, boolean open) {

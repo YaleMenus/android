@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.db;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.adisa.diningplus.network.DiningAPI;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 

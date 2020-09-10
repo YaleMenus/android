@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
+
+import com.adisa.diningplus.R;
 
 import java.util.HashSet;
 
