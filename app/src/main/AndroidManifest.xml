@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity" />
         <activity
-            android:name=".activities.DiningHallActivity"
+            android:name=".activities.LocationActivity"
             android:label="@string/title_activity_dining_hall"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -23,7 +23,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.adisa.diningplus.activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.ItemDetailActivity" />
+        <activity android:name=".activities.ItemActivity" />
 
         <service
             android:name=".db.DatabaseUpdateService"

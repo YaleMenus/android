@@ -16,7 +16,7 @@ import java.util.Date;
  * Created by Adisa on 3/20/2017.
  */
 
-public final class DiningDbHelper extends SQLiteOpenHelper {
+public final class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Dining.db";
     private static final String SQL_DININGHALL_CREATE =
@@ -108,7 +108,7 @@ public final class DiningDbHelper extends SQLiteOpenHelper {
     private static final String SQL_INGREDIENT_DELETE =
             "DROP TABLE IF EXISTS " + DiningContract.Ingredient.TABLE_NAME;
 
-    public DiningDbHelper(Context context) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

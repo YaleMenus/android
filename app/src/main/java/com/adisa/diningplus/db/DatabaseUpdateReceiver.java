@@ -11,7 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.adisa.diningplus.R;
-import com.adisa.diningplus.activities.DiningHallActivity;
+import com.adisa.diningplus.activities.LocationActivity;
 
 /**
  * Created by Adisa on 5/1/2017.
@@ -34,12 +34,12 @@ public class DatabaseUpdateReceiver extends BroadcastReceiver {
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
-        Intent resultIntent = new Intent(context, DiningHallActivity.class);
+        Intent resultIntent = new Intent(context, LocationActivity.class);
         resultIntent.putExtra("HallId", diningHall);
         resultIntent.putExtra("Name", hallName);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(DiningHallActivity.class);
+        stackBuilder.addParentStack(LocationActivity.class);
 // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =

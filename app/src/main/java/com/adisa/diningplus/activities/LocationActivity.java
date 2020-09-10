@@ -24,7 +24,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.adisa.diningplus.utils.DateFormatProvider;
-import com.adisa.diningplus.db.DiningDbHelper;
+import com.adisa.diningplus.db.DatabaseHelper;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.adapters.MenuAdapter;
 import com.adisa.diningplus.network.DiningAPI;
@@ -39,9 +39,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class DiningHallActivity extends AppCompatActivity {
+public class LocationActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbar;
-    DiningDbHelper dbHelper;
+    DatabaseHelper dbHelper;
     DiningAPI api;
     String hallName;
     int hallId;
@@ -145,7 +145,7 @@ public class DiningHallActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPos, int childPos, long id) {
                 FoodItem foodItem = (FoodItem) menuAdapter.getChild(groupPos, childPos);
                 Intent i = new Intent();
-                i.setClass(getApplicationContext(), ItemDetailActivity.class);
+                i.setClass(getApplicationContext(), ItemActivity.class);
                 i.putExtra("name", foodItem.getName());
                 i.putExtra("id", foodItem.getId());
                 startActivity(i);
@@ -154,7 +154,7 @@ public class DiningHallActivity extends AppCompatActivity {
         });
 
         Intent i = getIntent();
-        dbHelper = new DiningDbHelper(getApplicationContext());
+        dbHelper = new DatabaseHelper(getApplicationContext());
         api = new DiningAPI(dbHelper);
         hallName = i.getStringExtra("Name");
         hallId = i.getIntExtra("HallId", -1);
@@ -278,7 +278,7 @@ public class DiningHallActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            menuAdapter = new MenuAdapter(DiningHallActivity.this, meals, mealMap);
+            menuAdapter = new MenuAdapter(LocationActivity.this, meals, mealMap);
             expandableListView.setAdapter(menuAdapter);
             if (menuAdapter.getGroupCount() > 0)
                 expandableListView.expandGroup(0);

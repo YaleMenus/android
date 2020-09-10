@@ -15,7 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.adisa.diningplus.db.DiningDbHelper;
+import com.adisa.diningplus.db.DatabaseHelper;
+import com.adisa.diningplus.db.DiningContract;
 import com.adisa.diningplus.fragments.FollowDialogFragment;
 import com.adisa.diningplus.adapters.ItemDetailAdapter;
 import com.adisa.diningplus.R;
@@ -27,10 +28,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class ItemDetailActivity extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity {
     String itemName;
     int nutId;
-    DiningDbHelper dbHelper;
+    DatabaseHelper dbHelper;
     DiningAPI api;
     ListView itemDetailListView;
     ItemDetailAdapter itemDetailAdapter;
@@ -59,7 +60,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(itemName);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        dbHelper = new DiningDbHelper(getApplicationContext());
+        dbHelper = new DatabaseHelper(getApplicationContext());
 
         api = new DiningAPI(dbHelper);
 
@@ -75,8 +76,8 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         }
 
-        NutTask nutTask = new NutTask();
-        nutTask.execute();
+        NutritionTask nutritionTask = new NutritionTask();
+        nutritionTask.execute();
     }
 
     @Override
@@ -90,7 +91,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private class NutTask extends AsyncTask<Void, Void, Void> {
+    private class NutritionTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("get", "start");
@@ -164,7 +165,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            itemDetailAdapter = new ItemDetailAdapter(ItemDetailActivity.this, detailList);
+            itemDetailAdapter = new ItemDetailAdapter(ItemActivity.this, detailList);
             itemDetailListView.setAdapter(itemDetailAdapter);
             Log.e("get", "done");
         }

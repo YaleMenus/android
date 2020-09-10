@@ -28,7 +28,7 @@ import android.widget.ListView;
 
 import com.adisa.diningplus.db.DatabaseUpdateService;
 import com.adisa.diningplus.network.DiningAPI;
-import com.adisa.diningplus.db.DiningDbHelper;
+import com.adisa.diningplus.db.DatabaseHelper;
 import com.adisa.diningplus.adapters.MainListAdapter;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.fragments.TraitDialogFragment;
@@ -45,7 +45,7 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    DiningDbHelper dbHelper;
+    DatabaseHelper dbHelper;
     DiningAPI api;
     private MainListAdapter adapter;
     ArrayList<HallItem> openHalls = new ArrayList<>();
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 Intent i = new Intent();
-                i.setClass(getApplicationContext(), DiningHallActivity.class);
+                i.setClass(getApplicationContext(), LocationActivity.class);
                 i.putExtra("Name", adapter.getItem(position).name);
                 i.putExtra("HallId", adapter.getItem(position).id);
                 startActivity(i);
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         dispatcher.mustSchedule(myJob);
 
-        dbHelper = new DiningDbHelper(getApplicationContext());
+        dbHelper = new DatabaseHelper(getApplicationContext());
         UpdateTask updateTask = new UpdateTask();
         updateTask.execute();
 
@@ -156,10 +156,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            currentLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         }
     }
 

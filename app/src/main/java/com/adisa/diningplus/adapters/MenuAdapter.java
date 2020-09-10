@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adisa.diningplus.utils.DateFormatProvider;
-import com.adisa.diningplus.activities.DiningHallActivity;
+import com.adisa.diningplus.activities.LocationActivity;
 import com.adisa.diningplus.R;
 
 import java.text.ParseException;
@@ -27,17 +27,17 @@ import java.util.List;
 class MenuAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private List<DiningHallActivity.Meal> expandableListTitle;
-    private HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail;
+    private List<LocationActivity.Meal> expandableListTitle;
+    private HashMap<String, ArrayList<LocationActivity.FoodItem>> expandableListDetail;
 
-    MenuAdapter(Context context, List<DiningHallActivity.Meal> expandableListTitle,
-                HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail) {
+    MenuAdapter(Context context, List<LocationActivity.Meal> expandableListTitle,
+                HashMap<String, ArrayList<LocationActivity.FoodItem>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
     }
 
-    void setMap(HashMap<String, ArrayList<DiningHallActivity.FoodItem>> expandableListDetail) {
+    void setMap(HashMap<String, ArrayList<LocationActivity.FoodItem>> expandableListDetail) {
         this.expandableListDetail = expandableListDetail;
         notifyDataSetChanged();
     }
@@ -56,7 +56,7 @@ class MenuAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        DiningHallActivity.FoodItem item = (DiningHallActivity.FoodItem) getChild(listPosition, expandedListPosition);
+        LocationActivity.FoodItem item = (LocationActivity.FoodItem) getChild(listPosition, expandedListPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -98,7 +98,7 @@ class MenuAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int listPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        DiningHallActivity.Meal item = (DiningHallActivity.Meal) getGroup(listPosition);
+        LocationActivity.Meal item = (LocationActivity.Meal) getGroup(listPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);

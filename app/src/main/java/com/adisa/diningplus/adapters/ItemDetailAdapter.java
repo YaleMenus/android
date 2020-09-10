@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adisa.diningplus.R;
-import com.adisa.diningplus.activities.ItemDetailActivity;
+import com.adisa.diningplus.activities.ItemActivity;
 
 import java.util.ArrayList;
 
@@ -24,14 +24,14 @@ public class ItemDetailAdapter extends BaseAdapter {
     private static final int TYPE_WARNING = -2;
     private static final int TYPE_ITEM = -3;
     private static final int TYPE_TRAIT = -4;
-    private ArrayList<ItemDetailActivity.Detail> detailList;
+    private ArrayList<ItemActivity.Detail> detailList;
 
     class ViewHolder {
         ImageView image;
         TextView name;
     }
 
-    ItemDetailAdapter(Context context, ArrayList<ItemDetailActivity.Detail> detailList) {
+    public ItemDetailAdapter(Context context, ArrayList<ItemActivity.Detail> detailList) {
         this.context = context;
         this.detailList = detailList;
     }
@@ -46,7 +46,7 @@ public class ItemDetailAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder viewHolder;
-        ItemDetailActivity.Detail item = detailList.get(position);
+        ItemActivity.Detail item = detailList.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             switch (getItemViewType(position)) {
