@@ -19,7 +19,7 @@ import java.text.ParseException;
 import java.util.HashSet;
 
 public class DatabaseUpdateService extends JobService {
-    DiningDbHelper dbHelper;
+    DatabaseHelper dbHelper;
     DiningAPI api;
     SharedPreferences preferences;
     DatabaseUpdateReceiver mDownloadStateReceiver;
@@ -61,7 +61,7 @@ public class DatabaseUpdateService extends JobService {
         @Override
         protected Boolean doInBackground(Void... params) {
             preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            dbHelper = new DiningDbHelper(getApplicationContext());
+            dbHelper = new DatabaseHelper(getApplicationContext());
             Cursor result = dbHelper.getHalls();
             while (result.moveToNext()) {
                 int id = result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID));

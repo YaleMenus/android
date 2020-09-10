@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.util.Log;
 
 import com.adisa.diningplus.utils.DateFormatProvider;
-import com.adisa.diningplus.db.DiningDbHelper;
+import com.adisa.diningplus.db.DatabaseHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,9 +21,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DiningAPI {
-    DiningDbHelper dbHelper;
+    DatabaseHelper dbHelper;
 
-    public DiningAPI(DiningDbHelper dbHelper) {
+    public DiningAPI(DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
     }
 

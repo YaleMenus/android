@@ -19,7 +19,7 @@ public class BlankActivity extends AppCompatActivity {
         int startHall = preferences.getInt("startHall", -1);
         Intent i = new Intent();
         if (startHall != -1) {
-            i.setClass(getApplicationContext(), DiningHallActivity.class);
+            i.setClass(getApplicationContext(), LocationActivity.class);
             i.putExtra("Name", preferences.getString("startHallName", ""));
             i.putExtra("HallId", startHall);
             TaskStackBuilder.create(this)
