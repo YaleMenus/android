@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +22,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+
+import com.adisa.diningplus.utils.DateFormatProvider;
+import com.adisa.diningplus.db.DiningDbHelper;
+import com.adisa.diningplus.R;
+import com.adisa.diningplus.adapters.MenuAdapter;
+import com.adisa.diningplus.network.DiningAPI;
 
 import org.json.JSONException;
 

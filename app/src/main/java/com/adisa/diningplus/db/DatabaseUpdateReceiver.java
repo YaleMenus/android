@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.db;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +9,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+
+import com.adisa.diningplus.R;
+import com.adisa.diningplus.activities.DiningHallActivity;
 
 /**
  * Created by Adisa on 5/1/2017.

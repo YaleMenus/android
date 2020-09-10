@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.fragments;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,13 +8,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adisa.diningplus.R;
+import com.adisa.diningplus.activities.ItemDetailActivity;
+
 import java.util.ArrayList;
 
 /**
  * Created by Adisa on 4/23/2017.
  */
 
-class ItemDetailAdapter extends BaseAdapter {
+public class ItemDetailAdapter extends BaseAdapter {
 
     private Context context;
     private static final int TYPE_HEADER = -1;

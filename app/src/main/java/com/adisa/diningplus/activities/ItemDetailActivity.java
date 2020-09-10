@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +14,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import com.adisa.diningplus.db.DiningDbHelper;
+import com.adisa.diningplus.fragments.FollowDialogFragment;
+import com.adisa.diningplus.adapters.ItemDetailAdapter;
+import com.adisa.diningplus.R;
+import com.adisa.diningplus.network.DiningAPI;
 
 import org.json.JSONException;
 
@@ -31,9 +37,9 @@ public class ItemDetailActivity extends AppCompatActivity {
     ArrayList<Detail> detailList = new ArrayList<>();
     SharedPreferences preferences;
 
-    class Detail {
-        int image;
-        String name;
+    public class Detail {
+        public int image;
+        public String name;
 
         Detail(int image, String name) {
             this.image = image;

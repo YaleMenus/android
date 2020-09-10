@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.adisa.diningplus.R;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -17,7 +19,7 @@ import java.util.HashSet;
  * Created by Adisa on 5/4/2017.
  */
 
-class FollowDialogAdapter extends BaseAdapter {
+public class FollowDialogAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<String> stringList = new ArrayList<>();
     private SharedPreferences preferences;
@@ -27,7 +29,7 @@ class FollowDialogAdapter extends BaseAdapter {
         ImageButton button;
     }
 
-    FollowDialogAdapter(Context context, HashSet<String> stringSet) {
+    public FollowDialogAdapter(Context context, HashSet<String> stringSet) {
         this.context = context;
         for (String string : stringSet) {
             stringList.add(string);

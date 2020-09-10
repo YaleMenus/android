@@ -1,7 +1,10 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.network;
 
 import android.content.ContentValues;
 import android.util.Log;
+
+import com.adisa.diningplus.utils.DateFormatProvider;
+import com.adisa.diningplus.db.DiningDbHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;

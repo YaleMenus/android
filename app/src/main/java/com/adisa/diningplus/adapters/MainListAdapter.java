@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adisa.diningplus.R;
+import com.adisa.diningplus.activities.MainActivity;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +24,7 @@ import java.util.HashMap;
  * Created by Adisa on 4/27/2017.
  */
 
-class MainListAdapter extends BaseAdapter {
+public class MainListAdapter extends BaseAdapter {
     private Context context;
     private SharedPreferences preferences;
     private HashMap<String, Integer> shieldMap = new HashMap<>();
@@ -42,7 +45,7 @@ class MainListAdapter extends BaseAdapter {
         TextView occupancy;
     }
 
-    MainListAdapter(Context context) {
+    public MainListAdapter(Context context) {
         this.context = context;
         this.preferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         shieldMap.put("Berkeley", R.drawable.berkeley);

@@ -1,4 +1,4 @@
-package com.adisa.diningplus;
+package com.adisa.diningplus.adapters;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.adisa.diningplus.utils.DateFormatProvider;
+import com.adisa.diningplus.activities.DiningHallActivity;
+import com.adisa.diningplus.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
