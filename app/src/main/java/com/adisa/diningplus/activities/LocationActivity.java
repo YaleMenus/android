@@ -247,7 +247,7 @@ public class LocationActivity extends AppCompatActivity {
                     }
                 }
                 Date currentDate = resetTime(new Date());
-                if (!dbHelper.itemInDb(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem.DINING_HALL, "" + hallId) ||
+                if (!dbHelper.isStored(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem.DINING_HALL, "" + hallId) ||
                         lastUpdated.compareTo(currentDate) != 0) {
                     api.fetchMenu(hallId);
                 }

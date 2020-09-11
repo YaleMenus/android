@@ -191,83 +191,111 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
     public void updateLocation(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] args = {"" + values.getAsInteger(DatabaseContract.Location.ID)};
-        int count = db.update(DatabaseContract.Location.TABLE_NAME, values, DatabaseContract.Location._ID + " = ?", args);
+        int count = db.update(DatabaseContract.Location.TABLE_NAME, values, DatabaseContract.Location.ID + " = ?", args);
         if (BuildConfig.DEBUG && count != 1)
             throw new AssertionError();
     }
 
-    public void insertLocation(ContentValues values) {
+    public void insertManager(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(DatabaseContract.Location.TABLE_NAME, null, values);
+        db.insert(DatabaseContract.Manager.TABLE_NAME, null, values);
     }
 
-    public void updateLocation(ContentValues values) {
+    public void updateManager(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] args = {"" + values.getAsInteger(DatabaseContract.Location.ID)};
-        int count = db.update(DatabaseContract.Location.TABLE_NAME, values, DatabaseContract.Location._ID + " = ?", args);
+        String[] args = {"" + values.getAsInteger(DatabaseContract.Manager.ID)};
+        int count = db.update(DatabaseContract.Manager.TABLE_NAME, values, DatabaseContract.Manager.ID + " = ?", args);
         if (BuildConfig.DEBUG && count != 1)
             throw new AssertionError();
     }
 
+    public void insertMeal(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(DatabaseContract.Meal.TABLE_NAME, null, values);
+    }
 
+    public void updateMeal(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] args = {"" + values.getAsInteger(DatabaseContract.Meal.ID)};
+        int count = db.update(DatabaseContract.Meal.TABLE_NAME, values, DatabaseContract.Meal.ID + " = ?", args);
+        if (BuildConfig.DEBUG && count != 1)
+            throw new AssertionError();
+    }
+
+    public void insertCourse(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(DatabaseContract.Course.TABLE_NAME, null, values);
+    }
+
+    public void updateCourse(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] args = {"" + values.getAsInteger(DatabaseContract.Course.ID)};
+        int count = db.update(DatabaseContract.Manager.TABLE_NAME, values, DatabaseContract.Course.ID + " = ?", args);
+        if (BuildConfig.DEBUG && count != 1)
+            throw new AssertionError();
+    }
 
     public void insertItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DatabaseContract.Item.TABLE_NAME, null, values);
     }
 
-    public void updateMenuItem(ContentValues values) {
+    public void updateItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] args = {"" + values.getAsInteger(DatabaseContract.Item._ID)};
-        int result = db.update(DatabaseContract.Item.TABLE_NAME, values, DatabaseContract.Item._ID + " = ?", args);
-        if (BuildConfig.DEBUG && result != 1)
+        String[] args = {"" + values.getAsInteger(DatabaseContract.Item.ID)};
+        int count = db.update(DatabaseContract.Item.TABLE_NAME, values, DatabaseContract.Item.ID + " = ?", args);
+        if (BuildConfig.DEBUG && count != 1)
             throw new AssertionError();
     }
 
-    public void insertNutritionItem(ContentValues values) {
+    public void insertNutrition(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DatabaseContract.Nutrition.TABLE_NAME, null, values);
     }
 
-    public boolean itemInDb(String tableName, String dbfield, String fieldValue) {
+    public void updateNutrition(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select * from " + tableName + " where " + dbfield + " = " + fieldValue;
-        Cursor cursor = db.rawQuery(Query, null);
-        if (cursor.getCount() <= 0) {
-            cursor.close();
-            return false;
-        }
-        cursor.close();
-        return true;
+        String[] args = {"" + values.getAsInteger(DatabaseContract.Nutrition.ID)};
+        int count = db.update(DatabaseContract.Nutrition.TABLE_NAME, values, DatabaseContract.Nutrition.ID + " = ?", args);
+        if (BuildConfig.DEBUG && count != 1)
+            throw new AssertionError();
     }
 
-    Cursor getHall(int id) {
+    public boolean isStored(String tableName, String field, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DatabaseContract.Location.LAST_UPDATED + " from " + DatabaseContract.Location.TABLE_NAME + " where " + DatabaseContract.Location._ID + " = " + id;
+        String Query = "SELECT * FROM " + tableName + " WHERE " + field + " = " + value;
+        Cursor cursor = db.rawQuery(Query, null);
+        cursor.close();
+        return cursor.getCount() > 0;
+    }
+
+    Cursor getLocation(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String Query = "SELECT * FROM " + DatabaseContract.Location.TABLE_NAME + " where " + DatabaseContract.Location.ID + " = " + id;
         return db.rawQuery(Query, null);
     }
 
     Cursor getHalls() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DatabaseContract.Location.NAME + ", " + DatabaseContract.Location.CAPACITY + ", " + DatabaseContract.Location.LATITUDE + ", " + DatabaseContract.Location.LONGITUDE + ", " + DatabaseContract.Location._ID + ", " + DatabaseContract.Location.IS_CLOSED + " from " + DatabaseContract.Location.TABLE_NAME;
+        String Query = "SELECT " + DatabaseContract.Location.NAME + ", " + DatabaseContract.Location.CAPACITY + ", " + DatabaseContract.Location.LATITUDE + ", " + DatabaseContract.Location.LONGITUDE + ", " + DatabaseContract.Location._ID + ", " + DatabaseContract.Location.IS_CLOSED + " FROM " + DatabaseContract.Location.TABLE_NAME;
         return db.rawQuery(Query, null);
     }
 
     Cursor getMenu(int hall) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DatabaseContract.Item.NAME + ", " + DatabaseContract.Item.MENU_NAME + ", " + DatabaseContract.Item.START_TIME + ", " + DatabaseContract.Item.END_TIME + ", " + DatabaseContract.Item.NUTRITION_ID + ", " + DatabaseContract.Item.DINING_HALL + " from " + DatabaseContract.Item.TABLE_NAME + " where " + DatabaseContract.Item.DINING_HALL + " = " + hall + " AND date('now', 'localtime') = date(" + DatabaseContract.Item.DATE + ") AND time('now', 'localtime') <= time(" + DatabaseContract.Item.END_TIME + ")";
+        String Query = "SELECT " + DatabaseContract.Item.NAME + ", " + DatabaseContract.Item.MENU_NAME + ", " + DatabaseContract.Item.START_TIME + ", " + DatabaseContract.Item.END_TIME + ", " + DatabaseContract.Item.NUTRITION_ID + ", " + DatabaseContract.Item.DINING_HALL + " FROM " + DatabaseContract.Item.TABLE_NAME + " where " + DatabaseContract.Item.DINING_HALL + " = " + hall + " AND date('now', 'localtime') = date(" + DatabaseContract.Item.DATE + ") AND time('now', 'localtime') <= time(" + DatabaseContract.Item.END_TIME + ")";
         return db.rawQuery(Query, null);
     }
 
     Cursor getNutritionItem(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select * from " + DatabaseContract.Nutrition.TABLE_NAME + " where " + DatabaseContract.Nutrition._ID + " = " + id;
+        String Query = "SELECT * FROM " + DatabaseContract.Nutrition.TABLE_NAME + " where " + DatabaseContract.Nutrition._ID + " = " + id;
         return db.rawQuery(Query, null);
     }
 
     Cursor getIngredients(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DatabaseContract.Ingredient.NAME + " from " + DatabaseContract.Ingredient.TABLE_NAME + " where " + DatabaseContract.Ingredient.NUTRITION_ID + " = " + id;
+        String Query = "SELECT " + DatabaseContract.Ingredient.NAME + " FROM " + DatabaseContract.Ingredient.TABLE_NAME + " where " + DatabaseContract.Ingredient.NUTRITION_ID + " = " + id;
         return db.rawQuery(Query, null);
     }
 }
