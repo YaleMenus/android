@@ -88,6 +88,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + DatabaseContract.Nutrition.TABLE_NAME + " (" +
                     DatabaseContract.Nutrition.ID + " INT PRIMARY KEY," +
                     DatabaseContract.Nutrition.NAME + " TEXT," +
+                    DatabaseContract.Nutrition.PORTION_SIZE + " TEXT," +
                     DatabaseContract.Nutrition.CALORIES + " TEXT," +
 
                     DatabaseContract.Nutrition.TOTAL_FAT + " TEXT," +
@@ -263,39 +264,81 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean isStored(String tableName, String field, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "SELECT * FROM " + tableName + " WHERE " + field + " = " + value;
-        Cursor cursor = db.rawQuery(Query, null);
+        String query = "SELECT * FROM " + tableName + " WHERE " + field + " = " + value;
+        Cursor cursor = db.rawQuery(query, null);
         cursor.close();
         return cursor.getCount() > 0;
     }
 
+    Cursor getLocations() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DatabaseContract.Location.TABLE_NAME;
+        return db.rawQuery(query, null);
+    }
+
     Cursor getLocation(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "SELECT * FROM " + DatabaseContract.Location.TABLE_NAME + " where " + DatabaseContract.Location.ID + " = " + id;
-        return db.rawQuery(Query, null);
+        String query = "SELECT * FROM " + DatabaseContract.Location.TABLE_NAME + " WHERE " + DatabaseContract.Location.ID + " = " + id;
+        return db.rawQuery(query, null);
     }
 
-    Cursor getHalls() {
+    Cursor getLocationManagers(int locationId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "SELECT " + DatabaseContract.Location.NAME + ", " + DatabaseContract.Location.CAPACITY + ", " + DatabaseContract.Location.LATITUDE + ", " + DatabaseContract.Location.LONGITUDE + ", " + DatabaseContract.Location._ID + ", " + DatabaseContract.Location.IS_CLOSED + " FROM " + DatabaseContract.Location.TABLE_NAME;
-        return db.rawQuery(Query, null);
+        String query = "SELECT * FROM " + DatabaseContract.Manager.TABLE_NAME + " WHERE " + DatabaseContract.Manager.LOCATION_ID + " = " + locationId;
+        return db.rawQuery(query, null);
     }
 
-    Cursor getMenu(int hall) {
+    Cursor getManager(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "SELECT " + DatabaseContract.Item.NAME + ", " + DatabaseContract.Item.MENU_NAME + ", " + DatabaseContract.Item.START_TIME + ", " + DatabaseContract.Item.END_TIME + ", " + DatabaseContract.Item.NUTRITION_ID + ", " + DatabaseContract.Item.DINING_HALL + " FROM " + DatabaseContract.Item.TABLE_NAME + " where " + DatabaseContract.Item.DINING_HALL + " = " + hall + " AND date('now', 'localtime') = date(" + DatabaseContract.Item.DATE + ") AND time('now', 'localtime') <= time(" + DatabaseContract.Item.END_TIME + ")";
-        return db.rawQuery(Query, null);
+        String query = "SELECT * FROM " + DatabaseContract.Manager.TABLE_NAME + " WHERE " + DatabaseContract.Manager.ID + " = " + id;
+        return db.rawQuery(query, null);
     }
 
-    Cursor getNutritionItem(int id) {
+    Cursor getMeals(int locationId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "SELECT * FROM " + DatabaseContract.Nutrition.TABLE_NAME + " where " + DatabaseContract.Nutrition._ID + " = " + id;
-        return db.rawQuery(Query, null);
+        String query = "SELECT * FROM " + DatabaseContract.Meal.TABLE_NAME + " WHERE " + DatabaseContract.Meal.LOCATION_ID + " = " + locationId;
+        return db.rawQuery(query, null);
     }
 
-    Cursor getIngredients(int id) {
+    Cursor getMeal(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "SELECT " + DatabaseContract.Ingredient.NAME + " FROM " + DatabaseContract.Ingredient.TABLE_NAME + " where " + DatabaseContract.Ingredient.NUTRITION_ID + " = " + id;
-        return db.rawQuery(Query, null);
+        String query = "SELECT * FROM " + DatabaseContract.Meal.TABLE_NAME + " WHERE " + DatabaseContract.Meal.ID + " = " + id;
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getMealCourses(int mealId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DatabaseContract.Course.TABLE_NAME + " WHERE " + DatabaseContract.Course.MEAL_ID + " = " + mealId;
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getCourse(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DatabaseContract.Course.TABLE_NAME + " WHERE " + DatabaseContract.Course.ID + " = " + id;
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getMealItems(int mealId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DatabaseContract.Item.TABLE_NAME + " WHERE " + DatabaseContract.Item.MEAL_ID + " = " + mealId;
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getCourseItems(int courseId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DatabaseContract.Item.TABLE_NAME + " WHERE " + DatabaseContract.Item.COURSE_ID + " = " + courseId;
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getItem(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DatabaseContract.Item.TABLE_NAME + " WHERE " + DatabaseContract.Item.ID + " = " + id;
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getItemNutrition(int itemId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DatabaseContract.Nutrition.TABLE_NAME + " WHERE " + DatabaseContract.Nutrition.ITEM_ID + " = " + itemId;
+        return db.rawQuery(query, null);
     }
 }

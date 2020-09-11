@@ -24,6 +24,7 @@ public class DatabaseContract {
         public static final String ID = "id";
         public static final String NAME = "name";
         public static final String EMAIL = "email";
+        public static final String LOCATION_ID = "location_id";
     }
 
     public static class Meal implements BaseColumns {
