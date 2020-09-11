@@ -3,13 +3,14 @@ package com.adisa.diningplus.fragments;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Created by Adisa on 5/3/2017.
  */
 
-public class FollowDialogFragment extends android.support.v4.app.DialogFragment {
+public class FollowDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

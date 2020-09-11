@@ -4,13 +4,12 @@ package com.adisa.diningplus.activities;
 import android.os.Bundle;
 import android.preference.MultiSelectListPreference;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import com.adisa.diningplus.R;
-import com.adisa.diningplus.activities.AppCompatPreferenceActivity;
 
 import java.util.HashSet;
 

@@ -3,8 +3,8 @@ package com.adisa.diningplus.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.TaskStackBuilder;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.adisa.diningplus.R;
