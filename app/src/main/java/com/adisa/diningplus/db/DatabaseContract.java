@@ -2,9 +2,8 @@ package com.adisa.diningplus.db;
 
 import android.provider.BaseColumns;
 
-public class DiningContract {
-    private DiningContract() {
-    }
+public class DatabaseContract {
+    private DatabaseContract() {}
 
     public static class Location implements BaseColumns {
         public static final String TABLE_NAME = "locations";

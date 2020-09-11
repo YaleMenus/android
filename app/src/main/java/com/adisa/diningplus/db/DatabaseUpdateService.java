@@ -64,7 +64,7 @@ public class DatabaseUpdateService extends JobService {
             dbHelper = new DatabaseHelper(getApplicationContext());
             Cursor result = dbHelper.getHalls();
             while (result.moveToNext()) {
-                int id = result.getInt(result.getColumnIndex(DiningContract.Location._ID));
+                int id = result.getInt(result.getColumnIndex(DatabaseContract.Location._ID));
                 try {
                     api.fetchMenu(id);
                 } catch (IOException | JSONException | ParseException e) {
@@ -74,11 +74,11 @@ public class DatabaseUpdateService extends JobService {
                 dbHelper.updateTime(id);
                 Cursor menu = dbHelper.getMenu(id);
                 while (menu.moveToNext()) {
-                    if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DiningContract.Item.NAME)))) {
+                    if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)))) {
                         Intent localIntent = new Intent(BROADCAST_ACTION);
-                        localIntent.putExtra("itemName", menu.getString(menu.getColumnIndex(DiningContract.Item.NAME)));
-                        localIntent.putExtra("diningHall", menu.getInt(menu.getColumnIndex(DiningContract.Item.DINING_HALL)));
-                        localIntent.putExtra("hallName", result.getString(result.getColumnIndex(DiningContract.Location.NAME)));
+                        localIntent.putExtra("itemName", menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)));
+                        localIntent.putExtra("diningHall", menu.getInt(menu.getColumnIndex(DatabaseContract.Item.DINING_HALL)));
+                        localIntent.putExtra("hallName", result.getString(result.getColumnIndex(DatabaseContract.Location.NAME)));
                         sendBroadcast(localIntent);
                         Log.d("service", "broadcast");
                         return false;
