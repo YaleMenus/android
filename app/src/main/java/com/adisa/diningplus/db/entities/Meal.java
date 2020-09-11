@@ -6,13 +6,12 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+@Entity(tableName = "meals")
 public class Meal implements Serializable {
     @PrimaryKey
     public int id;
-
     public String name;
     public String date;
     @ColumnInfo(name = "location_id")
-    public String phone;
+    public int locationId;
 }
