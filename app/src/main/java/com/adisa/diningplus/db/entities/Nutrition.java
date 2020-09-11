@@ -64,6 +64,6 @@ public class Nutrition implements Serializable {
     public String ironPDV;
     public String potassiumPDV;
 
-    @ColumnInfo(name = "location_id")
-    public int locationId;
+    @ColumnInfo(name = "item_id")
+    public int itemId;
 }
