@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+@Entity(tableName = "locations")
 public class Location implements Serializable {
     @PrimaryKey
     private int id;
