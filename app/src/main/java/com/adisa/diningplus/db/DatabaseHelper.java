@@ -45,7 +45,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
                     DatabaseContract.Meal.ID + " INT PRIMARY KEY," +
                     DatabaseContract.Meal.NAME + " TEXT," +
                     DatabaseContract.Meal.DATE + " TEXT," +
-                    DatabaseContract.Meal.LOCATION_ID + " INT" +
+                    DatabaseContract.Meal.LOCATION_ID + " INT," +
 
                     "FOREIGN KEY (" + DatabaseContract.Meal.LOCATION_ID +
                         ") REFERENCES " + DatabaseContract.Location.TABLE_NAME + "(" + DatabaseContract.Location.ID + ")" +
