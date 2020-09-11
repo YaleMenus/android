@@ -10,20 +10,18 @@ import com.adisa.diningplus.db.entities.Location;
 
 import java.util.List;
 
-public class LocationDao {
-    @Dao
-    public interface LocationDao {
+@Dao
+public interface LocationDao {
 
-        @Query("SELECT * FROM location")
-        List<Location> getAll();
+    @Query("SELECT * FROM locations")
+    List<Location> getAll();
 
-        @Insert
-        void insert(Location location);
+    @Insert
+    void insert(Location location);
 
-        @Delete
-        void delete(Location location);
+    @Delete
+    void delete(Location location);
 
-        @Update
-        void update(Location location);
-    }
+    @Update
+    void update(Location location);
 }
