@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.adisa.diningplus.BuildConfig;
@@ -17,114 +18,147 @@ import java.util.Date;
  */
 
 public final class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "Dining.db";
-    private static final String SQL_DININGHALL_CREATE =
-            "create table " + DatabaseContract.Location.TABLE_NAME + " (" +
-                    DatabaseContract.Location._ID + " int primary key," +
-                    DatabaseContract.Location.NAME + " text," +
-                    DatabaseContract.Location.ADDRESS + " text," +
-                    DatabaseContract.Location.CAPACITY + " int," +
-                    DatabaseContract.Location.IS_CLOSED + " boolean," +
-                    DatabaseContract.Location.LATITUDE + " text," +
-                    DatabaseContract.Location.LONGITUDE + " text," +
-                    DatabaseContract.Location.MANAGER1_EMAIL + " text," +
-                    DatabaseContract.Location.MANAGER1_NAME + " text," +
-                    DatabaseContract.Location.MANAGER2_EMAIL + " text," +
-                    DatabaseContract.Location.MANAGER2_NAME + " text," +
-                    DatabaseContract.Location.MANAGER3_EMAIL + " text," +
-                    DatabaseContract.Location.MANAGER3_NAME + " text," +
-                    DatabaseContract.Location.MANAGER4_EMAIL + " text," +
-                    DatabaseContract.Location.MANAGER4_NAME + " text," +
-                    DatabaseContract.Location.PHONE + " text," +
-                    DatabaseContract.Location.TYPE + " text," +
-                    DatabaseContract.Location.LAST_UPDATED + " text" +
-                    ");";
+    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "dining.db";
+    private static final String SQL_CREATE_LOCATIONS =
+            "CREATE TABLE " + DatabaseContract.Location.TABLE_NAME + " (" +
+                    DatabaseContract.Location.ID + " INT PRIMARY KEY," +
+                    DatabaseContract.Location.NAME + " TEXT," +
+                    DatabaseContract.Location.TYPE + " TEXT," +
+                    DatabaseContract.Location.IS_OPEN + " BOOL," +
+                    DatabaseContract.Location.CAPACITY + " INT," +
+                    DatabaseContract.Location.LATITUDE + " FLOAT," +
+                    DatabaseContract.Location.LONGITUDE + " FLOAT," +
+                    DatabaseContract.Location.ADDRESS + " TEXT," +
+                    DatabaseContract.Location.PHONE + " TEXT," +
+                    DatabaseContract.Location.LAST_UPDATED + " TEXT" +
+            ");";
 
-    private static final String SQL_MENUITEM_CREATE =
-            "create table " + DatabaseContract.Item.TABLE_NAME + " (" +
-                    DatabaseContract.Item._ID + " int primary key," +
-                    DatabaseContract.Item.NAME + " text," +
-                    DatabaseContract.Item.DINING_HALL + " int," +
-                    DatabaseContract.Item.MENU_NAME + " text," +
-                    DatabaseContract.Item.MENU_CODE + " int," +
-                    DatabaseContract.Item.DATE + " text," +
-                    DatabaseContract.Item.START_TIME + " text," +
-                    DatabaseContract.Item.END_TIME + " text," +
-                    DatabaseContract.Item.NUTRITION_ID + " text," +
-                    "foreign key (" + DatabaseContract.Item.DINING_HALL + ") references " + DatabaseContract.Location.TABLE_NAME + "("
-                    + DatabaseContract.Location._ID + ")," +
-                    "foreign key (" + DatabaseContract.Item.NUTRITION_ID + ") references " + DatabaseContract.Nutrition.TABLE_NAME +
-                    "(" + DatabaseContract.Nutrition._ID + ")" +
-                    ");";
+    private static final String SQL_CREATE_MANAGERS =
+            "CREATE TABLE " + DatabaseContract.Manager.TABLE_NAME + " (" +
+                    DatabaseContract.Manager.NAME + " TEXT," +
+                    DatabaseContract.Manager.EMAIL + " TEXT" +
+            ");";
 
-    private static final String SQL_NUTRITIONITEM_CREATE =
-            "create table " + DatabaseContract.Nutrition.TABLE_NAME + " (" +
-                    DatabaseContract.Nutrition._ID + " int primary key," +
-                    DatabaseContract.Nutrition.NAME + " text," +
-                    DatabaseContract.Nutrition.CALORIES + " text," +
-                    DatabaseContract.Nutrition.ALCOHOL + " boolean," +
-                    DatabaseContract.Nutrition.CARBOHYDRATES + " text," +
-                    DatabaseContract.Nutrition.CHOLESTEROL + " text," +
-                    DatabaseContract.Nutrition.DAIRY + " boolean," +
-                    DatabaseContract.Nutrition.DIETARY_FIBER + " text," +
-                    DatabaseContract.Nutrition.EGGS + " boolean," +
-                    DatabaseContract.Nutrition.FAT + " text," +
-                    DatabaseContract.Nutrition.FISH + " boolean," +
-                    DatabaseContract.Nutrition.GLUTEN + " boolean," +
-                    DatabaseContract.Nutrition.GLUTEN_FREE + " boolean," +
-                    DatabaseContract.Nutrition.IRON + " text," +
-                    DatabaseContract.Nutrition.NUTS + " boolean," +
-                    DatabaseContract.Nutrition.PEANUT + " boolean," +
-                    DatabaseContract.Nutrition.PORK + " boolean," +
-                    DatabaseContract.Nutrition.PROTEIN + " text," +
-                    DatabaseContract.Nutrition.SATURATED_FAT + " text," +
-                    DatabaseContract.Nutrition.SERVING_SIZE + " text," +
-                    DatabaseContract.Nutrition.SHELLFISH + " boolean," +
-                    DatabaseContract.Nutrition.SOY + " boolean," +
-                    DatabaseContract.Nutrition.SUGAR + " text," +
-                    DatabaseContract.Nutrition.VEGAN + " boolean," +
-                    DatabaseContract.Nutrition.VEGETARIAN + " boolean," +
-                    DatabaseContract.Nutrition.VITAMIN_A + " text," +
-                    DatabaseContract.Nutrition.VITAMIN_C + " text," +
-                    DatabaseContract.Nutrition.WARNING + " text," +
-                    DatabaseContract.Nutrition.WHEAT + " boolean" +
-                    ");";
+    private static final String SQL_CREATE_MEALS =
+            "CREATE TABLE " + DatabaseContract.Meal.TABLE_NAME + " (" +
+                    DatabaseContract.Meal.ID + " INT PRIMARY KEY," +
+                    DatabaseContract.Meal.NAME + " TEXT," +
+                    DatabaseContract.Meal.DATE + " TEXT," +
+                    DatabaseContract.Meal.LOCATION_ID + " INT" +
 
-    private static final String SQL_INGREDIENT_CREATE =
-            "create table " + DatabaseContract.Ingredient.TABLE_NAME + " (" +
-                    DatabaseContract.Ingredient._ID + " int primary key," +
-                    DatabaseContract.Ingredient.NAME + " text," +
-                    DatabaseContract.Ingredient.NUTRITION_ID + " text," +
-                    "foreign key (" + DatabaseContract.Ingredient.NUTRITION_ID + ") references " + DatabaseContract.Nutrition.TABLE_NAME +
-                    "(" + DatabaseContract.Nutrition._ID + ")" + ");";
+                    "FOREIGN KEY (" + DatabaseContract.Meal.LOCATION_ID +
+                        ") REFERENCES " + DatabaseContract.Location.TABLE_NAME + "(" + DatabaseContract.Location.ID + ")" +
+            ");";
 
-    private static final String SQL_DININGHALL_DELETE =
+    public static final String SQL_CREATE_COURSES =
+            "CREATE TABLE " + DatabaseContract.Course.TABLE_NAME + " (" +
+                    DatabaseContract.Course.ID + " INT PRIMARY KEY," +
+                    DatabaseContract.Course.NAME + " TEXT," +
+                    "FOREIGN KEY (" + DatabaseContract.Course.MEAL_ID +
+                        ") REFERENCES " + DatabaseContract.Meal.TABLE_NAME + "(" + DatabaseContract.Meal.ID + ")" +
+            ");";
+
+    private static final String SQL_CREATE_ITEMS =
+            "CREATE TABLE " + DatabaseContract.Item.TABLE_NAME + " (" +
+                    DatabaseContract.Item.ID + " INT PRIMARY KEY," +
+                    DatabaseContract.Item.NAME + " TEXT," +
+                    DatabaseContract.Item.INGREDIENTS + " TEXT," +
+                    DatabaseContract.Item.VEGETARIAN + " BOOL," +
+                    DatabaseContract.Item.VEGAN + " BOOL," +
+                    DatabaseContract.Item.ALCOHOL + " BOOL," +
+                    DatabaseContract.Item.NUTS + " BOOL," +
+                    DatabaseContract.Item.SHELLFISH + " BOOL," +
+                    DatabaseContract.Item.PEANUTS + " BOOL," +
+                    DatabaseContract.Item.DAIRY + " BOOL," +
+                    DatabaseContract.Item.EGG + " BOOL," +
+                    DatabaseContract.Item.PORK + " BOOL," +
+                    DatabaseContract.Item.SEAFOOD + " BOOL," +
+                    DatabaseContract.Item.SOY + " BOOL," +
+                    DatabaseContract.Item.WHEAT + " BOOL," +
+                    DatabaseContract.Item.GLUTEN + " BOOL," +
+                    DatabaseContract.Item.COCONUT + " BOOL," +
+                    "FOREIGN KEY (" + DatabaseContract.Item.MEAL_ID +
+                        ") REFERENCES " + DatabaseContract.Meal.TABLE_NAME + "(" + DatabaseContract.Meal.ID + ")," +
+                    "FOREIGN KEY (" + DatabaseContract.Item.COURSE_ID +
+                        ") REFERENCES " + DatabaseContract.Course.TABLE_NAME + "(" + DatabaseContract.Course.ID + ")" +
+            ");";
+
+    private static final String SQL_CREATE_NUTRITION =
+            "CREATE TABLE " + DatabaseContract.Nutrition.TABLE_NAME + " (" +
+                    DatabaseContract.Nutrition.ID + " INT PRIMARY KEY," +
+                    DatabaseContract.Nutrition.NAME + " TEXT," +
+                    DatabaseContract.Nutrition.CALORIES + " TEXT," +
+
+                    DatabaseContract.Nutrition.TOTAL_FAT + " TEXT," +
+                    DatabaseContract.Nutrition.SATURATED_FAT + " TEXT," +
+                    DatabaseContract.Nutrition.TRANS_FAT + " TEXT," +
+                    DatabaseContract.Nutrition.CHOLESTEROL + " TEXT," +
+                    DatabaseContract.Nutrition.SODIUM + " TEXT," +
+                    DatabaseContract.Nutrition.TOTAL_CARBOHYDRATE + " TEXT," +
+                    DatabaseContract.Nutrition.DIETARY_FIBER + " TEXT," +
+                    DatabaseContract.Nutrition.TOTAL_SUGARS + " TEXT," +
+                    DatabaseContract.Nutrition.PROTEIN + " TEXT," +
+                    DatabaseContract.Nutrition.VITAMIN_D + " TEXT," +
+                    DatabaseContract.Nutrition.VITAMIN_A + " TEXT," +
+                    DatabaseContract.Nutrition.VITAMIN_C + " TEXT," +
+                    DatabaseContract.Nutrition.CALCIUM + " TEXT," +
+                    DatabaseContract.Nutrition.IRON + " TEXT," +
+                    DatabaseContract.Nutrition.POTASSIUM + " TEXT," +
+
+                    DatabaseContract.Nutrition.TOTAL_FAT_PDV + " INT," +
+                    DatabaseContract.Nutrition.SATURATED_FAT_PDV + " INT," +
+                    DatabaseContract.Nutrition.TRANS_FAT_PDV + " INT," +
+                    DatabaseContract.Nutrition.CHOLESTEROL_PDV + " INT," +
+                    DatabaseContract.Nutrition.SODIUM_PDV + " INT," +
+                    DatabaseContract.Nutrition.TOTAL_CARBOHYDRATE_PDV + " INT," +
+                    DatabaseContract.Nutrition.DIETARY_FIBER_PDV + " INT," +
+                    DatabaseContract.Nutrition.TOTAL_SUGARS_PDV + " INT," +
+                    DatabaseContract.Nutrition.PROTEIN_PDV + " INT," +
+                    DatabaseContract.Nutrition.VITAMIN_D_PDV + " INT," +
+                    DatabaseContract.Nutrition.VITAMIN_A_PDV + " INT," +
+                    DatabaseContract.Nutrition.VITAMIN_C_PDV + " INT," +
+                    DatabaseContract.Nutrition.CALCIUM_PDV + " INT," +
+                    DatabaseContract.Nutrition.IRON_PDV + " INT," +
+                    DatabaseContract.Nutrition.POTASSIUM_PDV + " INT," +
+
+                    "FOREIGN KEY (" + DatabaseContract.Nutrition.ITEM_ID +
+                        ") REFERENCES " + DatabaseContract.Item.TABLE_NAME + "(" + DatabaseContract.Item.ID + ")" +
+            ");";
+
+    private static final String SQL_DELETE_LOCATIONS =
             "DROP TABLE IF EXISTS " + DatabaseContract.Location.TABLE_NAME;
-    private static final String SQL_NUTRITIONITEM_DELETE =
-            "DROP TABLE IF EXISTS " + DatabaseContract.Nutrition.TABLE_NAME;
-    private static final String SQL_MENUITEM_DELETE =
+    private static final String SQL_DELETE_MANAGERS =
+            "DROP TABLE IF EXISTS " + DatabaseContract.Manager.TABLE_NAME;
+    private static final String SQL_DELETE_MEALS =
+            "DROP TABLE IF EXISTS " + DatabaseContract.Meal.TABLE_NAME;
+    private static final String SQL_DELETE_COURSES =
+            "DROP TABLE IF EXISTS " + DatabaseContract.Course.TABLE_NAME;
+    private static final String SQL_DELETE_ITEMS =
             "DROP TABLE IF EXISTS " + DatabaseContract.Item.TABLE_NAME;
-    private static final String SQL_INGREDIENT_DELETE =
-            "DROP TABLE IF EXISTS " + DatabaseContract.Ingredient.TABLE_NAME;
+    private static final String SQL_DELETE_NUTRITION =
+            "DROP TABLE IF EXISTS " + DatabaseContract.Nutrition.TABLE_NAME;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_DININGHALL_CREATE);
-        db.execSQL(SQL_NUTRITIONITEM_CREATE);
-        db.execSQL(SQL_MENUITEM_CREATE);
-        db.execSQL(SQL_INGREDIENT_CREATE);
+        db.execSQL(SQL_CREATE_LOCATIONS);
+        db.execSQL(SQL_CREATE_MANAGERS);
+        db.execSQL(SQL_CREATE_MEALS);
+        db.execSQL(SQL_CREATE_COURSES);
+        db.execSQL(SQL_CREATE_ITEMS);
+        db.execSQL(SQL_CREATE_NUTRITION);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DININGHALL_DELETE);
-        db.execSQL(SQL_NUTRITIONITEM_DELETE);
-        db.execSQL(SQL_MENUITEM_DELETE);
-        db.execSQL(SQL_INGREDIENT_DELETE);
-        Log.d("SQL", "upgrade");
+        db.execSQL(SQL_DELETE_LOCATIONS);
+        db.execSQL(SQL_DELETE_MANAGERS);
+        db.execSQL(SQL_DELETE_MEALS);
+        db.execSQL(SQL_DELETE_COURSES);
+        db.execSQL(SQL_DELETE_ITEMS);
+        db.execSQL(SQL_DELETE_NUTRITION);
         onCreate(db);
     }
 
@@ -132,45 +166,52 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    void resetMenus() {
+    void resetLocations() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(SQL_DININGHALL_DELETE);
-        db.execSQL(SQL_DININGHALL_CREATE);
+        db.execSQL(SQL_DELETE_LOCATIONS);
+        db.execSQL(SQL_CREATE_LOCATIONS);
     }
 
     void reset() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(SQL_DININGHALL_DELETE);
-        db.execSQL(SQL_NUTRITIONITEM_DELETE);
-        db.execSQL(SQL_MENUITEM_DELETE);
-        db.execSQL(SQL_INGREDIENT_DELETE);
+        db.execSQL(SQL_DELETE_LOCATIONS);
+        db.execSQL(SQL_DELETE_MANAGERS);
+        db.execSQL(SQL_DELETE_MEALS);
+        db.execSQL(SQL_DELETE_COURSES);
+        db.execSQL(SQL_DELETE_ITEMS);
+        db.execSQL(SQL_DELETE_NUTRITION);
         onCreate(db);
     }
 
-    public void insertHall(ContentValues values) {
+    public void insertLocation(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DatabaseContract.Location.TABLE_NAME, null, values);
     }
 
-    public void updateHall(ContentValues values) {
+    public void updateLocation(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] args = {"" + values.getAsInteger(DatabaseContract.Location._ID)};
-        int result = db.update(DatabaseContract.Location.TABLE_NAME, values, DatabaseContract.Location._ID + " = ?", args);
-        if (BuildConfig.DEBUG && result != 1)
+        String[] args = {"" + values.getAsInteger(DatabaseContract.Location.ID)};
+        int count = db.update(DatabaseContract.Location.TABLE_NAME, values, DatabaseContract.Location._ID + " = ?", args);
+        if (BuildConfig.DEBUG && count != 1)
             throw new AssertionError();
     }
 
-    void updateTime(int hallId) {
+    public void insertLocation(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        String[] args = {"" + hallId};
-        values.put(DatabaseContract.Location.LAST_UPDATED, DateFormatProvider.date.format(new Date()));
-        int result = db.update(DatabaseContract.Location.TABLE_NAME, values, DatabaseContract.Location._ID + " = ?", args);
-        if (BuildConfig.DEBUG && result != 1)
+        db.insert(DatabaseContract.Location.TABLE_NAME, null, values);
+    }
+
+    public void updateLocation(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] args = {"" + values.getAsInteger(DatabaseContract.Location.ID)};
+        int count = db.update(DatabaseContract.Location.TABLE_NAME, values, DatabaseContract.Location._ID + " = ?", args);
+        if (BuildConfig.DEBUG && count != 1)
             throw new AssertionError();
     }
 
-    public void insertMenuItem(ContentValues values) {
+
+
+    public void insertItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DatabaseContract.Item.TABLE_NAME, null, values);
     }
@@ -186,18 +227,6 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
     public void insertNutritionItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(DatabaseContract.Nutrition.TABLE_NAME, null, values);
-    }
-
-    public void insertIngredient(ContentValues values) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select * from " + DatabaseContract.Ingredient.TABLE_NAME + " where " + DatabaseContract.Ingredient.NUTRITION_ID + " = " +
-                values.getAsInteger(DatabaseContract.Ingredient.NUTRITION_ID) + " and " + DatabaseContract.Ingredient.NAME + " = '" + values.getAsString(DatabaseContract.Ingredient.NAME) + "'";
-        Cursor cursor = db.rawQuery(Query, null);
-        if (cursor.getCount() > 0) {
-            cursor.close();
-            return;
-        }
-        db.insert(DatabaseContract.Ingredient.TABLE_NAME, null, values);
     }
 
     public boolean itemInDb(String tableName, String dbfield, String fieldValue) {
