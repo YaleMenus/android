@@ -71,13 +71,13 @@ public class DiningAPI {
                 values.put(DiningContract.DiningHall.MANAGER3_EMAIL, array.getString(14));
                 values.put(DiningContract.DiningHall.MANAGER4_NAME, array.getString(15));
                 values.put(DiningContract.DiningHall.MANAGER4_EMAIL, array.getString(16));
-                if (!dbHelper.itemInDb(DiningContract.DiningHall.TABLE_NAME,
+                if (!dbHelper.isStored(DiningContract.DiningHall.TABLE_NAME,
                                        DiningContract.DiningHall._ID,
                                        values.getAsInteger(DiningContract.MenuItem._ID).toString())) {
                     values.put(DiningContract.DiningHall.LAST_UPDATED, "");
-                    dbHelper.insertHall(values);
+                    dbHelper.insertLocation(values);
                 } else {
-                    dbHelper.updateHall(values);
+                    dbHelper.updateLocation(values);
                 }
             }
         }
@@ -109,8 +109,8 @@ public class DiningAPI {
             cal.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
             cal.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
             menuItem.put(DiningContract.MenuItem.END_TIME, DateFormatProvider.time.format(cal.getTime()));
-            if (!dbHelper.itemInDb(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem._ID, menuItem.getAsInteger(DiningContract.MenuItem._ID).toString())) {
-                dbHelper.insertMenuItem(menuItem);
+            if (!dbHelper.isStored(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem._ID, menuItem.getAsInteger(DiningContract.MenuItem._ID).toString())) {
+                dbHelper.insertItem(menuItem);
             } else {
                 dbHelper.updateMenuItem(menuItem);
             }
@@ -118,7 +118,7 @@ public class DiningAPI {
     }
 
     public void fetchItem(int nutId) throws IOException, JSONException {
-        if (!dbHelper.itemInDb(DiningContract.NutritionItem.TABLE_NAME, DiningContract.NutritionItem._ID, nutId + "")) {
+        if (!dbHelper.isStored(DiningContract.NutritionItem.TABLE_NAME, DiningContract.NutritionItem._ID, nutId + "")) {
             JSONArray nutData = getJSON("menuitem-nutrition", "MENUITEMID=" + nutId);
             ContentValues nutItem = new ContentValues();
             for (int k = 0; k < nutData.length(); k++) {
