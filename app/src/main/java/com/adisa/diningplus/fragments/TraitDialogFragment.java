@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.adisa.diningplus.R;
 
@@ -16,7 +18,7 @@ import java.util.HashSet;
  * Created by Adisa on 4/30/2017.
  */
 
-public class TraitDialogFragment extends android.support.v4.app.DialogFragment {
+public class TraitDialogFragment extends DialogFragment {
 
     // Use this instance of the interface to deliver action events
     // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener

@@ -24,7 +24,7 @@ import java.util.List;
  * Created by Adisa on 4/9/2017.
  */
 
-class MenuAdapter extends BaseExpandableListAdapter {
+public class MenuAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<LocationActivity.Meal> expandableListTitle;
