@@ -62,9 +62,9 @@ public class DatabaseUpdateService extends JobService {
         protected Boolean doInBackground(Void... params) {
             preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             dbHelper = new DatabaseHelper(getApplicationContext());
-            Cursor result = dbHelper.getHalls();
+            Cursor result = dbHelper.getLocations();
             while (result.moveToNext()) {
-                int id = result.getInt(result.getColumnIndex(DatabaseContract.Location._ID));
+                int id = result.getInt(result.getColumnIndex(DatabaseContract.Location.ID));
                 try {
                     api.fetchMenu(id);
                 } catch (IOException | JSONException | ParseException e) {
@@ -72,12 +72,12 @@ public class DatabaseUpdateService extends JobService {
                     return true;
                 }
                 dbHelper.updateTime(id);
-                Cursor menu = dbHelper.getMenu(id);
+                Cursor menu = dbHelper.getMeals(id);
                 while (menu.moveToNext()) {
                     if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)))) {
                         Intent localIntent = new Intent(BROADCAST_ACTION);
                         localIntent.putExtra("itemName", menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)));
-                        localIntent.putExtra("diningHall", menu.getInt(menu.getColumnIndex(DatabaseContract.Item.DINING_HALL)));
+                        localIntent.putExtra("locationId", menu.getInt(menu.getColumnIndex(DatabaseContract.Item.LOCATION_ID)));
                         localIntent.putExtra("hallName", result.getString(result.getColumnIndex(DatabaseContract.Location.NAME)));
                         sendBroadcast(localIntent);
                         Log.d("service", "broadcast");

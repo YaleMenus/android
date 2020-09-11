@@ -13,10 +13,6 @@ import android.util.Log;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.activities.LocationActivity;
 
-/**
- * Created by Adisa on 5/1/2017.
- */
-
 public class DatabaseUpdateReceiver extends BroadcastReceiver {
 
     // Called when the BroadcastReceiver gets an Intent it's registered to receive
@@ -24,8 +20,8 @@ public class DatabaseUpdateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d("receiver", "start");
         String itemName = intent.getStringExtra("itemName");
-        int diningHall = intent.getIntExtra("diningHall", -1);
-        String hallName = intent.getStringExtra("hallName");
+        int locationId = intent.getIntExtra("locationId", -1);
+        String locationName = intent.getStringExtra("locationName");
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_restaurant_black_24dp)
@@ -35,12 +31,12 @@ public class DatabaseUpdateReceiver extends BroadcastReceiver {
                         .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
         Intent resultIntent = new Intent(context, LocationActivity.class);
-        resultIntent.putExtra("HallId", diningHall);
-        resultIntent.putExtra("Name", hallName);
+        resultIntent.putExtra("locationId", locationId);
+        resultIntent.putExtra("locationName", locationName);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-// Adds the back stack for the Intent (but not the Intent itself)
+        // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(LocationActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
+        // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(

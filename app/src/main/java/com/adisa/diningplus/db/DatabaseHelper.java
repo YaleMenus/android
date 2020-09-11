@@ -13,10 +13,6 @@ import com.adisa.diningplus.utils.DateFormatProvider;
 
 import java.util.Date;
 
-/**
- * Created by Adisa on 3/20/2017.
- */
-
 public final class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "dining.db";
@@ -270,73 +266,73 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
         return cursor.getCount() > 0;
     }
 
-    Cursor getLocations() {
+    public Cursor getLocations() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Location.TABLE_NAME;
         return db.rawQuery(query, null);
     }
 
-    Cursor getLocation(int id) {
+    public Cursor getLocation(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Location.TABLE_NAME + " WHERE " + DatabaseContract.Location.ID + " = " + id;
         return db.rawQuery(query, null);
     }
 
-    Cursor getLocationManagers(int locationId) {
+    public Cursor getLocationManagers(int locationId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Manager.TABLE_NAME + " WHERE " + DatabaseContract.Manager.LOCATION_ID + " = " + locationId;
         return db.rawQuery(query, null);
     }
 
-    Cursor getManager(int id) {
+    public Cursor getManager(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Manager.TABLE_NAME + " WHERE " + DatabaseContract.Manager.ID + " = " + id;
         return db.rawQuery(query, null);
     }
 
-    Cursor getMeals(int locationId) {
+    public Cursor getMeals(int locationId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Meal.TABLE_NAME + " WHERE " + DatabaseContract.Meal.LOCATION_ID + " = " + locationId;
         return db.rawQuery(query, null);
     }
 
-    Cursor getMeal(int id) {
+    public Cursor getMeal(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Meal.TABLE_NAME + " WHERE " + DatabaseContract.Meal.ID + " = " + id;
         return db.rawQuery(query, null);
     }
 
-    Cursor getMealCourses(int mealId) {
+    public Cursor getMealCourses(int mealId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Course.TABLE_NAME + " WHERE " + DatabaseContract.Course.MEAL_ID + " = " + mealId;
         return db.rawQuery(query, null);
     }
 
-    Cursor getCourse(int id) {
+    public Cursor getCourse(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Course.TABLE_NAME + " WHERE " + DatabaseContract.Course.ID + " = " + id;
         return db.rawQuery(query, null);
     }
 
-    Cursor getMealItems(int mealId) {
+    public Cursor getMealItems(int mealId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Item.TABLE_NAME + " WHERE " + DatabaseContract.Item.MEAL_ID + " = " + mealId;
         return db.rawQuery(query, null);
     }
 
-    Cursor getCourseItems(int courseId) {
+    public Cursor getCourseItems(int courseId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Item.TABLE_NAME + " WHERE " + DatabaseContract.Item.COURSE_ID + " = " + courseId;
         return db.rawQuery(query, null);
     }
 
-    Cursor getItem(int id) {
+    public Cursor getItem(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Item.TABLE_NAME + " WHERE " + DatabaseContract.Item.ID + " = " + id;
         return db.rawQuery(query, null);
     }
 
-    Cursor getItemNutrition(int itemId) {
+    public Cursor getItemNutrition(int itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + DatabaseContract.Nutrition.TABLE_NAME + " WHERE " + DatabaseContract.Nutrition.ITEM_ID + " = " + itemId;
         return db.rawQuery(query, null);
