@@ -10,17 +10,18 @@ public class DatabaseContract {
         public static final String ID = "id";
         public static final String NAME = "name";
         public static final String TYPE = "type";
+        public static final String IS_OPEN = "is_closed";
         public static final String CAPACITY = "capacity";
         public static final String LATITUDE = "latitude";
         public static final String LONGITUDE = "longitude";
-        public static final String IS_CLOSED = "is_closed";
-        public static final String PHONE = "phone";
         public static final String ADDRESS = "address";
+        public static final String PHONE = "phone";
         public static final String LAST_UPDATED = "last_updated";
     }
 
     public static class Manager implements BaseColumns {
         public static final String TABLE_NAME = "managers";
+        public static final String ID = "id";
         public static final String NAME = "name";
         public static final String EMAIL = "email";
     }
@@ -42,6 +43,7 @@ public class DatabaseContract {
 
     public static class Item implements BaseColumns {
         public static final String TABLE_NAME = "items";
+        public static final String ID = "id";
         public static final String NAME = "name";
         public static final String INGREDIENTS = "ingredients";
 
@@ -60,10 +62,14 @@ public class DatabaseContract {
         public static final String WHEAT = "wheat";
         public static final String GLUTEN = "gluten";
         public static final String COCONUT = "coconut";
+
+        public static final String MEAL_ID = "meal_id";
+        public static final String COURSE_ID = "course_id";
     }
 
     public static class Nutrition implements BaseColumns {
         public static final String TABLE_NAME = "nutrition";
+        public static final String ID = "id";
         public static final String NAME = "name";
         public static final String PORTION_SIZE = "portion_size";
         public static final String CALORIES = "calories";
