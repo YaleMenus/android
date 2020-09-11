@@ -30,7 +30,7 @@ import java.util.HashSet;
 
 public class ItemActivity extends AppCompatActivity {
     String itemName;
-    int nutId;
+    int nutritionId;
     DatabaseHelper dbHelper;
     DiningAPI api;
     ListView itemDetailListView;
@@ -55,7 +55,7 @@ public class ItemActivity extends AppCompatActivity {
         itemDetailListView = (ListView) findViewById(R.id.itemDetailListView);
         Intent i = getIntent();
         itemName = i.getStringExtra("name");
-        nutId = i.getIntExtra("id", -1);
+        nutritionId = i.getIntExtra("id", -1);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         getSupportActionBar().setTitle(itemName);
 
@@ -65,9 +65,9 @@ public class ItemActivity extends AppCompatActivity {
         api = new DiningAPI(dbHelper);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (preferences.getBoolean("followTut", true)) {
+        if (preferences.getBoolean("followTutorial", true)) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("followTut", false);
+            editor.putBoolean("followTutorial", false);
             editor.apply();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("follow");
             if (prev == null) {
@@ -100,61 +100,61 @@ public class ItemActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                api.fetchItem(nutId);
+                api.fetchItem(itemId);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            Cursor itemDetails = dbHelper.getNutritionItem(nutId);
-            while (itemDetails.moveToNext()) {
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.ALCOHOL)) == 1)
+            Cursor nutrition = dbHelper.getItem(itemId);
+            while (nutrition.moveToNext()) {
+                if (nutrition.getInt(DatabaseContract.Item.ALCOHOL))
                     detailList.add(new Detail(R.drawable.key_alcohol, "Alcohol"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.NUTS)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.NUTS))
                     detailList.add(new Detail(R.drawable.key_nut, "Nuts"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.DAIRY)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.DAIRY))
                     detailList.add(new Detail(R.drawable.key_dairy, "Dairy"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.EGGS)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.EGGS))
                     detailList.add(new Detail(R.drawable.key_eggs, "Eggs"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.FISH)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.FISH))
                     detailList.add(new Detail(R.drawable.key_fish, "Fish"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.GLUTEN)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.GLUTEN))
                     detailList.add(new Detail(R.drawable.key_gluten, "Gluten"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.GLUTEN_FREE)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.GLUTEN_FREE))
                     detailList.add(new Detail(R.drawable.key_glutenfree, "Gluten Free"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.PEANUT)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.PEANUT))
                     detailList.add(new Detail(R.drawable.key_peanut, "Peanut"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.PORK)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.PORK))
                     detailList.add(new Detail(R.drawable.key_pork, "Pork"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.SHELLFISH)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.SHELLFISH))
                     detailList.add(new Detail(R.drawable.key_shellfish, "Shellfish"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.SOY)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.SOY))
                     detailList.add(new Detail(R.drawable.key_soy, "Soy"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.VEGAN)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.VEGAN)) == 1)
                     detailList.add(new Detail(R.drawable.key_vegan, "Vegan"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.VEGETARIAN)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.VEGETARIAN))
                     detailList.add(new Detail(R.drawable.key_vegetarian, "Vegetarian"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DatabaseContract.Nutrition.WHEAT)) == 1)
+                if (nutrition.getInt(DatabaseContract.Item.WHEAT))
                     detailList.add(new Detail(R.drawable.key_wheat, "Wheat"));
-                if (itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.WARNING)) == null)
-                    detailList.add(new Detail(-2, itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.WARNING))));
+                if (nutrition.getString(DatabaseContract.Nutrition.WARNING)) == null)
+                    detailList.add(new Detail(-2, nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.WARNING))));
                 if (detailList.size() > 0)
                     detailList.add(0, new Detail(-1, "Traits"));
 
                 detailList.add(new Detail(-1, "Nutrition"));
-                detailList.add(new Detail(-3, "Serving Size: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.SERVING_SIZE))));
-                detailList.add(new Detail(-3, "Calories: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.CALORIES))));
-                detailList.add(new Detail(-3, "Protein: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.PROTEIN))));
-                detailList.add(new Detail(-3, "Fat: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.FAT))));
-                detailList.add(new Detail(-3, "Saturated Fat: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.SATURATED_FAT))));
-                detailList.add(new Detail(-3, "Cholesterol: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.CHOLESTEROL))));
-                detailList.add(new Detail(-3, "Carbohydrates: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.CARBOHYDRATES))));
-                detailList.add(new Detail(-3, "Sugar: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.SUGAR))));
-                detailList.add(new Detail(-3, "Dietary Fiber: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.DIETARY_FIBER))));
-                detailList.add(new Detail(-3, "Vitamin C: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_C))));
-                detailList.add(new Detail(-3, "Vitamin A: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_A))));
-                detailList.add(new Detail(-3, "Iron: " + itemDetails.getString(itemDetails.getColumnIndex(DatabaseContract.Nutrition.IRON))));
+                detailList.add(new Detail(-3, "Serving Size: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.SERVING_SIZE))));
+                detailList.add(new Detail(-3, "Calories: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.CALORIES))));
+                detailList.add(new Detail(-3, "Protein: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.PROTEIN))));
+                detailList.add(new Detail(-3, "Fat: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.FAT))));
+                detailList.add(new Detail(-3, "Saturated Fat: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.SATURATED_FAT))));
+                detailList.add(new Detail(-3, "Cholesterol: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.CHOLESTEROL))));
+                detailList.add(new Detail(-3, "Carbohydrates: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.CARBOHYDRATES))));
+                detailList.add(new Detail(-3, "Sugar: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.SUGAR))));
+                detailList.add(new Detail(-3, "Dietary Fiber: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.DIETARY_FIBER))));
+                detailList.add(new Detail(-3, "Vitamin C: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_C))));
+                detailList.add(new Detail(-3, "Vitamin A: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_A))));
+                detailList.add(new Detail(-3, "Iron: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.IRON))));
             }
 
-            Cursor ingredients = dbHelper.getIngredients(nutId);
+            Cursor ingredients = dbHelper.getIngredients(nutritionId);
             detailList.add(new Detail(-1, "Ingredients"));
             while (ingredients.moveToNext()) {
                 detailList.add(new Detail(-3, ingredients.getString(ingredients.getColumnIndex(DatabaseContract.Ingredient.NAME))));

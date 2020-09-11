@@ -241,13 +241,13 @@ public class LocationActivity extends AppCompatActivity {
                 Cursor result = dbHelper.getHall(hallId);
                 Date lastUpdated = new Date();
                 while (result.moveToNext()) {
-                    String updateString = result.getString(result.getColumnIndex(DiningContract.DiningHall.LAST_UPDATED));
+                    String updateString = result.getString(result.getColumnIndex(DatabaseContract.DiningHall.LAST_UPDATED));
                     if (!updateString.equals("")) {
                         lastUpdated = DateFormatProvider.date.parse(updateString);
                     }
                 }
                 Date currentDate = resetTime(new Date());
-                if (!dbHelper.isStored(DiningContract.MenuItem.TABLE_NAME, DiningContract.MenuItem.DINING_HALL, "" + hallId) ||
+                if (!dbHelper.isStored(DatabaseContract.MenuItem.TABLE_NAME, DatabaseContract.MenuItem.DINING_HALL, "" + hallId) ||
                         lastUpdated.compareTo(currentDate) != 0) {
                     api.fetchMenu(hallId);
                 }
@@ -262,15 +262,15 @@ public class LocationActivity extends AppCompatActivity {
             mealMap = new HashMap<>();
             meals = new ArrayList<Meal>();
             while (result.moveToNext()) {
-                String mealName = result.getString(result.getColumnIndex(DiningContract.MenuItem.MENU_NAME));
+                String mealName = result.getString(result.getColumnIndex(DatabaseContract.MenuItem.MENU_NAME));
                 ArrayList<FoodItem> newList;
                 if (mealMap.containsKey(mealName)) {
                     newList = mealMap.get(mealName);
                 } else {
                     newList = new ArrayList<>();
-                    meals.add(new Meal(mealName, result.getString(result.getColumnIndex(DiningContract.MenuItem.START_TIME)), result.getString(result.getColumnIndex(DiningContract.MenuItem.END_TIME))));
+                    meals.add(new Meal(mealName, result.getString(result.getColumnIndex(DatabaseContract.MenuItem.START_TIME)), result.getString(result.getColumnIndex(DatabaseContract.MenuItem.END_TIME))));
                 }
-                newList.add(new FoodItem(result.getInt(result.getColumnIndex(DiningContract.MenuItem.NUTRITION_ID)), result.getString(result.getColumnIndex(DiningContract.MenuItem.NAME))));
+                newList.add(new FoodItem(result.getInt(result.getColumnIndex(DatabaseContract.MenuItem.NUTRITION_ID)), result.getString(result.getColumnIndex(DatabaseContract.MenuItem.NAME))));
                 mealMap.put(mealName, newList);
             }
             return null;

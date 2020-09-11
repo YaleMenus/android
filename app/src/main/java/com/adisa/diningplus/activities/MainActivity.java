@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.adisa.diningplus.db.DatabaseContract;
 import com.adisa.diningplus.db.DatabaseUpdateService;
 import com.adisa.diningplus.network.DiningAPI;
 import com.adisa.diningplus.db.DatabaseHelper;
@@ -250,14 +251,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 e.printStackTrace();
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
             }
-            Cursor result = dbHelper.getHalls();
-            while (result.moveToNext()) {
-                HallItem newItem = new HallItem(result.getString(result.getColumnIndex(DiningContract.DiningHall.NAME)),
-                                                result.getInt(result.getColumnIndex(DiningContract.DiningHall.CAPACITY)),
-                                                result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LATITUDE)),
-                                                result.getDouble(result.getColumnIndex(DiningContract.DiningHall.LONGITUDE)),
-                                                result.getInt(result.getColumnIndex(DiningContract.DiningHall._ID)),
-                                                result.getInt(result.getColumnIndex(DiningContract.DiningHall.IS_CLOSED)) == 0);
+            Cursor locations = dbHelper.getLocations();
+            while (locations.moveToNext()) {
+                HallItem newItem = new HallItem(locations.getString(result.getColumnIndex(DatabaseContract.Location.NAME)),
+                                                result.getInt(result.getColumnIndex(DatabaseContract.Location.CAPACITY)),
+                                                result.getDouble(result.getColumnIndex(DatabaseContract.Location.LATITUDE)),
+                                                result.getDouble(result.getColumnIndex(DatabaseContract.Location.LONGITUDE)),
+                                                result.getInt(result.getColumnIndex(DatabaseContract.Location.ID)),
+                                                result.get(result.getColumnIndex(DatabaseContract.Location.IS_OPEN)));
                 newItem.setDistance(currentLocation);
                 if (newItem.open) {
                     openHalls.add(newItem);
