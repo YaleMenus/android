@@ -10,13 +10,12 @@ public class DatabaseContract {
         public static final String ID = "id";
         public static final String NAME = "name";
         public static final String TYPE = "type";
-        public static final String IS_OPEN = "is_closed";
+        public static final String IS_OPEN = "is_open";
         public static final String CAPACITY = "capacity";
         public static final String LATITUDE = "latitude";
         public static final String LONGITUDE = "longitude";
         public static final String ADDRESS = "address";
         public static final String PHONE = "phone";
-        public static final String LAST_UPDATED = "last_updated";
     }
 
     public static class Manager implements BaseColumns {

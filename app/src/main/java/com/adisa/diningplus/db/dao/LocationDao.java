@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LocationDao {
     @Dao
-    public interface TaskDao {
+    public interface LocationDao {
 
         @Query("SELECT * FROM location")
         List<Location> getAll();
