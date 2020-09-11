@@ -15,8 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.adisa.diningplus.db.DatabaseHelper;
-import com.adisa.diningplus.db.DatabaseContract;
 import com.adisa.diningplus.fragments.FollowDialogFragment;
 import com.adisa.diningplus.adapters.ItemDetailAdapter;
 import com.adisa.diningplus.R;
