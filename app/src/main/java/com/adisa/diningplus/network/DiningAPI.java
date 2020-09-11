@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.util.Log;
 
 import com.adisa.diningplus.utils.DateFormatProvider;
-import com.adisa.diningplus.db.DatabaseHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;

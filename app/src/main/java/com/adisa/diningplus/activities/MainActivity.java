@@ -26,10 +26,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.adisa.diningplus.db.DatabaseContract;
 import com.adisa.diningplus.db.DatabaseUpdateService;
 import com.adisa.diningplus.network.DiningAPI;
-import com.adisa.diningplus.db.DatabaseHelper;
 import com.adisa.diningplus.adapters.MainListAdapter;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.fragments.TraitDialogFragment;

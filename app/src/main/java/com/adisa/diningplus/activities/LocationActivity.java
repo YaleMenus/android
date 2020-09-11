@@ -24,7 +24,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.adisa.diningplus.utils.DateFormatProvider;
-import com.adisa.diningplus.db.DatabaseHelper;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.adapters.MenuAdapter;
 import com.adisa.diningplus.network.DiningAPI;
