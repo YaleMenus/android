@@ -20,75 +20,75 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Dining.db";
     private static final String SQL_DININGHALL_CREATE =
-            "create table " + DiningContract.DiningHall.TABLE_NAME + " (" +
-                    DiningContract.DiningHall._ID + " int primary key," +
-                    DiningContract.DiningHall.NAME + " text," +
-                    DiningContract.DiningHall.ADDRESS + " text," +
-                    DiningContract.DiningHall.CAPACITY + " int," +
-                    DiningContract.DiningHall.IS_CLOSED + " boolean," +
-                    DiningContract.DiningHall.LATITUDE + " text," +
-                    DiningContract.DiningHall.LONGITUDE + " text," +
-                    DiningContract.DiningHall.MANAGER1_EMAIL + " text," +
-                    DiningContract.DiningHall.MANAGER1_NAME + " text," +
-                    DiningContract.DiningHall.MANAGER2_EMAIL + " text," +
-                    DiningContract.DiningHall.MANAGER2_NAME + " text," +
-                    DiningContract.DiningHall.MANAGER3_EMAIL + " text," +
-                    DiningContract.DiningHall.MANAGER3_NAME + " text," +
-                    DiningContract.DiningHall.MANAGER4_EMAIL + " text," +
-                    DiningContract.DiningHall.MANAGER4_NAME + " text," +
-                    DiningContract.DiningHall.PHONE + " text," +
-                    DiningContract.DiningHall.TYPE + " text," +
-                    DiningContract.DiningHall.LAST_UPDATED + " text" +
+            "create table " + DiningContract.Location.TABLE_NAME + " (" +
+                    DiningContract.Location._ID + " int primary key," +
+                    DiningContract.Location.NAME + " text," +
+                    DiningContract.Location.ADDRESS + " text," +
+                    DiningContract.Location.CAPACITY + " int," +
+                    DiningContract.Location.IS_CLOSED + " boolean," +
+                    DiningContract.Location.LATITUDE + " text," +
+                    DiningContract.Location.LONGITUDE + " text," +
+                    DiningContract.Location.MANAGER1_EMAIL + " text," +
+                    DiningContract.Location.MANAGER1_NAME + " text," +
+                    DiningContract.Location.MANAGER2_EMAIL + " text," +
+                    DiningContract.Location.MANAGER2_NAME + " text," +
+                    DiningContract.Location.MANAGER3_EMAIL + " text," +
+                    DiningContract.Location.MANAGER3_NAME + " text," +
+                    DiningContract.Location.MANAGER4_EMAIL + " text," +
+                    DiningContract.Location.MANAGER4_NAME + " text," +
+                    DiningContract.Location.PHONE + " text," +
+                    DiningContract.Location.TYPE + " text," +
+                    DiningContract.Location.LAST_UPDATED + " text" +
                     ");";
 
     private static final String SQL_MENUITEM_CREATE =
-            "create table " + DiningContract.MenuItem.TABLE_NAME + " (" +
-                    DiningContract.MenuItem._ID + " int primary key," +
-                    DiningContract.MenuItem.NAME + " text," +
-                    DiningContract.MenuItem.DINING_HALL + " int," +
-                    DiningContract.MenuItem.MENU_NAME + " text," +
-                    DiningContract.MenuItem.MENU_CODE + " int," +
-                    DiningContract.MenuItem.DATE + " text," +
-                    DiningContract.MenuItem.START_TIME + " text," +
-                    DiningContract.MenuItem.END_TIME + " text," +
-                    DiningContract.MenuItem.NUTRITION_ID + " text," +
-                    "foreign key (" + DiningContract.MenuItem.DINING_HALL + ") references " + DiningContract.DiningHall.TABLE_NAME + "("
-                    + DiningContract.DiningHall._ID + ")," +
-                    "foreign key (" + DiningContract.MenuItem.NUTRITION_ID + ") references " + DiningContract.NutritionItem.TABLE_NAME +
-                    "(" + DiningContract.NutritionItem._ID + ")" +
+            "create table " + DiningContract.Item.TABLE_NAME + " (" +
+                    DiningContract.Item._ID + " int primary key," +
+                    DiningContract.Item.NAME + " text," +
+                    DiningContract.Item.DINING_HALL + " int," +
+                    DiningContract.Item.MENU_NAME + " text," +
+                    DiningContract.Item.MENU_CODE + " int," +
+                    DiningContract.Item.DATE + " text," +
+                    DiningContract.Item.START_TIME + " text," +
+                    DiningContract.Item.END_TIME + " text," +
+                    DiningContract.Item.NUTRITION_ID + " text," +
+                    "foreign key (" + DiningContract.Item.DINING_HALL + ") references " + DiningContract.Location.TABLE_NAME + "("
+                    + DiningContract.Location._ID + ")," +
+                    "foreign key (" + DiningContract.Item.NUTRITION_ID + ") references " + DiningContract.Nutrition.TABLE_NAME +
+                    "(" + DiningContract.Nutrition._ID + ")" +
                     ");";
 
     private static final String SQL_NUTRITIONITEM_CREATE =
-            "create table " + DiningContract.NutritionItem.TABLE_NAME + " (" +
-                    DiningContract.NutritionItem._ID + " int primary key," +
-                    DiningContract.NutritionItem.NAME + " text," +
-                    DiningContract.NutritionItem.CALORIES + " text," +
-                    DiningContract.NutritionItem.ALCOHOL + " boolean," +
-                    DiningContract.NutritionItem.CARBOHYDRATES + " text," +
-                    DiningContract.NutritionItem.CHOLESTEROL + " text," +
-                    DiningContract.NutritionItem.DAIRY + " boolean," +
-                    DiningContract.NutritionItem.DIETARY_FIBER + " text," +
-                    DiningContract.NutritionItem.EGGS + " boolean," +
-                    DiningContract.NutritionItem.FAT + " text," +
-                    DiningContract.NutritionItem.FISH + " boolean," +
-                    DiningContract.NutritionItem.GLUTEN + " boolean," +
-                    DiningContract.NutritionItem.GLUTEN_FREE + " boolean," +
-                    DiningContract.NutritionItem.IRON + " text," +
-                    DiningContract.NutritionItem.NUTS + " boolean," +
-                    DiningContract.NutritionItem.PEANUT + " boolean," +
-                    DiningContract.NutritionItem.PORK + " boolean," +
-                    DiningContract.NutritionItem.PROTEIN + " text," +
-                    DiningContract.NutritionItem.SATURATED_FAT + " text," +
-                    DiningContract.NutritionItem.SERVING_SIZE + " text," +
-                    DiningContract.NutritionItem.SHELLFISH + " boolean," +
-                    DiningContract.NutritionItem.SOY + " boolean," +
-                    DiningContract.NutritionItem.SUGAR + " text," +
-                    DiningContract.NutritionItem.VEGAN + " boolean," +
-                    DiningContract.NutritionItem.VEGETARIAN + " boolean," +
-                    DiningContract.NutritionItem.VITAMIN_A + " text," +
-                    DiningContract.NutritionItem.VITAMIN_C + " text," +
-                    DiningContract.NutritionItem.WARNING + " text," +
-                    DiningContract.NutritionItem.WHEAT + " boolean" +
+            "create table " + DiningContract.Nutrition.TABLE_NAME + " (" +
+                    DiningContract.Nutrition._ID + " int primary key," +
+                    DiningContract.Nutrition.NAME + " text," +
+                    DiningContract.Nutrition.CALORIES + " text," +
+                    DiningContract.Nutrition.ALCOHOL + " boolean," +
+                    DiningContract.Nutrition.CARBOHYDRATES + " text," +
+                    DiningContract.Nutrition.CHOLESTEROL + " text," +
+                    DiningContract.Nutrition.DAIRY + " boolean," +
+                    DiningContract.Nutrition.DIETARY_FIBER + " text," +
+                    DiningContract.Nutrition.EGGS + " boolean," +
+                    DiningContract.Nutrition.FAT + " text," +
+                    DiningContract.Nutrition.FISH + " boolean," +
+                    DiningContract.Nutrition.GLUTEN + " boolean," +
+                    DiningContract.Nutrition.GLUTEN_FREE + " boolean," +
+                    DiningContract.Nutrition.IRON + " text," +
+                    DiningContract.Nutrition.NUTS + " boolean," +
+                    DiningContract.Nutrition.PEANUT + " boolean," +
+                    DiningContract.Nutrition.PORK + " boolean," +
+                    DiningContract.Nutrition.PROTEIN + " text," +
+                    DiningContract.Nutrition.SATURATED_FAT + " text," +
+                    DiningContract.Nutrition.SERVING_SIZE + " text," +
+                    DiningContract.Nutrition.SHELLFISH + " boolean," +
+                    DiningContract.Nutrition.SOY + " boolean," +
+                    DiningContract.Nutrition.SUGAR + " text," +
+                    DiningContract.Nutrition.VEGAN + " boolean," +
+                    DiningContract.Nutrition.VEGETARIAN + " boolean," +
+                    DiningContract.Nutrition.VITAMIN_A + " text," +
+                    DiningContract.Nutrition.VITAMIN_C + " text," +
+                    DiningContract.Nutrition.WARNING + " text," +
+                    DiningContract.Nutrition.WHEAT + " boolean" +
                     ");";
 
     private static final String SQL_INGREDIENT_CREATE =
@@ -96,15 +96,15 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
                     DiningContract.Ingredient._ID + " int primary key," +
                     DiningContract.Ingredient.NAME + " text," +
                     DiningContract.Ingredient.NUTRITION_ID + " text," +
-                    "foreign key (" + DiningContract.Ingredient.NUTRITION_ID + ") references " + DiningContract.NutritionItem.TABLE_NAME +
-                    "(" + DiningContract.NutritionItem._ID + ")" + ");";
+                    "foreign key (" + DiningContract.Ingredient.NUTRITION_ID + ") references " + DiningContract.Nutrition.TABLE_NAME +
+                    "(" + DiningContract.Nutrition._ID + ")" + ");";
 
     private static final String SQL_DININGHALL_DELETE =
-            "DROP TABLE IF EXISTS " + DiningContract.DiningHall.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + DiningContract.Location.TABLE_NAME;
     private static final String SQL_NUTRITIONITEM_DELETE =
-            "DROP TABLE IF EXISTS " + DiningContract.NutritionItem.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + DiningContract.Nutrition.TABLE_NAME;
     private static final String SQL_MENUITEM_DELETE =
-            "DROP TABLE IF EXISTS " + DiningContract.MenuItem.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + DiningContract.Item.TABLE_NAME;
     private static final String SQL_INGREDIENT_DELETE =
             "DROP TABLE IF EXISTS " + DiningContract.Ingredient.TABLE_NAME;
 
@@ -149,13 +149,13 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertHall(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(DiningContract.DiningHall.TABLE_NAME, null, values);
+        db.insert(DiningContract.Location.TABLE_NAME, null, values);
     }
 
     public void updateHall(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] args = {"" + values.getAsInteger(DiningContract.DiningHall._ID)};
-        int result = db.update(DiningContract.DiningHall.TABLE_NAME, values, DiningContract.DiningHall._ID + " = ?", args);
+        String[] args = {"" + values.getAsInteger(DiningContract.Location._ID)};
+        int result = db.update(DiningContract.Location.TABLE_NAME, values, DiningContract.Location._ID + " = ?", args);
         if (BuildConfig.DEBUG && result != 1)
             throw new AssertionError();
     }
@@ -164,28 +164,28 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         String[] args = {"" + hallId};
-        values.put(DiningContract.DiningHall.LAST_UPDATED, DateFormatProvider.date.format(new Date()));
-        int result = db.update(DiningContract.DiningHall.TABLE_NAME, values, DiningContract.DiningHall._ID + " = ?", args);
+        values.put(DiningContract.Location.LAST_UPDATED, DateFormatProvider.date.format(new Date()));
+        int result = db.update(DiningContract.Location.TABLE_NAME, values, DiningContract.Location._ID + " = ?", args);
         if (BuildConfig.DEBUG && result != 1)
             throw new AssertionError();
     }
 
     public void insertMenuItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(DiningContract.MenuItem.TABLE_NAME, null, values);
+        db.insert(DiningContract.Item.TABLE_NAME, null, values);
     }
 
     public void updateMenuItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] args = {"" + values.getAsInteger(DiningContract.MenuItem._ID)};
-        int result = db.update(DiningContract.MenuItem.TABLE_NAME, values, DiningContract.MenuItem._ID + " = ?", args);
+        String[] args = {"" + values.getAsInteger(DiningContract.Item._ID)};
+        int result = db.update(DiningContract.Item.TABLE_NAME, values, DiningContract.Item._ID + " = ?", args);
         if (BuildConfig.DEBUG && result != 1)
             throw new AssertionError();
     }
 
     public void insertNutritionItem(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(DiningContract.NutritionItem.TABLE_NAME, null, values);
+        db.insert(DiningContract.Nutrition.TABLE_NAME, null, values);
     }
 
     public void insertIngredient(ContentValues values) {
@@ -214,25 +214,25 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 
     Cursor getHall(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DiningContract.DiningHall.LAST_UPDATED + " from " + DiningContract.DiningHall.TABLE_NAME + " where " + DiningContract.DiningHall._ID + " = " + id;
+        String Query = "Select " + DiningContract.Location.LAST_UPDATED + " from " + DiningContract.Location.TABLE_NAME + " where " + DiningContract.Location._ID + " = " + id;
         return db.rawQuery(Query, null);
     }
 
     Cursor getHalls() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DiningContract.DiningHall.NAME + ", " + DiningContract.DiningHall.CAPACITY + ", " + DiningContract.DiningHall.LATITUDE + ", " + DiningContract.DiningHall.LONGITUDE + ", " + DiningContract.DiningHall._ID + ", " + DiningContract.DiningHall.IS_CLOSED + " from " + DiningContract.DiningHall.TABLE_NAME;
+        String Query = "Select " + DiningContract.Location.NAME + ", " + DiningContract.Location.CAPACITY + ", " + DiningContract.Location.LATITUDE + ", " + DiningContract.Location.LONGITUDE + ", " + DiningContract.Location._ID + ", " + DiningContract.Location.IS_CLOSED + " from " + DiningContract.Location.TABLE_NAME;
         return db.rawQuery(Query, null);
     }
 
     Cursor getMenu(int hall) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select " + DiningContract.MenuItem.NAME + ", " + DiningContract.MenuItem.MENU_NAME + ", " + DiningContract.MenuItem.START_TIME + ", " + DiningContract.MenuItem.END_TIME + ", " + DiningContract.MenuItem.NUTRITION_ID + ", " + DiningContract.MenuItem.DINING_HALL + " from " + DiningContract.MenuItem.TABLE_NAME + " where " + DiningContract.MenuItem.DINING_HALL + " = " + hall + " AND date('now', 'localtime') = date(" + DiningContract.MenuItem.DATE + ") AND time('now', 'localtime') <= time(" + DiningContract.MenuItem.END_TIME + ")";
+        String Query = "Select " + DiningContract.Item.NAME + ", " + DiningContract.Item.MENU_NAME + ", " + DiningContract.Item.START_TIME + ", " + DiningContract.Item.END_TIME + ", " + DiningContract.Item.NUTRITION_ID + ", " + DiningContract.Item.DINING_HALL + " from " + DiningContract.Item.TABLE_NAME + " where " + DiningContract.Item.DINING_HALL + " = " + hall + " AND date('now', 'localtime') = date(" + DiningContract.Item.DATE + ") AND time('now', 'localtime') <= time(" + DiningContract.Item.END_TIME + ")";
         return db.rawQuery(Query, null);
     }
 
     Cursor getNutritionItem(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select * from " + DiningContract.NutritionItem.TABLE_NAME + " where " + DiningContract.NutritionItem._ID + " = " + id;
+        String Query = "Select * from " + DiningContract.Nutrition.TABLE_NAME + " where " + DiningContract.Nutrition._ID + " = " + id;
         return db.rawQuery(Query, null);
     }
 

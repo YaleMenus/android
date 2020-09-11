@@ -106,52 +106,52 @@ public class ItemActivity extends AppCompatActivity {
             }
             Cursor itemDetails = dbHelper.getNutritionItem(nutId);
             while (itemDetails.moveToNext()) {
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.ALCOHOL)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.ALCOHOL)) == 1)
                     detailList.add(new Detail(R.drawable.key_alcohol, "Alcohol"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.NUTS)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.NUTS)) == 1)
                     detailList.add(new Detail(R.drawable.key_nut, "Nuts"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.DAIRY)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.DAIRY)) == 1)
                     detailList.add(new Detail(R.drawable.key_dairy, "Dairy"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.EGGS)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.EGGS)) == 1)
                     detailList.add(new Detail(R.drawable.key_eggs, "Eggs"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.FISH)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.FISH)) == 1)
                     detailList.add(new Detail(R.drawable.key_fish, "Fish"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.GLUTEN)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.GLUTEN)) == 1)
                     detailList.add(new Detail(R.drawable.key_gluten, "Gluten"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.GLUTEN_FREE)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.GLUTEN_FREE)) == 1)
                     detailList.add(new Detail(R.drawable.key_glutenfree, "Gluten Free"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.PEANUT)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.PEANUT)) == 1)
                     detailList.add(new Detail(R.drawable.key_peanut, "Peanut"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.PORK)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.PORK)) == 1)
                     detailList.add(new Detail(R.drawable.key_pork, "Pork"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.SHELLFISH)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.SHELLFISH)) == 1)
                     detailList.add(new Detail(R.drawable.key_shellfish, "Shellfish"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.SOY)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.SOY)) == 1)
                     detailList.add(new Detail(R.drawable.key_soy, "Soy"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.VEGAN)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.VEGAN)) == 1)
                     detailList.add(new Detail(R.drawable.key_vegan, "Vegan"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.VEGETARIAN)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.VEGETARIAN)) == 1)
                     detailList.add(new Detail(R.drawable.key_vegetarian, "Vegetarian"));
-                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.NutritionItem.WHEAT)) == 1)
+                if (itemDetails.getInt(itemDetails.getColumnIndex(DiningContract.Nutrition.WHEAT)) == 1)
                     detailList.add(new Detail(R.drawable.key_wheat, "Wheat"));
-                if (itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.WARNING)) == null)
-                    detailList.add(new Detail(-2, itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.WARNING))));
+                if (itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.WARNING)) == null)
+                    detailList.add(new Detail(-2, itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.WARNING))));
                 if (detailList.size() > 0)
                     detailList.add(0, new Detail(-1, "Traits"));
 
                 detailList.add(new Detail(-1, "Nutrition"));
-                detailList.add(new Detail(-3, "Serving Size: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.SERVING_SIZE))));
-                detailList.add(new Detail(-3, "Calories: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.CALORIES))));
-                detailList.add(new Detail(-3, "Protein: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.PROTEIN))));
-                detailList.add(new Detail(-3, "Fat: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.FAT))));
-                detailList.add(new Detail(-3, "Saturated Fat: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.SATURATED_FAT))));
-                detailList.add(new Detail(-3, "Cholesterol: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.CHOLESTEROL))));
-                detailList.add(new Detail(-3, "Carbohydrates: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.CARBOHYDRATES))));
-                detailList.add(new Detail(-3, "Sugar: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.SUGAR))));
-                detailList.add(new Detail(-3, "Dietary Fiber: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.DIETARY_FIBER))));
-                detailList.add(new Detail(-3, "Vitamin C: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.VITAMIN_C))));
-                detailList.add(new Detail(-3, "Vitamin A: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.VITAMIN_A))));
-                detailList.add(new Detail(-3, "Iron: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.NutritionItem.IRON))));
+                detailList.add(new Detail(-3, "Serving Size: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.SERVING_SIZE))));
+                detailList.add(new Detail(-3, "Calories: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.CALORIES))));
+                detailList.add(new Detail(-3, "Protein: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.PROTEIN))));
+                detailList.add(new Detail(-3, "Fat: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.FAT))));
+                detailList.add(new Detail(-3, "Saturated Fat: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.SATURATED_FAT))));
+                detailList.add(new Detail(-3, "Cholesterol: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.CHOLESTEROL))));
+                detailList.add(new Detail(-3, "Carbohydrates: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.CARBOHYDRATES))));
+                detailList.add(new Detail(-3, "Sugar: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.SUGAR))));
+                detailList.add(new Detail(-3, "Dietary Fiber: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.DIETARY_FIBER))));
+                detailList.add(new Detail(-3, "Vitamin C: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.VITAMIN_C))));
+                detailList.add(new Detail(-3, "Vitamin A: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.VITAMIN_A))));
+                detailList.add(new Detail(-3, "Iron: " + itemDetails.getString(itemDetails.getColumnIndex(DiningContract.Nutrition.IRON))));
             }
 
             Cursor ingredients = dbHelper.getIngredients(nutId);
