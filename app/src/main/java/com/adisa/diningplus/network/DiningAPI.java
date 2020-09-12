@@ -17,7 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class DiningAPI {
-    private final String API_ROOT = "http://192.168.0.5:5000/api/"
+    private final String API_ROOT = "http://192.168.0.5:5000/api/";
     DatabaseClient db;
 
     public DiningAPI(DatabaseClient db) {
@@ -55,7 +55,7 @@ public class DiningAPI {
             location.longitude = locationRaw.getDouble("longitude");
             location.address = locationRaw.getString("address");
             location.phone = locationRaw.getString("phone");
-            db.getDB().locationDao()
+            db.getDB().locationDao().insert(location);
         }
     }
 
