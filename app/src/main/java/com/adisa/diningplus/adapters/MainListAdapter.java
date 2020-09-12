@@ -28,12 +28,12 @@ public class MainListAdapter extends BaseAdapter {
     private Context context;
     private SharedPreferences preferences;
     private HashMap<String, Integer> shieldMap = new HashMap<>();
-    private ArrayList<MainActivity.HallItem> halls = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> openHalls = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> closedHalls = new ArrayList<>();
-    private Comparator<MainActivity.HallItem> hallSort = new Comparator<MainActivity.HallItem>() {
+    private ArrayList<MainActivity.LocationItem> locations = new ArrayList<>();
+    private ArrayList<MainActivity.LocationItem> openLocations = new ArrayList<>();
+    private ArrayList<MainActivity.LocationItem> closedLocations = new ArrayList<>();
+    private Comparator<MainActivity.LocationItem> hallSort = new Comparator<MainActivity.LocationItem>() {
         @Override
-        public int compare(MainActivity.HallItem o1, MainActivity.HallItem o2) {
+        public int compare(MainActivity.LocationItem o1, MainActivity.LocationItem o2) {
             return Double.compare(o1.distance, o2.distance);
         }
     };
@@ -66,11 +66,11 @@ public class MainListAdapter extends BaseAdapter {
 
     @Override
     public void notifyDataSetChanged() {
-        halls = new ArrayList<>();
-        Collections.sort(openHalls, hallSort);
-        Collections.sort(closedHalls, hallSort);
-        halls.addAll(openHalls);
-        halls.addAll(closedHalls);
+        locations = new ArrayList<>();
+        Collections.sort(openLocations, hallSort);
+        Collections.sort(closedLocations, hallSort);
+        locations.addAll(openLocations);
+        locations.addAll(closedLocations);
         super.notifyDataSetChanged();
     }
 
@@ -79,7 +79,7 @@ public class MainListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder viewHolder;
-        MainActivity.HallItem item = getItem(position);
+        MainActivity.LocationItem item = getItem(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.hall_list, null);
@@ -136,19 +136,19 @@ public class MainListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setLists(ArrayList<MainActivity.HallItem> openHalls, ArrayList<MainActivity.HallItem> closedHalls) {
-        this.openHalls = openHalls;
-        this.closedHalls = closedHalls;
+    public void setLists(ArrayList<MainActivity.LocationItem> openLocations, ArrayList<MainActivity.LocationItem> closedLocations) {
+        this.openLocations = openLocations;
+        this.closedLocations = closedLocations;
     }
 
     @Override
     public int getCount() {
-        return halls.size();
+        return locations.size();
     }
 
     @Override
-    public MainActivity.HallItem getItem(int position) {
-        return halls.get(position);
+    public MainActivity.LocationItem getItem(int position) {
+        return locations.get(position);
     }
 
     @Override

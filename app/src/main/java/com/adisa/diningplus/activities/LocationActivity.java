@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class LocationActivity extends AppCompatActivity {
+    /*
     CollapsingToolbarLayout collapsingToolbar;
     DatabaseHelper dbHelper;
     DiningAPI api;
@@ -307,4 +308,5 @@ public class LocationActivity extends AppCompatActivity {
             Log.d("get", "done");
         }
     }
+     */
 }

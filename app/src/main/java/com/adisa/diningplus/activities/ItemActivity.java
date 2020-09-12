@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ItemActivity extends AppCompatActivity {
+    /*
     String itemName;
     int nutritionId;
     DatabaseHelper dbHelper;
@@ -194,4 +195,5 @@ public class ItemActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    */
 }
