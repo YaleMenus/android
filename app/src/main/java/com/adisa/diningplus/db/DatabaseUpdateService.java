@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.adisa.diningplus.db.entities.Location;
+import com.adisa.diningplus.db.entities.Meal;
 import com.adisa.diningplus.network.DiningAPI;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
@@ -17,9 +19,10 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.List;
 
 public class DatabaseUpdateService extends JobService {
-    DatabaseHelper dbHelper;
+    DatabaseClient db;
     DiningAPI api;
     SharedPreferences preferences;
     DatabaseUpdateReceiver mDownloadStateReceiver;
@@ -61,18 +64,11 @@ public class DatabaseUpdateService extends JobService {
         @Override
         protected Boolean doInBackground(Void... params) {
             preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            dbHelper = new DatabaseHelper(getApplicationContext());
-            Cursor result = dbHelper.getLocations();
-            while (result.moveToNext()) {
-                int id = result.getInt(result.getColumnIndex(DatabaseContract.Location.ID));
-                try {
-                    api.fetchMenu(id);
-                } catch (IOException | JSONException | ParseException e) {
-                    e.printStackTrace();
-                    return true;
-                }
-                dbHelper.updateTime(id);
-                Cursor menu = dbHelper.getMeals(id);
+            List<Location> locations = db.getDB().locationDao().getAll();
+            for (Location location : locations) {
+                /*
+                api.getMeals(location.id);
+                List<Meal> = dbHelper.getMeals(id);
                 while (menu.moveToNext()) {
                     if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)))) {
                         Intent localIntent = new Intent(BROADCAST_ACTION);
@@ -84,6 +80,7 @@ public class DatabaseUpdateService extends JobService {
                         return false;
                     }
                 }
+                 */
             }
             return false;
         }
