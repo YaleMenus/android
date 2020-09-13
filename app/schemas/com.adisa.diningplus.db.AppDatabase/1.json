@@ -1,0 +1,548 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "13804a349c1d6705c8497afc652eebe1",
+    "entities": [
+      {
+        "tableName": "locations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `type` TEXT, `is_open` INTEGER NOT NULL, `capacity` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT, `phone` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isOpen",
+            "columnName": "is_open",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capacity",
+            "columnName": "capacity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "phone",
+            "columnName": "phone",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "managers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `email` TEXT, `position` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "meals",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `date` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "courses",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `email` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `vegetarian` INTEGER NOT NULL, `vegan` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `seafood` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, `course_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingredients",
+            "columnName": "ingredients",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vegetarian",
+            "columnName": "vegetarian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vegan",
+            "columnName": "vegan",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alcohol",
+            "columnName": "alcohol",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nuts",
+            "columnName": "nuts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shellfish",
+            "columnName": "shellfish",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peanuts",
+            "columnName": "peanuts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dairy",
+            "columnName": "dairy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "egg",
+            "columnName": "egg",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pork",
+            "columnName": "pork",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seafood",
+            "columnName": "seafood",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "soy",
+            "columnName": "soy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wheat",
+            "columnName": "wheat",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gluten",
+            "columnName": "gluten",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coconut",
+            "columnName": "coconut",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mealId",
+            "columnName": "meal_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseId",
+            "columnName": "course_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "nutrition",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `portion_size` TEXT, `total_fat` TEXT, `saturated_fat` TEXT, `trans_fat` TEXT, `cholesterol` TEXT, `sodium` TEXT, `total_carbohydrate` TEXT, `dietary_fiber` TEXT, `total_sugars` TEXT, `protein` TEXT, `vitamin_d` TEXT, `vitamin_a` TEXT, `vitamin_c` TEXT, `calcium` TEXT, `iron` TEXT, `potassium` TEXT, `total_fat_pdv` TEXT, `saturated_fat_pdv` TEXT, `trans_fat_pdv` TEXT, `cholesterolPDV` TEXT, `sodiumPDV` TEXT, `total_carbohydrate_pdv` TEXT, `dietary_fiber_pdv` TEXT, `total_sugars_pdv` TEXT, `proteinPDV` TEXT, `vitamin_d_pdv` TEXT, `vitamin_a_pdv` TEXT, `vitamin_c_pdv` TEXT, `calciumPDV` TEXT, `ironPDV` TEXT, `potassiumPDV` TEXT, `item_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "portionSize",
+            "columnName": "portion_size",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "totalFat",
+            "columnName": "total_fat",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "saturatedFat",
+            "columnName": "saturated_fat",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transFat",
+            "columnName": "trans_fat",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cholesterol",
+            "columnName": "cholesterol",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sodium",
+            "columnName": "sodium",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "totalCarbohydrate",
+            "columnName": "total_carbohydrate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dietaryFiber",
+            "columnName": "dietary_fiber",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "totalSugars",
+            "columnName": "total_sugars",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "protein",
+            "columnName": "protein",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vitaminD",
+            "columnName": "vitamin_d",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vitaminA",
+            "columnName": "vitamin_a",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vitaminC",
+            "columnName": "vitamin_c",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calcium",
+            "columnName": "calcium",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "iron",
+            "columnName": "iron",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "potassium",
+            "columnName": "potassium",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "totalFatPDV",
+            "columnName": "total_fat_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "saturatedFatPDV",
+            "columnName": "saturated_fat_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transFatPDV",
+            "columnName": "trans_fat_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cholesterolPDV",
+            "columnName": "cholesterolPDV",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sodiumPDV",
+            "columnName": "sodiumPDV",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "totalCarbohydratePDV",
+            "columnName": "total_carbohydrate_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dietaryFiberPDV",
+            "columnName": "dietary_fiber_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "totalSugarsPDV",
+            "columnName": "total_sugars_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "proteinPDV",
+            "columnName": "proteinPDV",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vitaminDPDV",
+            "columnName": "vitamin_d_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vitaminAPDV",
+            "columnName": "vitamin_a_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vitaminCPDV",
+            "columnName": "vitamin_c_pdv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calciumPDV",
+            "columnName": "calciumPDV",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ironPDV",
+            "columnName": "ironPDV",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "potassiumPDV",
+            "columnName": "potassiumPDV",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "itemId",
+            "columnName": "item_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '13804a349c1d6705c8497afc652eebe1')"
+    ]
+  }
+}

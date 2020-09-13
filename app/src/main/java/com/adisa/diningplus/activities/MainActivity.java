@@ -6,18 +6,23 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Location;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -52,9 +57,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     ArrayList<LocationItem> openLocations = new ArrayList<>();
     ArrayList<LocationItem> closedLocations = new ArrayList<>();
     SwipeRefreshLayout swipeContainer;
-    android.location.Location currentLocation;
-    GoogleApiClient mGoogleApiClient;
     CoordinatorLayout coordinatorLayout;
+
+    GoogleApiClient mGoogleApiClient;
+    private FusedLocationProviderClient fused;
+    android.location.Location currentLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     .build();
         }
 
+        fused = LocationServices.getFusedLocationProviderClient(this);
 
         // Registers the DownloadStateReceiver and its intent filters
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
@@ -123,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         UpdateTask updateTask = new UpdateTask();
         updateTask.execute();
 
+        db = new DatabaseClient(this);
         api = new DiningAPI(db);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -157,7 +167,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            fused = LocationServices.getFusedLocationProviderClient(this);
         }
     }
 
@@ -169,8 +189,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     1);
         } else {
-            currentLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
+            currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         }
     }
 
@@ -206,13 +225,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public static class LocationItem {
-        String name;
-        int capacity;
-        int id;
-        double latitude;
-        double longitude;
+        public String name;
+        public int capacity;
+        public int id;
+        public double latitude;
+        public double longitude;
         public double distance;
-        boolean open;
+        public boolean open;
 
         LocationItem(String name, int capacity, double latitude, double longitude, int id, boolean open) {
             this.name = name;

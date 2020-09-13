@@ -18,7 +18,26 @@ import java.util.ArrayList;
  */
 
 public class ItemDetailAdapter extends BaseAdapter {
+    @Override
+    public int getCount() {
+        return 0;
+    }
 
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        return null;
+    }
+/*
     private Context context;
     private static final int TYPE_HEADER = -1;
     private static final int TYPE_WARNING = -2;
@@ -114,4 +133,5 @@ public class ItemDetailAdapter extends BaseAdapter {
                 return TYPE_TRAIT;
         }
     }
+ */
 }
