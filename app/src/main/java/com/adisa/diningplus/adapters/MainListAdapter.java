@@ -118,7 +118,7 @@ public class MainListAdapter extends BaseAdapter {
         } else {
             viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
         }
-        int capacity = item.occupancy * 10;
+        int capacity = item.capacity * 10;
 
         if (!item.open) {
             viewHolder.occupancy.setTextColor(Color.parseColor("#A8030303"));

@@ -10,7 +10,7 @@ public class DatabaseClient {
 
     private AppDatabase db;
 
-    private DatabaseClient(Context ctx) {
+    public DatabaseClient(Context ctx) {
         this.ctx = ctx;
         db = Room.databaseBuilder(ctx, AppDatabase.class, "dining").build();
     }
