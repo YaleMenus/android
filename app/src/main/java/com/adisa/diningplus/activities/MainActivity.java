@@ -14,7 +14,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Location;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
@@ -53,6 +52,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     DatabaseClient db;
     DiningAPI api;
+
     private MainListAdapter adapter;
     ArrayList<LocationItem> openLocations = new ArrayList<>();
     ArrayList<LocationItem> closedLocations = new ArrayList<>();
@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         setContentView(R.layout.activity_main);
         setTheme(R.style.AppTheme);
+
+        db = new DatabaseClient(this);
+        api = new DiningAPI(db);
 
         adapter = new MainListAdapter(this);
         ListView mainList = findViewById(R.id.halls);
@@ -131,9 +134,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         UpdateTask updateTask = new UpdateTask();
         updateTask.execute();
-
-        db = new DatabaseClient(this);
-        api = new DiningAPI(db);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences.getBoolean("firstRun", true)) {

@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
+import com.adisa.diningplus.db.DatabaseClient;
+import com.adisa.diningplus.db.entities.Meal;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,12 +42,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class LocationActivity extends AppCompatActivity {
-    /*
-    CollapsingToolbarLayout collapsingToolbar;
-    DatabaseHelper dbHelper;
+    DatabaseClient db;
     DiningAPI api;
-    String hallName;
-    int hallId;
+
+    CollapsingToolbarLayout collapsingToolbar;
+    String locationName;
+    int locationId;
     HashMap<String, ArrayList<FoodItem>> mealMap;
     HashMap<String, Integer> headerMap = new HashMap<>();
     ArrayList<Meal> meals;
@@ -78,7 +81,10 @@ public class LocationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hall);
+        setContentView(R.layout.activity_location);
+
+        db = new DatabaseClient(this);
+        api = new DiningAPI(db);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
@@ -130,15 +136,14 @@ public class LocationActivity extends AppCompatActivity {
         });
 
         Intent i = getIntent();
-        dbHelper = new DatabaseHelper(getApplicationContext());
-        api = new DiningAPI(dbHelper);
-        hallName = i.getStringExtra("Name");
-        hallId = i.getIntExtra("HallId", -1);
-        collapsingToolbar.setTitle(hallName);
+
+        locationName = i.getStringExtra("Name");
+        locationId = i.getIntExtra("LocationId", -1);
+        collapsingToolbar.setTitle(locationName);
         ImageView header = (ImageView) findViewById(R.id.header);
-        header.setImageDrawable(getResources().getDrawable(headerMap.get(hallName)));
-        emptyView = findViewById(R.id.hall_empty);
-        loadingView = findViewById(R.id.hall_progress);
+        header.setImageDrawable(getResources().getDrawable(headerMap.get(locationName)));
+        emptyView = findViewById(R.id.location_empty);
+        loadingView = findViewById(R.id.location_progress);
         expandableListView.setEmptyView(emptyView);
         MenuTask menuTask = new MenuTask();
         menuTask.execute();
@@ -147,8 +152,8 @@ public class LocationActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_dining_hall, menu);
-        if (preferences.getInt("startHall", -1) == hallId) {
+        inflater.inflate(R.menu.menu_location, menu);
+        if (preferences.getInt("startLocation", -1) == locationId) {
             menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_favorite_black_24dp);
         }
         return super.onCreateOptionsMenu(menu);
@@ -159,13 +164,13 @@ public class LocationActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 SharedPreferences.Editor editor = preferences.edit();
-                if (preferences.getInt("startHall", -1) != hallId) {
+                if (preferences.getInt("startLocation", -1) != locationId) {
                     item.setIcon(R.drawable.ic_favorite_black_24dp);
-                    editor.putInt("startHall", hallId);
-                    editor.putString("startHallName", hallName);
+                    editor.putInt("startLocation", locationId);
+                    editor.putString("startLocationName", locationName);
                 } else {
                     item.setIcon(R.drawable.ic_favorite_border_black_24dp);
-                    editor.putInt("startHall", -1);
+                    editor.putInt("startLocation", -1);
                 }
                 editor.apply();
                 return true;
@@ -207,34 +212,34 @@ public class LocationActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("get", "start");
-            expandableListView.setEmptyView(findViewById(R.id.hall_progress));
+            expandableListView.setEmptyView(findViewById(R.id.location_progress));
             emptyView.setVisibility(View.GONE);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Cursor result = dbHelper.getHall(hallId);
-                Date lastUpdated = new Date();
+                api.get
+                Cursor result = dbHelper.getLocation(locationId);
                 while (result.moveToNext()) {
-                    String updateString = result.getString(result.getColumnIndex(DatabaseContract.DiningHall.LAST_UPDATED));
+                    String updateString = result.getString(result.getColumnIndex(DatabaseContract.DiningLocation.LAST_UPDATED));
                     if (!updateString.equals("")) {
                         lastUpdated = DateFormatProvider.date.parse(updateString);
                     }
                 }
                 Date currentDate = resetTime(new Date());
-                if (!dbHelper.isStored(DatabaseContract.MenuItem.TABLE_NAME, DatabaseContract.MenuItem.DINING_HALL, "" + hallId) ||
+                if (!dbHelper.isStored(DatabaseContract.MenuItem.TABLE_NAME, DatabaseContract.MenuItem.DINING_HALL, "" + locationId) ||
                         lastUpdated.compareTo(currentDate) != 0) {
-                    api.fetchMenu(hallId);
+                    api.fetchMenu(locationId);
                 }
-                dbHelper.updateTime(hallId);
+                dbHelper.updateTime(locationId);
             } catch (JSONException | ParseException | IOException e) {
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
 
-            Cursor result = dbHelper.getMenu(hallId);
+            Cursor result = dbHelper.getMenu(locationId);
             mealMap = new HashMap<>();
             meals = new ArrayList<Meal>();
             while (result.moveToNext()) {
@@ -258,7 +263,7 @@ public class LocationActivity extends AppCompatActivity {
             expandableListView.setAdapter(menuAdapter);
             if (menuAdapter.getGroupCount() > 0)
                 expandableListView.expandGroup(0);
-            expandableListView.setEmptyView(findViewById(R.id.hall_empty));
+            expandableListView.setEmptyView(findViewById(R.id.location_empty));
             TraitTask traitTask = new TraitTask();
             traitTask.execute();
             Log.d("get", "done");
@@ -308,5 +313,4 @@ public class LocationActivity extends AppCompatActivity {
             Log.d("get", "done");
         }
     }
-     */
 }
