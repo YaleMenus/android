@@ -66,7 +66,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <RelativeLayout
-        android:id="@+id/hall_empty"
+        android:id="@+id/location_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="24dp"
@@ -98,7 +98,7 @@
             android:layout_marginBottom="91dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="@string/empty_hall"
+            android:text="@string/empty_location"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="?android:attr/textColorSecondary"
@@ -113,13 +113,13 @@
             android:layout_below="@+id/imageView3"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
-            android:text="@string/empty_hall_secondary"
+            android:text="@string/empty_location_secondary"
             android:textAlignment="center" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/hall_progress"
+        android:id="@+id/location_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
