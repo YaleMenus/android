@@ -4,6 +4,7 @@ import android.content.ContentValues;
 
 import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Location;
+import com.adisa.diningplus.db.entities.Meal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,5 +64,16 @@ public class DiningAPI {
         }
     }
 
-    // TODO: rewrite other fetching methods
+    public void getLocationMeals(int locationId) throws IOException, JSONException {
+        JSONArray mealsRaw = new JSONArray(getJSON("locations/" + locationId + "/meals"));
+        db.getDB().mealDao().clearLocation(locationId);
+        for (int i = 0; i < mealsRaw.length(); i++) {
+            JSONObject mealRaw = mealsRaw.getJSONObject(i);
+            Meal meal = new Meal();
+            meal.id = mealRaw.getInt("id");
+            meal.name = mealRaw.getString("name");
+            meal.date = mealRaw.getString("date");
+            meal.locationId = mealRaw.getInt("location_id");
+        }
+    }
 }
