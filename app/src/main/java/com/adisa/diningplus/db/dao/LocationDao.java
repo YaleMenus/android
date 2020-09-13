@@ -24,4 +24,7 @@ public interface LocationDao {
 
     @Update
     void update(Location location);
+
+    @Query("DELETE FROM locations")
+    void clear();
 }
