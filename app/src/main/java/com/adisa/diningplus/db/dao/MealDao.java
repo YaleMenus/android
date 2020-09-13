@@ -24,4 +24,7 @@ public interface MealDao {
 
     @Update
     void update(Meal meal);
+
+    @Query("DELETE FROM meals WHERE location_id = :locationId")
+    void clearLocation(int locationId);
 }
