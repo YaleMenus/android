@@ -2,6 +2,7 @@ package com.adisa.diningplus.db.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -33,4 +34,7 @@ public class Item implements Serializable {
     public int mealId;
     @ColumnInfo(name = "course_id")
     public int courseId;
+
+    @Ignore
+    public boolean allergenic;
 }
