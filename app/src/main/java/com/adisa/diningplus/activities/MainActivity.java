@@ -35,7 +35,7 @@ import com.adisa.diningplus.db.DatabaseUpdateService;
 import com.adisa.diningplus.network.DiningAPI;
 import com.adisa.diningplus.adapters.MainListAdapter;
 import com.adisa.diningplus.R;
-import com.adisa.diningplus.fragments.TraitDialogFragment;
+import com.adisa.diningplus.fragments.AllergenDialogFragment;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             editor.apply();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("traits");
             if (prev == null) {
-                DialogFragment traitDialog = new TraitDialogFragment();
+                DialogFragment traitDialog = new AllergenDialogFragment();
                 traitDialog.show(getSupportFragmentManager(), "traits");
             }
         }

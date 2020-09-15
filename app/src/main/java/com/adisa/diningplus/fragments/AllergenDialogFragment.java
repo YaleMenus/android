@@ -18,7 +18,7 @@ import java.util.HashSet;
  * Created by Adisa on 4/30/2017.
  */
 
-public class TraitDialogFragment extends DialogFragment {
+public class AllergenDialogFragment extends DialogFragment {
 
     // Use this instance of the interface to deliver action events
     // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
@@ -32,38 +32,29 @@ public class TraitDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        String[] traitArray = getResources().getStringArray(R.array.traits);
-        boolean[] selections = new boolean[traitArray.length];
+        String[] allergenOptions = getResources().getStringArray(R.array.allergens);
+        boolean[] selections = new boolean[allergenOptions.length];
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        HashSet<String> currTraits = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
+        HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
 
-        for (int i = 0; i < traitArray.length; i++) {
-            if (currTraits.contains(traitArray[i])) {
-                selections[i] = true;
-            } else {
-                selections[i] = false;
-            }
+        for (int i = 0; i < allergenOptions.length; i++) {
+            selections[i] = allergens.contains(allergenOptions[i]);
         }
 
         final boolean[] finalSelections = selections;
         builder.setTitle("Select dietary traits that you want to avoid.")
-                .setMultiChoiceItems(R.array.traits, selections,
+                .setMultiChoiceItems(R.array.allergens, selections,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which,
-                                                boolean isChecked) {
-                                if (isChecked) {
-                                    finalSelections[which] = true;
-                                } else {
-                                    finalSelections[which] = false;
-                                }
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                finalSelections[which] = isChecked;
                             }
                         })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences.Editor editor = preferences.edit();
                         HashSet<String> traitSet = new HashSet<String>();
-                        String[] traitArray = getResources().getStringArray(R.array.traits);
+                        String[] traitArray = getResources().getStringArray(R.array.allergens);
                         for (int i = 0; i < finalSelections.length; i++) {
                             if (finalSelections[i]) {
                                 traitSet.add(traitArray[i]);

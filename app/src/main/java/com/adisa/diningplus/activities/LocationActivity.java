@@ -2,7 +2,6 @@ package com.adisa.diningplus.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.preference.PreferenceManager;
 
 import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Item;
-import com.adisa.diningplus.db.entities.Location;
 import com.adisa.diningplus.db.entities.Meal;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -28,7 +26,6 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
-import com.adisa.diningplus.utils.DateFormatProvider;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.adapters.MenuAdapter;
 import com.adisa.diningplus.network.DiningAPI;
@@ -36,10 +33,7 @@ import com.adisa.diningplus.network.DiningAPI;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -177,18 +171,6 @@ public class LocationActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public static Date resetTime(Date date) {
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        return calendar.getTime();
     }
 
     private class MenuTask extends AsyncTask<Void, Void, Void> {
