@@ -16,6 +16,9 @@ public interface ItemDao {
     @Query("SELECT * FROM items")
     List<Item> getAll();
 
+    @Query("SELECT * FROM items WHERE meal_id = :mealId")
+    List<Item> getMeal(int mealId);
+
     @Insert
     void insert(Item item);
 
@@ -24,4 +27,7 @@ public interface ItemDao {
 
     @Update
     void update(Item item);
+
+    @Query("DELETE FROM items WHERE meal_id = :mealId")
+    void clearMeal(int mealId);
 }
