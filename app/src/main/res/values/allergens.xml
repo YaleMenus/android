@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="allergens">
+        <item>Alcohol</item>
+        <item>Nuts</item>
+        <item>Shellfish</item>
+        <item>Peanuts</item>
+        <item>Dairy</item>
+        <item>Egg</item>
+        <item>Pork</item>
+        <item>Seafood</item>
+        <item>Soy</item>
+        <item>Wheat</item>
+        <item>Gluten</item>
+        <item>Coconut</item>
+    </array>
+</resources>

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "13804a349c1d6705c8497afc652eebe1",
+    "identityHash": "58135d75a577dcd92a0b88c5f71c9b82",
     "entities": [
       {
         "tableName": "locations",
@@ -118,7 +118,7 @@
       },
       {
         "tableName": "meals",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `date` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `date` TEXT, `start_time` TEXT, `end_time` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -135,6 +135,18 @@
           {
             "fieldPath": "date",
             "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "start_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "end_time",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -542,7 +554,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '13804a349c1d6705c8497afc652eebe1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '58135d75a577dcd92a0b88c5f71c9b82')"
     ]
   }
 }

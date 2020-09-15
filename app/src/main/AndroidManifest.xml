@@ -16,7 +16,7 @@
         <activity android:name=".activities.MainActivity" />
         <activity
             android:name=".activities.LocationActivity"
-            android:label="@string/title_activity_dining_hall"
+            android:label="@string/title_activity_location"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
