@@ -16,6 +16,9 @@ public interface MealDao {
     @Query("SELECT * FROM meals")
     List<Meal> getAll();
 
+    @Query("SELECT * FROM meals WHERE location_id = :locationId")
+    List<Meal> getLocation(int locationId);
+
     @Insert
     void insert(Meal meal);
 
