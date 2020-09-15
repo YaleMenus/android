@@ -3,6 +3,7 @@ package com.adisa.diningplus.network;
 import android.content.ContentValues;
 
 import com.adisa.diningplus.db.DatabaseClient;
+import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Location;
 import com.adisa.diningplus.db.entities.Meal;
 
@@ -73,7 +74,37 @@ public class DiningAPI {
             meal.id = mealRaw.getInt("id");
             meal.name = mealRaw.getString("name");
             meal.date = mealRaw.getString("date");
+            meal.startTime = mealRaw.optString("start_time");
+            meal.endTime = mealRaw.optString("end_time");
             meal.locationId = mealRaw.getInt("location_id");
+            db.getDB().mealDao().insert(meal);
+        }
+    }
+
+    public void getMealItems(int mealId) throws IOException, JSONException {
+        JSONArray itemsRaw = new JSONArray(getJSON("meals/" + mealId + "/items"));
+        db.getDB().itemDao().clearMeal(mealId);
+        for (int i = 0; i < itemsRaw.length(); i++) {
+            JSONObject itemRaw = itemsRaw.getJSONObject(i);
+            Item item = new Item();
+            item.id = itemRaw.getInt("id");
+            item.name = itemRaw.getString("name");
+            item.ingredients = itemRaw.getString("ingredients");
+            item.vegetarian = itemRaw.getBoolean("vegetarian");
+            item.vegan = itemRaw.getBoolean("vegan");
+            item.alcohol = itemRaw.getBoolean("alcohol");
+            item.nuts = itemRaw.getBoolean("nuts");
+            item.shellfish = itemRaw.getBoolean("shellfish");
+            item.peanuts = itemRaw.getBoolean("peanuts");
+            item.dairy = itemRaw.getBoolean("dairy");
+            item.egg = itemRaw.getBoolean("egg");
+            item.pork = itemRaw.getBoolean("pork");
+            item.seafood = itemRaw.getBoolean("seafood");
+            item.soy = itemRaw.getBoolean("soy");
+            item.wheat = itemRaw.getBoolean("wheat");
+            item.gluten = itemRaw.getBoolean("gluten");
+            item.coconut = itemRaw.getBoolean("coconut");
+            db.getDB().itemDao().insert(item);
         }
     }
 }
