@@ -9,6 +9,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adisa.diningplus.db.entities.Item;
+import com.adisa.diningplus.db.entities.Meal;
 import com.adisa.diningplus.utils.DateFormatProvider;
 import com.adisa.diningplus.activities.LocationActivity;
 import com.adisa.diningplus.R;
@@ -25,96 +27,44 @@ import java.util.List;
  */
 
 public class MenuAdapter extends BaseExpandableListAdapter {
-    @Override
-    public int getGroupCount() {
-        return 0;
-    }
-
-    @Override
-    public int getChildrenCount(int i) {
-        return 0;
-    }
-
-    @Override
-    public Object getGroup(int i) {
-        return null;
-    }
-
-    @Override
-    public Object getChild(int i, int i1) {
-        return null;
-    }
-
-    @Override
-    public long getGroupId(int i) {
-        return 0;
-    }
-
-    @Override
-    public long getChildId(int i, int i1) {
-        return 0;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
-    @Override
-    public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-        return null;
-    }
-
-    @Override
-    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        return null;
-    }
-
-    @Override
-    public boolean isChildSelectable(int i, int i1) {
-        return false;
-    }
-
-    /*
     private Context context;
-    private List<LocationActivity.Meal> expandableListTitle;
-    private HashMap<String, ArrayList<LocationActivity.FoodItem>> expandableListDetail;
+    public List<Meal> meals;
+    public HashMap<String, List<Item>> items;
 
-    MenuAdapter(Context context, List<LocationActivity.Meal> expandableListTitle,
-                HashMap<String, ArrayList<LocationActivity.FoodItem>> expandableListDetail) {
+    public MenuAdapter(Context context, List<Meal> meals,
+                       HashMap<String, List<Item>> items) {
         this.context = context;
-        this.expandableListTitle = expandableListTitle;
-        this.expandableListDetail = expandableListDetail;
+        this.meals = meals;
+        this.items = items;
     }
 
-    void setMap(HashMap<String, ArrayList<LocationActivity.FoodItem>> expandableListDetail) {
-        this.expandableListDetail = expandableListDetail;
+    public void setItems(HashMap<String, List<Item>> items) {
+        this.items = items;
         notifyDataSetChanged();
     }
 
     @Override
-    public Object getChild(int listPosition, int expandedListPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition).getName())
-                .get(expandedListPosition);
+    public Object getChild(int mealPosition, int itemPosition) {
+        return this.items.get(this.meals.get(mealPosition).name).get(itemPosition);
     }
 
     @Override
-    public long getChildId(int listPosition, int expandedListPosition) {
-        return expandedListPosition;
+    public long getChildId(int mealPosition, int itemPosition) {
+        return itemPosition;
     }
 
     @Override
-    public View getChildView(int listPosition, final int expandedListPosition,
+    public View getChildView(int mealPosition, final int itemPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        LocationActivity.FoodItem item = (LocationActivity.FoodItem) getChild(listPosition, expandedListPosition);
+        Item item = (Item) getChild(mealPosition, itemPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.menu_item, null);
         }
         TextView expandedListTextView = (TextView) convertView.findViewById(R.id.expandedListItem);
-        expandedListTextView.setText(item.getName().replace('`', '\''));
-        if (item.marked) {
+        expandedListTextView.setText(item.name.replace('`', '\''));
+        if (item.allergenic) {
             expandedListTextView.setBackgroundColor(context.getResources().getColor(R.color.backgroundMarked));
             expandedListTextView.setTextColor(context.getResources().getColor(R.color.colorMarked));
         } else {
@@ -125,50 +75,48 @@ public class MenuAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition).getName())
-                .size();
+    public int getChildrenCount(int mealPosition) {
+        return this.items.get(this.meals.get(mealPosition).name).size();
     }
 
     @Override
-    public Object getGroup(int listPosition) {
-        return this.expandableListTitle.get(listPosition);
+    public Object getGroup(int mealPosition) {
+        return this.meals.get(mealPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this.expandableListTitle.size();
+        return this.meals.size();
     }
 
     @Override
-    public long getGroupId(int listPosition) {
-        return listPosition;
+    public long getGroupId(int mealPosition) {
+        return mealPosition;
     }
 
     @Override
-    public View getGroupView(int listPosition, boolean isExpanded,
+    public View getGroupView(int mealPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        LocationActivity.Meal item = (LocationActivity.Meal) getGroup(listPosition);
+        Meal meal = (Meal) getGroup(mealPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.meal, null);
         }
-        TextView listTitleTextView = (TextView) convertView
-                .findViewById(R.id.listTitle);
-        listTitleTextView.setText(item.getName());
+        TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
+        listTitleTextView.setText(meal.name);
         listTitleTextView.setTextColor(this.context.getResources().getColor(R.color.colorPrimary));
 
         TextView mealTimeTextView = (TextView) convertView.findViewById(R.id.mealTime);
         Date startTime = null, endTime = null;
-        SimpleDateFormat hourFormat = new SimpleDateFormat(DateFormat.is24HourFormat(context.getApplicationContext()) ? "k:mm" : "h:mm a");
+        // TODO: support 24 and 12 hour time
         try {
-            startTime = DateFormatProvider.time.parse(item.getStartTime());
-            endTime = DateFormatProvider.time.parse(item.getEndTime());
+            startTime = DateFormatProvider.hour.parse(meal.startTime);
+            endTime = DateFormatProvider.hour.parse(meal.endTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        mealTimeTextView.setText(hourFormat.format(startTime) + "–" + hourFormat.format(endTime));
+        mealTimeTextView.setText(DateFormatProvider.hour.format(startTime) + "–" + DateFormatProvider.hour.format(endTime));
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.help_group_indicator);
         if (isExpanded) {
             groupIndicator.setImageResource(R.drawable.ic_expand_less_black_24dp);
@@ -185,8 +133,7 @@ public class MenuAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public boolean isChildSelectable(int listPosition, int expandedListPosition) {
+    public boolean isChildSelectable(int mealPosition, int itemPosition) {
         return true;
     }
-    */
 }

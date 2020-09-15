@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.adisa.diningplus.db.DatabaseClient;
+import com.adisa.diningplus.db.entities.Item;
+import com.adisa.diningplus.db.entities.Location;
 import com.adisa.diningplus.db.entities.Meal;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -40,6 +42,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class LocationActivity extends AppCompatActivity {
     DatabaseClient db;
@@ -48,7 +51,7 @@ public class LocationActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbar;
     String locationName;
     int locationId;
-    HashMap<String, ArrayList<FoodItem>> mealMap;
+    HashMap<String, List<Item>> mealItems;
     HashMap<String, Integer> headerMap = new HashMap<>();
     ArrayList<Meal> meals;
     MenuAdapter menuAdapter;
@@ -57,26 +60,6 @@ public class LocationActivity extends AppCompatActivity {
     SharedPreferences preferences;
     View emptyView;
     View loadingView;
-
-    class FoodItem {
-        int id;
-        String name;
-        boolean marked;
-
-        FoodItem(int id, String name) {
-            this.id = id;
-            this.name = name;
-            marked = false;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getId() {
-            return id;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,12 +107,12 @@ public class LocationActivity extends AppCompatActivity {
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPos, int childPos, long id) {
-                FoodItem foodItem = (FoodItem) menuAdapter.getChild(groupPos, childPos);
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int mealPosition, int itemPosition, long id) {
+                Item item = (Item) menuAdapter.getChild(mealPosition, itemPosition);
                 Intent i = new Intent();
                 i.setClass(getApplicationContext(), ItemActivity.class);
-                i.putExtra("name", foodItem.getName());
-                i.putExtra("id", foodItem.getId());
+                i.putExtra("name", item.name);
+                i.putExtra("id", item.id);
                 startActivity(i);
                 return true;
             }
@@ -219,58 +202,40 @@ public class LocationActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                api.get
-                Cursor result = dbHelper.getLocation(locationId);
-                while (result.moveToNext()) {
-                    String updateString = result.getString(result.getColumnIndex(DatabaseContract.DiningLocation.LAST_UPDATED));
-                    if (!updateString.equals("")) {
-                        lastUpdated = DateFormatProvider.date.parse(updateString);
-                    }
-                }
-                Date currentDate = resetTime(new Date());
-                if (!dbHelper.isStored(DatabaseContract.MenuItem.TABLE_NAME, DatabaseContract.MenuItem.DINING_HALL, "" + locationId) ||
-                        lastUpdated.compareTo(currentDate) != 0) {
-                    api.fetchMenu(locationId);
-                }
-                dbHelper.updateTime(locationId);
-            } catch (JSONException | ParseException | IOException e) {
+                api.getLocationMeals(locationId);
+            } catch (JSONException | IOException e) {
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-
-
-            Cursor result = dbHelper.getMenu(locationId);
-            mealMap = new HashMap<>();
-            meals = new ArrayList<Meal>();
-            while (result.moveToNext()) {
-                String mealName = result.getString(result.getColumnIndex(DatabaseContract.MenuItem.MENU_NAME));
-                ArrayList<FoodItem> newList;
-                if (mealMap.containsKey(mealName)) {
-                    newList = mealMap.get(mealName);
-                } else {
-                    newList = new ArrayList<>();
-                    meals.add(new Meal(mealName, result.getString(result.getColumnIndex(DatabaseContract.MenuItem.START_TIME)), result.getString(result.getColumnIndex(DatabaseContract.MenuItem.END_TIME))));
+            List<Meal> meals = db.getDB().mealDao().getLocation(locationId);
+            mealItems = new HashMap<>();
+            for (Meal meal : meals) {
+                try {
+                    api.getMealItems(meal.id);
+                } catch (JSONException | IOException e) {
+                    Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
+                    e.printStackTrace();
                 }
-                newList.add(new FoodItem(result.getInt(result.getColumnIndex(DatabaseContract.MenuItem.NUTRITION_ID)), result.getString(result.getColumnIndex(DatabaseContract.MenuItem.NAME))));
-                mealMap.put(mealName, newList);
+                List<Item> items = db.getDB().itemDao().getMeal(meal.id);
+                mealItems.put(meal.name, items);
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            menuAdapter = new MenuAdapter(LocationActivity.this, meals, mealMap);
+            menuAdapter = new MenuAdapter(LocationActivity.this, meals, mealItems);
             expandableListView.setAdapter(menuAdapter);
             if (menuAdapter.getGroupCount() > 0)
                 expandableListView.expandGroup(0);
             expandableListView.setEmptyView(findViewById(R.id.location_empty));
-            TraitTask traitTask = new TraitTask();
-            traitTask.execute();
+            AllergenTask allergenTask = new AllergenTask();
+            allergenTask.execute();
             Log.d("get", "done");
         }
     }
 
-    private class TraitTask extends AsyncTask<Void, Void, Void> {
+    private class AllergenTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("get", "start");
@@ -278,37 +243,31 @@ public class LocationActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            try {
-                for (Meal meal : meals) {
-                    ArrayList<FoodItem> newList = new ArrayList<>();
-                    for (FoodItem foodItem : mealMap.get(meal.getName())) {
-                        api.fetchItem(foodItem.getId());
-                        Cursor result = dbHelper.getNutritionItem(foodItem.getId());
-                        while (result.moveToNext()) {
-                            HashSet<String> traitList = (HashSet<String>) preferences.getStringSet("traitPrefs", new HashSet<String>());
-                            for (String trait : traitList) {
-                                if (result.getInt(result.getColumnIndex(trait.toLowerCase())) == 1) {
-                                    foodItem.marked = true;
-                                    Log.d("traitTask", "marked");
-                                    break;
-                                }
+            HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
+            for (Meal meal : meals) {
+                ArrayList<Item> newList = new ArrayList<>();
+                for (Item item : mealItems.get(meal.name)) {
+                    for (String allergen : allergens) {
+                        try {
+                            if ((boolean) item.getClass().getField(allergen).get(item)) {
+                                item.allergenic = true;
+                                break;
                             }
+                        } catch (NoSuchFieldException e) {
+                            // Should never happen
+                        } catch (IllegalAccessException e) {
+                            // Should never happen
                         }
-                        newList.add(foodItem);
                     }
-                    mealMap.put(meal.getName(), newList);
+                    newList.add(item);
                 }
-            } catch (JSONException | IOException e) {
-                Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
-                e.printStackTrace();
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            menuAdapter.setMap(mealMap);
+            menuAdapter.setItems(mealItems);
             loadingView.setVisibility(View.GONE);
             Log.d("get", "done");
         }

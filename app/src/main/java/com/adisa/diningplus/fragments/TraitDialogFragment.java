@@ -35,7 +35,7 @@ public class TraitDialogFragment extends DialogFragment {
         String[] traitArray = getResources().getStringArray(R.array.traits);
         boolean[] selections = new boolean[traitArray.length];
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        HashSet<String> currTraits = (HashSet<String>) preferences.getStringSet("traitPrefs", new HashSet<String>());
+        HashSet<String> currTraits = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
 
         for (int i = 0; i < traitArray.length; i++) {
             if (currTraits.contains(traitArray[i])) {
@@ -69,7 +69,7 @@ public class TraitDialogFragment extends DialogFragment {
                                 traitSet.add(traitArray[i]);
                             }
                         }
-                        editor.putStringSet("traitPrefs", traitSet);
+                        editor.putStringSet("allergens", traitSet);
                         editor.apply();
                     }
                 });

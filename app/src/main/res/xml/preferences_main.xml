@@ -3,7 +3,7 @@
     <MultiSelectListPreference
         android:entries="@array/traits"
         android:entryValues="@array/traits"
-        android:key="traitPrefs"
+        android:key="allergens"
         android:summary="The dietary traits that you selected to avoid."
         android:title="Traits" />
     <com.adisa.diningplus.FollowDialogPreference
