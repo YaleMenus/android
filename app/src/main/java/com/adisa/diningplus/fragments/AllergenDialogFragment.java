@@ -56,7 +56,7 @@ public class AllergenDialogFragment extends DialogFragment {
                         String[] traitArray = getResources().getStringArray(R.array.allergens);
                         for (int i = 0; i < finalSelections.length; i++) {
                             if (finalSelections[i]) {
-                                traitSet.add(traitArray[i]);
+                                traitSet.add(traitArray[i].toLowerCase());
                             }
                         }
                         editor.putStringSet("allergens", traitSet);

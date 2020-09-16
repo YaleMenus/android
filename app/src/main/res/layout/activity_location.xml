@@ -106,16 +106,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView3"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:text="@string/empty_location_secondary"
-            android:textAlignment="center" />
-
     </RelativeLayout>
 
     <RelativeLayout
