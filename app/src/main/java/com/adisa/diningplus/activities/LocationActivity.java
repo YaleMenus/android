@@ -47,7 +47,7 @@ public class LocationActivity extends AppCompatActivity {
     int locationId;
     HashMap<String, List<Item>> mealItems;
     HashMap<String, Integer> headerMap = new HashMap<>();
-    ArrayList<Meal> meals;
+    List<Meal> meals;
     MenuAdapter menuAdapter;
     ExpandableListView expandableListView;
     CoordinatorLayout coordinatorLayout;
@@ -189,7 +189,7 @@ public class LocationActivity extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-            List<Meal> meals = db.getDB().mealDao().getLocation(locationId);
+            meals = db.getDB().mealDao().getLocation(locationId);
             mealItems = new HashMap<>();
             for (Meal meal : meals) {
                 try {

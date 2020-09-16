@@ -43,13 +43,12 @@ public class AllergenDialogFragment extends DialogFragment {
 
         final boolean[] finalSelections = selections;
         builder.setTitle("Select dietary traits that you want to avoid.")
-                .setMultiChoiceItems(R.array.allergens, selections,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                finalSelections[which] = isChecked;
-                            }
-                        })
+                .setMultiChoiceItems(R.array.allergens, selections, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        finalSelections[which] = isChecked;
+                    }
+                })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences.Editor editor = preferences.edit();
