@@ -87,7 +87,7 @@ public class DiningAPI {
 
     public List<Item> getMealItems(int mealId) throws IOException, JSONException {
         List<Item> items = db.getDB().itemDao().getMeal(mealId);
-        if (items.size() > 0) {
+        if (!items.isEmpty()) {
             return items;
         }
         JSONArray itemsRaw = new JSONArray(getJSON("meals/" + mealId + "/items"));
