@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ItemActivity extends AppCompatActivity {
-    DatabaseClient db;
     DiningAPI api;
 
     String itemName;
@@ -59,7 +58,7 @@ public class ItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item);
 
         db = new DatabaseClient(this);
-        api = new DiningAPI(db);
+        api = new DiningAPI(this);
 
         Intent i = getIntent();
         itemName = i.getStringExtra("name");
@@ -113,21 +112,20 @@ public class ItemActivity extends AppCompatActivity {
                 item = api.getItem(itemId);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
+                return null;
             }
-            if (item != null) {
-                if (item.alcohol) allergens.add(new Allergen(R.drawable.key_alcohol, "Alcohol"));
-                if (item.nuts) allergens.add(new Allergen(R.drawable.key_nuts, "Nuts"));
-                if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"));
-                if (item.peanuts) allergens.add(new Allergen(R.drawable.key_peanuts, "Peanuts"));
-                if (item.dairy) allergens.add(new Allergen(R.drawable.key_dairy, "Dairy"));
-                if (item.egg) allergens.add(new Allergen(R.drawable.key_egg, "Egg"));
-                if (item.pork) allergens.add(new Allergen(R.drawable.key_pork, "Pork"));
-                if (item.fish) allergens.add(new Allergen(R.drawable.key_fish, "Fish"));
-                if (item.soy) allergens.add(new Allergen(R.drawable.key_soy, "Soy"));
-                if (item.wheat) allergens.add(new Allergen(R.drawable.key_wheat, "Wheat"));
-                if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
-                if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
-            }
+            if (item.alcohol) allergens.add(new Allergen(R.drawable.key_alcohol, "Alcohol"));
+            if (item.nuts) allergens.add(new Allergen(R.drawable.key_nuts, "Nuts"));
+            if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"));
+            if (item.peanuts) allergens.add(new Allergen(R.drawable.key_peanuts, "Peanuts"));
+            if (item.dairy) allergens.add(new Allergen(R.drawable.key_dairy, "Dairy"));
+            if (item.egg) allergens.add(new Allergen(R.drawable.key_egg, "Egg"));
+            if (item.pork) allergens.add(new Allergen(R.drawable.key_pork, "Pork"));
+            if (item.fish) allergens.add(new Allergen(R.drawable.key_fish, "Fish"));
+            if (item.soy) allergens.add(new Allergen(R.drawable.key_soy, "Soy"));
+            if (item.wheat) allergens.add(new Allergen(R.drawable.key_wheat, "Wheat"));
+            if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
+            if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
 
 
             Nutrition nutrition = null;
