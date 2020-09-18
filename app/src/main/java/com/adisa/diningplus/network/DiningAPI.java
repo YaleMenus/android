@@ -1,7 +1,9 @@
 package com.adisa.diningplus.network;
 
 import android.content.ContentValues;
+import android.content.Context;
 
+import com.adisa.diningplus.db.AppDatabase;
 import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Location;
@@ -22,10 +24,11 @@ import java.util.List;
 
 public class DiningAPI {
     private final String API_ROOT = "https://yaledine.herokuapp.com/api/";
-    DatabaseClient db;
+    AppDatabase db;
 
-    public DiningAPI(DatabaseClient db) {
-        this.db = db;
+    public DiningAPI(Context ctx) {
+        DatabaseClient dbClient = new DatabaseClient(ctx);
+        this.db = dbClient.getDB();
     }
 
     public String getJSON(String endpoint) throws IOException {
@@ -47,7 +50,7 @@ public class DiningAPI {
 
     public List<Location> getLocations() throws IOException, JSONException {
         JSONArray locationsRaw = new JSONArray(getJSON("locations"));
-        db.getDB().locationDao().clear();
+        db.locationDao().clear();
         for (int i = 0; i < locationsRaw.length(); i++) {
             JSONObject locationRaw = locationsRaw.getJSONObject(i);
             String type = locationRaw.getString("type");
@@ -62,15 +65,15 @@ public class DiningAPI {
                 location.longitude = locationRaw.optDouble("longitude", 0);
                 location.address = locationRaw.optString("address", null);
                 location.phone = locationRaw.optString("phone", null);
-                db.getDB().locationDao().insert(location);
+                db.locationDao().insert(location);
             }
         }
-        return db.getDB().locationDao().getAll();
+        return db.locationDao().getAll();
     }
 
     public List<Meal> getLocationMeals(int locationId) throws IOException, JSONException {
         JSONArray mealsRaw = new JSONArray(getJSON("locations/" + locationId + "/meals"));
-        db.getDB().mealDao().clearLocation(locationId);
+        db.mealDao().clearLocation(locationId);
         for (int i = 0; i < mealsRaw.length(); i++) {
             JSONObject mealRaw = mealsRaw.getJSONObject(i);
             Meal meal = new Meal();
@@ -80,13 +83,13 @@ public class DiningAPI {
             meal.startTime = mealRaw.optString("start_time");
             meal.endTime = mealRaw.optString("end_time");
             meal.locationId = mealRaw.getInt("location_id");
-            db.getDB().mealDao().insert(meal);
+            db.mealDao().insert(meal);
         }
-        return db.getDB().mealDao().getLocation(locationId);
+        return db.mealDao().getLocation(locationId);
     }
 
     public List<Item> getMealItems(int mealId) throws IOException, JSONException {
-        List<Item> items = db.getDB().itemDao().getMeal(mealId);
+        List<Item> items = db.itemDao().getMeal(mealId);
         if (!items.isEmpty()) {
             return items;
         }
@@ -111,13 +114,13 @@ public class DiningAPI {
             item.wheat = itemRaw.getBoolean("wheat");
             item.gluten = itemRaw.getBoolean("gluten");
             item.coconut = itemRaw.getBoolean("coconut");
-            db.getDB().itemDao().insert(item);
+            db.itemDao().insert(item);
         }
-        return db.getDB().itemDao().getMeal(mealId);
+        return db.itemDao().getMeal(mealId);
     }
 
     public Item getItem(int itemId) throws IOException, JSONException {
-        Item item = db.getDB().itemDao().get(itemId);
+        Item item = db.itemDao().get(itemId);
         if (item == null) {
             JSONObject itemRaw = new JSONObject(getJSON("items/" + itemId));
             item = new Item();
@@ -138,13 +141,13 @@ public class DiningAPI {
             item.wheat = itemRaw.getBoolean("wheat");
             item.gluten = itemRaw.getBoolean("gluten");
             item.coconut = itemRaw.getBoolean("coconut");
-            db.getDB().itemDao().insert(item);
+            db.itemDao().insert(item);
         }
         return item;
     }
 
     public Nutrition getItemNutrition(int itemId) throws IOException, JSONException {
-        Nutrition nutrition = db.getDB().nutritionDao().get(itemId);
+        Nutrition nutrition = db.nutritionDao().get(itemId);
         if (nutrition == null) {
             JSONObject nutritionRaw = new JSONObject(getJSON("items/" + itemId + "/nutrition"));
             nutrition = new Nutrition();

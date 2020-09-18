@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Location;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.snackbar.Snackbar;
@@ -50,7 +49,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    DatabaseClient db;
     DiningAPI api;
 
     private MainListAdapter adapter;
@@ -71,8 +69,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         setTheme(R.style.AppTheme);
 
-        db = new DatabaseClient(this);
-        api = new DiningAPI(db);
+        api = new DiningAPI(this);
 
         adapter = new MainListAdapter(this);
         ListView mainList = findViewById(R.id.halls);

@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.adisa.diningplus.adapters.AllergenAdapter;
-import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Nutrition;
 import com.adisa.diningplus.fragments.FollowDialogFragment;
@@ -57,7 +56,6 @@ public class ItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        db = new DatabaseClient(this);
         api = new DiningAPI(this);
 
         Intent i = getIntent();
@@ -127,16 +125,14 @@ public class ItemActivity extends AppCompatActivity {
             if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
             if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
 
-
             Nutrition nutrition = null;
             try {
                 nutrition = api.getItemNutrition(itemId);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
+                return null;
             }
-            if (nutrition != null) {
 
-            }
 
             return null;
         }

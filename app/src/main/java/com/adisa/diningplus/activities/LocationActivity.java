@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Meal;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -39,7 +38,6 @@ import java.util.HashSet;
 import java.util.List;
 
 public class LocationActivity extends AppCompatActivity {
-    DatabaseClient db;
     DiningAPI api;
 
     CollapsingToolbarLayout collapsingToolbar;
@@ -60,8 +58,7 @@ public class LocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        db = new DatabaseClient(this);
-        api = new DiningAPI(db);
+        api = new DiningAPI(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
