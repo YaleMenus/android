@@ -15,6 +15,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.adisa.diningplus.db.DatabaseClient;
+import com.adisa.diningplus.db.entities.Item;
+import com.adisa.diningplus.db.entities.Nutrition;
 import com.adisa.diningplus.fragments.FollowDialogFragment;
 import com.adisa.diningplus.adapters.ItemDetailAdapter;
 import com.adisa.diningplus.R;
@@ -27,20 +30,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ItemActivity extends AppCompatActivity {
-    String itemName;
-    int nutritionId;
-    DatabaseHelper dbHelper;
+    DatabaseClient db;
     DiningAPI api;
+
+    String itemName;
+    int itemId;
+
     ListView itemDetailListView;
     ItemDetailAdapter itemDetailAdapter;
-    ArrayList<Detail> detailList = new ArrayList<>();
+    ArrayList<Allergen> allergens = new ArrayList<>();
     SharedPreferences preferences;
 
-    public class Detail {
-        public int image;
-        public String name;
+    private class Allergen {
+        int image;
+        String name;
 
-        Detail(int image, String name) {
+        Allergen(int image, String name) {
             this.image = image;
             this.name = name;
         }
@@ -50,17 +55,20 @@ public class ItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
-        itemDetailListView = (ListView) findViewById(R.id.itemDetailListView);
+
+        db = new DatabaseClient(this);
+        api = new DiningAPI(db);
+
         Intent i = getIntent();
         itemName = i.getStringExtra("name");
-        nutritionId = i.getIntExtra("id", -1);
+        itemId = i.getIntExtra("id", -1);
+
+        itemDetailListView = (ListView) findViewById(R.id.itemDetailListView);
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         getSupportActionBar().setTitle(itemName);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        dbHelper = new DatabaseHelper(getApplicationContext());
-
-        api = new DiningAPI(dbHelper);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences.getBoolean("followTutorial", true)) {
@@ -74,14 +82,14 @@ public class ItemActivity extends AppCompatActivity {
             }
         }
 
-        NutritionTask nutritionTask = new NutritionTask();
-        nutritionTask.execute();
+        ItemTask itemTask = new ItemTask();
+        itemTask.execute();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_item_detail, menu);
+        inflater.inflate(R.menu.menu_item, menu);
         HashSet<String> current = (HashSet<String>) preferences.getStringSet("followedItems", new HashSet<String>());
         if (current.contains(itemName)) {
             menu.findItem(R.id.action_notify).setIcon(R.drawable.notifications_enabled);
@@ -89,7 +97,7 @@ public class ItemActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private class NutritionTask extends AsyncTask<Void, Void, Void> {
+    private class ItemTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("get", "start");
@@ -97,45 +105,32 @@ public class ItemActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            Item item;
             try {
-                api.fetchItem(itemId);
+                item = api.getItem(itemId);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            Cursor nutrition = dbHelper.getItem(itemId);
-            while (nutrition.moveToNext()) {
-                if (nutrition.getInt(DatabaseContract.Item.ALCOHOL))
-                    detailList.add(new Detail(R.drawable.key_alcohol, "Alcohol"));
-                if (nutrition.getInt(DatabaseContract.Item.NUTS))
-                    detailList.add(new Detail(R.drawable.key_nut, "Nuts"));
-                if (nutrition.getInt(DatabaseContract.Item.DAIRY))
-                    detailList.add(new Detail(R.drawable.key_dairy, "Dairy"));
-                if (nutrition.getInt(DatabaseContract.Item.EGGS))
-                    detailList.add(new Detail(R.drawable.key_eggs, "Eggs"));
-                if (nutrition.getInt(DatabaseContract.Item.FISH))
-                    detailList.add(new Detail(R.drawable.key_fish, "Fish"));
-                if (nutrition.getInt(DatabaseContract.Item.GLUTEN))
-                    detailList.add(new Detail(R.drawable.key_gluten, "Gluten"));
-                if (nutrition.getInt(DatabaseContract.Item.GLUTEN_FREE))
-                    detailList.add(new Detail(R.drawable.key_glutenfree, "Gluten Free"));
-                if (nutrition.getInt(DatabaseContract.Item.PEANUT))
-                    detailList.add(new Detail(R.drawable.key_peanut, "Peanut"));
-                if (nutrition.getInt(DatabaseContract.Item.PORK))
-                    detailList.add(new Detail(R.drawable.key_pork, "Pork"));
-                if (nutrition.getInt(DatabaseContract.Item.SHELLFISH))
-                    detailList.add(new Detail(R.drawable.key_shellfish, "Shellfish"));
-                if (nutrition.getInt(DatabaseContract.Item.SOY))
-                    detailList.add(new Detail(R.drawable.key_soy, "Soy"));
-                if (nutrition.getInt(DatabaseContract.Item.VEGAN)) == 1)
-                    detailList.add(new Detail(R.drawable.key_vegan, "Vegan"));
-                if (nutrition.getInt(DatabaseContract.Item.VEGETARIAN))
-                    detailList.add(new Detail(R.drawable.key_vegetarian, "Vegetarian"));
-                if (nutrition.getInt(DatabaseContract.Item.WHEAT))
-                    detailList.add(new Detail(R.drawable.key_wheat, "Wheat"));
-                if (nutrition.getString(DatabaseContract.Nutrition.WARNING)) == null)
-                    detailList.add(new Detail(-2, nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.WARNING))));
-                if (detailList.size() > 0)
-                    detailList.add(0, new Detail(-1, "Traits"));
+            if (item.alcohol) allergens.add(new Allergen(R.drawable.key_alcohol, "Alcohol"));
+            if (item.nuts) allergens.add(new Allergen(R.drawable.key_nuts, "Nuts"));
+            if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"))
+            if (item.peanuts) allergens.add(new Allergen(R.drawable.key_peanuts, "Peanuts"));
+            if (item.dairy) allergens.add(new Allergen(R.drawable.key_dairy, "Dairy"));
+            if (item.egg) allergens.add(new Allergen(R.drawable.key_egg, "Egg"));
+            if (item.pork) allergens.add(new Allergen(R.drawable.key_pork, "Pork"));
+            if (item.fish) allergens.add(new Allergen(R.drawable.key_fish, "Fish"));
+            if (item.soy) allergens.add(new Allergen(R.drawable.key_soy, "Soy"));
+            if (item.wheat) allergens.add(new Allergen(R.drawable.key_wheat, "Wheat"));
+            if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
+            // TODO: make sure this image renders properly
+            if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
+
+            Nutrition nutrition;
+            try {
+                nutrition = api.getNutrition(itemId);
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
 
                 detailList.add(new Detail(-1, "Nutrition"));
                 detailList.add(new Detail(-3, "Serving Size: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.SERVING_SIZE))));
