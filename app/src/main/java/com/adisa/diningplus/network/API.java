@@ -22,11 +22,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class DiningAPI {
+public class API {
     private final String API_ROOT = "https://yaledine.herokuapp.com/api/";
     AppDatabase db;
 
-    public DiningAPI(Context ctx) {
+    public API(Context ctx) {
         DatabaseClient dbClient = new DatabaseClient(ctx);
         this.db = dbClient.getDB();
     }

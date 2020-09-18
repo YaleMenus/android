@@ -27,7 +27,7 @@ import android.widget.ImageView;
 
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.adapters.MenuAdapter;
-import com.adisa.diningplus.network.DiningAPI;
+import com.adisa.diningplus.network.API;
 
 import org.json.JSONException;
 
@@ -38,7 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class LocationActivity extends AppCompatActivity {
-    DiningAPI api;
+    API api;
 
     CollapsingToolbarLayout collapsingToolbar;
     String locationName;
@@ -58,7 +58,7 @@ public class LocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        api = new DiningAPI(this);
+        api = new API(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);

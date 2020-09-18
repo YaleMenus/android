@@ -31,7 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.adisa.diningplus.db.DatabaseUpdateService;
-import com.adisa.diningplus.network.DiningAPI;
+import com.adisa.diningplus.network.API;
 import com.adisa.diningplus.adapters.MainListAdapter;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.fragments.AllergenDialogFragment;
@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    DiningAPI api;
+    API api;
 
     private MainListAdapter adapter;
     ArrayList<LocationItem> openLocations = new ArrayList<>();
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         setTheme(R.style.AppTheme);
 
-        api = new DiningAPI(this);
+        api = new API(this);
 
         adapter = new MainListAdapter(this);
         ListView mainList = findViewById(R.id.halls);

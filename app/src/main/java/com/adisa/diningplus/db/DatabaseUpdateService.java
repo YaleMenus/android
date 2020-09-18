@@ -1,29 +1,21 @@
 package com.adisa.diningplus.db;
 
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.adisa.diningplus.db.entities.Location;
-import com.adisa.diningplus.db.entities.Meal;
-import com.adisa.diningplus.network.DiningAPI;
+import com.adisa.diningplus.network.API;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.HashSet;
 import java.util.List;
 
 public class DatabaseUpdateService extends JobService {
     DatabaseClient db;
-    DiningAPI api;
+    API api;
     SharedPreferences preferences;
     DatabaseUpdateReceiver mDownloadStateReceiver;
     public static final String BROADCAST_ACTION =
