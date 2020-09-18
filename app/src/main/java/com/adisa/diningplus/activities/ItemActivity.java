@@ -20,7 +20,7 @@ import com.adisa.diningplus.db.entities.Nutrition;
 import com.adisa.diningplus.fragments.FollowDialogFragment;
 import com.adisa.diningplus.adapters.ItemDetailAdapter;
 import com.adisa.diningplus.R;
-import com.adisa.diningplus.network.DiningAPI;
+import com.adisa.diningplus.network.API;
 
 import org.json.JSONException;
 
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ItemActivity extends AppCompatActivity {
-    DiningAPI api;
+    API api;
 
     String itemName;
     int itemId;
@@ -56,7 +56,7 @@ public class ItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        api = new DiningAPI(this);
+        api = new API(this);
 
         Intent i = getIntent();
         itemName = i.getStringExtra("name");
