@@ -262,13 +262,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         @Override
         protected Void doInBackground(Void... params) {
+            List<Location> locations = null;
             try {
-                api.getLocations();
+                locations = api.getLocations();
             } catch (Exception e) {
                 e.printStackTrace();
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
             }
-            List<Location> locations = db.getDB().locationDao().getAll();
             for (Location location : locations) {
                 LocationItem item = new LocationItem(location.name,
                                                      location.capacity,

@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class DiningAPI {
     private final String API_ROOT = "https://yaledine.herokuapp.com/api/";
@@ -44,7 +45,7 @@ public class DiningAPI {
         return buffer.toString();
     }
 
-    public void getLocations() throws IOException, JSONException {
+    public List<Location> getLocations() throws IOException, JSONException {
         JSONArray locationsRaw = new JSONArray(getJSON("locations"));
         db.getDB().locationDao().clear();
         for (int i = 0; i < locationsRaw.length(); i++) {
@@ -64,9 +65,10 @@ public class DiningAPI {
                 db.getDB().locationDao().insert(location);
             }
         }
+        return db.getDB().locationDao().getAll();
     }
 
-    public void getLocationMeals(int locationId) throws IOException, JSONException {
+    public List<Meal> getLocationMeals(int locationId) throws IOException, JSONException {
         JSONArray mealsRaw = new JSONArray(getJSON("locations/" + locationId + "/meals"));
         db.getDB().mealDao().clearLocation(locationId);
         for (int i = 0; i < mealsRaw.length(); i++) {
@@ -80,11 +82,15 @@ public class DiningAPI {
             meal.locationId = mealRaw.getInt("location_id");
             db.getDB().mealDao().insert(meal);
         }
+        return db.getDB().mealDao().getLocation(locationId);
     }
 
-    public void getMealItems(int mealId) throws IOException, JSONException {
+    public List<Item> getMealItems(int mealId) throws IOException, JSONException {
+        List<Item> items = db.getDB().itemDao().getMeal(mealId);
+        if (items.size() > 0) {
+            return items;
+        }
         JSONArray itemsRaw = new JSONArray(getJSON("meals/" + mealId + "/items"));
-        db.getDB().itemDao().clearMeal(mealId);
         for (int i = 0; i < itemsRaw.length(); i++) {
             JSONObject itemRaw = itemsRaw.getJSONObject(i);
             Item item = new Item();
@@ -107,6 +113,7 @@ public class DiningAPI {
             item.coconut = itemRaw.getBoolean("coconut");
             db.getDB().itemDao().insert(item);
         }
+        return db.getDB().itemDao().getMeal(mealId);
     }
 
     public Item getItem(int itemId) throws IOException, JSONException {
