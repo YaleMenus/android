@@ -45,7 +45,9 @@ public class Nutrition implements Serializable {
     public String saturatedFatPDV;
     @ColumnInfo(name="trans_fat_pdv")
     public String transFatPDV;
+    @ColumnInfo(name="cholesterol_pdv")
     public String cholesterolPDV;
+    @ColumnInfo(name="sodium_pdv")
     public String sodiumPDV;
     @ColumnInfo(name="total_carbohydrate_pdv")
     public String totalCarbohydratePDV;
@@ -53,6 +55,7 @@ public class Nutrition implements Serializable {
     public String dietaryFiberPDV;
     @ColumnInfo(name="total_sugars_pdv")
     public String totalSugarsPDV;
+    @ColumnInfo(name="protein_pdv")
     public String proteinPDV;
     @ColumnInfo(name="vitamin_d_pdv")
     public String vitaminDPDV;
@@ -60,8 +63,11 @@ public class Nutrition implements Serializable {
     public String vitaminAPDV;
     @ColumnInfo(name="vitamin_c_pdv")
     public String vitaminCPDV;
+    @ColumnInfo(name="calcium_pdv")
     public String calciumPDV;
+    @ColumnInfo(name="iron_pdv")
     public String ironPDV;
+    @ColumnInfo(name="potassium_pdv")
     public String potassiumPDV;
 
     @ColumnInfo(name = "item_id")
