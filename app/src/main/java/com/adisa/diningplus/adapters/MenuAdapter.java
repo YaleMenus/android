@@ -111,8 +111,8 @@ public class MenuAdapter extends BaseExpandableListAdapter {
         Date startTime = null, endTime = null;
         // TODO: support 24 and 12 hour time
         try {
-            startTime = DateFormatProvider.hour.parse(meal.startTime);
-            endTime = DateFormatProvider.hour.parse(meal.endTime);
+            startTime = DateFormatProvider.hour24.parse(meal.startTime);
+            endTime = DateFormatProvider.hour24.parse(meal.endTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
