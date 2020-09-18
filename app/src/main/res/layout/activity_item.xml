@@ -7,6 +7,14 @@
     tools:context="com.adisa.diningplus.activities.ItemActivity">
 
     <ListView
+        android:id="@+id/allergenListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" />
+
+    <ListView
         android:id="@+id/itemDetailListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

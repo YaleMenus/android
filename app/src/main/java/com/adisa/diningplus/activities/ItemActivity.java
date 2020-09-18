@@ -2,7 +2,6 @@ package com.adisa.diningplus.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import androidx.fragment.app.DialogFragment;
@@ -15,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.adisa.diningplus.adapters.AllergenAdapter;
 import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Nutrition;
@@ -38,6 +38,8 @@ public class ItemActivity extends AppCompatActivity {
 
     ListView itemDetailListView;
     ItemDetailAdapter itemDetailAdapter;
+
+    ListView allergenListView;
     ArrayList<Allergen> allergens = new ArrayList<>();
     SharedPreferences preferences;
 
@@ -54,7 +56,7 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_detail);
+        setContentView(R.layout.activity_item);
 
         db = new DatabaseClient(this);
         api = new DiningAPI(db);
@@ -63,6 +65,7 @@ public class ItemActivity extends AppCompatActivity {
         itemName = i.getStringExtra("name");
         itemId = i.getIntExtra("id", -1);
 
+        allergenListView = (ListView) findViewById(R.id.allergenListView);
         itemDetailListView = (ListView) findViewById(R.id.itemDetailListView);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -114,7 +117,7 @@ public class ItemActivity extends AppCompatActivity {
             if (item != null) {
                 if (item.alcohol) allergens.add(new Allergen(R.drawable.key_alcohol, "Alcohol"));
                 if (item.nuts) allergens.add(new Allergen(R.drawable.key_nuts, "Nuts"));
-                if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"))
+                if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"));
                 if (item.peanuts) allergens.add(new Allergen(R.drawable.key_peanuts, "Peanuts"));
                 if (item.dairy) allergens.add(new Allergen(R.drawable.key_dairy, "Dairy"));
                 if (item.egg) allergens.add(new Allergen(R.drawable.key_egg, "Egg"));
@@ -142,8 +145,10 @@ public class ItemActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            itemDetailAdapter = new ItemDetailAdapter(ItemActivity.this, detailList);
-            itemDetailListView.setAdapter(itemDetailAdapter);
+            AllergenAdapter allergenAdapter = new AllergenAdapter(ItemActivity.this, allergens);
+            allergenListView.setAdapter(allergenAdapter);
+//            itemDetailAdapter = new ItemDetailAdapter(ItemActivity.this, detailList);
+//            itemDetailListView.setAdapter(itemDetailAdapter);
             Log.e("get", "done");
         }
     }
@@ -173,5 +178,4 @@ public class ItemActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    */
 }
