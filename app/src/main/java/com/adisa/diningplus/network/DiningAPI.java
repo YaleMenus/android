@@ -107,4 +107,31 @@ public class DiningAPI {
             db.getDB().itemDao().insert(item);
         }
     }
+
+    public Item getItem(int itemId) throws IOException, JSONException {
+        Item item = db.getDB().itemDao().get(itemId);
+        if (item == null) {
+            JSONObject itemRaw = new JSONObject(getJSON("items/" + itemId));
+            item = new Item();
+            item.id = itemRaw.getInt("id");
+            item.name = itemRaw.getString("name");
+            item.ingredients = itemRaw.getString("ingredients");
+            item.vegetarian = itemRaw.getBoolean("vegetarian");
+            item.vegan = itemRaw.getBoolean("vegan");
+            item.alcohol = itemRaw.getBoolean("alcohol");
+            item.nuts = itemRaw.getBoolean("nuts");
+            item.shellfish = itemRaw.getBoolean("shellfish");
+            item.peanuts = itemRaw.getBoolean("peanuts");
+            item.dairy = itemRaw.getBoolean("dairy");
+            item.egg = itemRaw.getBoolean("egg");
+            item.pork = itemRaw.getBoolean("pork");
+            item.seafood = itemRaw.getBoolean("seafood");
+            item.soy = itemRaw.getBoolean("soy");
+            item.wheat = itemRaw.getBoolean("wheat");
+            item.gluten = itemRaw.getBoolean("gluten");
+            item.coconut = itemRaw.getBoolean("coconut");
+            db.getDB().itemDao().insert(item);
+        }
+        return item;
+    }
 }
