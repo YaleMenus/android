@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "58135d75a577dcd92a0b88c5f71c9b82",
+    "identityHash": "4277879fed35ac9c146890cb3b7dc5c2",
     "entities": [
       {
         "tableName": "locations",
@@ -206,7 +206,7 @@
       },
       {
         "tableName": "items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `vegetarian` INTEGER NOT NULL, `vegan` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `seafood` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, `course_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `vegetarian` INTEGER NOT NULL, `vegan` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `fish` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, `course_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -281,8 +281,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "seafood",
-            "columnName": "seafood",
+            "fieldPath": "fish",
+            "columnName": "fish",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -334,7 +334,7 @@
       },
       {
         "tableName": "nutrition",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `portion_size` TEXT, `total_fat` TEXT, `saturated_fat` TEXT, `trans_fat` TEXT, `cholesterol` TEXT, `sodium` TEXT, `total_carbohydrate` TEXT, `dietary_fiber` TEXT, `total_sugars` TEXT, `protein` TEXT, `vitamin_d` TEXT, `vitamin_a` TEXT, `vitamin_c` TEXT, `calcium` TEXT, `iron` TEXT, `potassium` TEXT, `total_fat_pdv` TEXT, `saturated_fat_pdv` TEXT, `trans_fat_pdv` TEXT, `cholesterolPDV` TEXT, `sodiumPDV` TEXT, `total_carbohydrate_pdv` TEXT, `dietary_fiber_pdv` TEXT, `total_sugars_pdv` TEXT, `proteinPDV` TEXT, `vitamin_d_pdv` TEXT, `vitamin_a_pdv` TEXT, `vitamin_c_pdv` TEXT, `calciumPDV` TEXT, `ironPDV` TEXT, `potassiumPDV` TEXT, `item_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `portion_size` TEXT, `total_fat` TEXT, `saturated_fat` TEXT, `trans_fat` TEXT, `cholesterol` TEXT, `sodium` TEXT, `total_carbohydrate` TEXT, `dietary_fiber` TEXT, `total_sugars` TEXT, `protein` TEXT, `vitamin_d` TEXT, `vitamin_a` TEXT, `vitamin_c` TEXT, `calcium` TEXT, `iron` TEXT, `potassium` TEXT, `total_fat_pdv` TEXT, `saturated_fat_pdv` TEXT, `trans_fat_pdv` TEXT, `cholesterol_pdv` TEXT, `sodium_pdv` TEXT, `total_carbohydrate_pdv` TEXT, `dietary_fiber_pdv` TEXT, `total_sugars_pdv` TEXT, `protein_pdv` TEXT, `vitamin_d_pdv` TEXT, `vitamin_a_pdv` TEXT, `vitamin_c_pdv` TEXT, `calcium_pdv` TEXT, `iron_pdv` TEXT, `potassium_pdv` TEXT, `item_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -464,13 +464,13 @@
           },
           {
             "fieldPath": "cholesterolPDV",
-            "columnName": "cholesterolPDV",
+            "columnName": "cholesterol_pdv",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "sodiumPDV",
-            "columnName": "sodiumPDV",
+            "columnName": "sodium_pdv",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -494,7 +494,7 @@
           },
           {
             "fieldPath": "proteinPDV",
-            "columnName": "proteinPDV",
+            "columnName": "protein_pdv",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -518,19 +518,19 @@
           },
           {
             "fieldPath": "calciumPDV",
-            "columnName": "calciumPDV",
+            "columnName": "calcium_pdv",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "ironPDV",
-            "columnName": "ironPDV",
+            "columnName": "iron_pdv",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "potassiumPDV",
-            "columnName": "potassiumPDV",
+            "columnName": "potassium_pdv",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -554,7 +554,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '58135d75a577dcd92a0b88c5f71c9b82')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4277879fed35ac9c146890cb3b7dc5c2')"
     ]
   }
 }
