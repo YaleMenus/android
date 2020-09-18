@@ -24,7 +24,7 @@ public class Item implements Serializable {
     public boolean dairy;
     public boolean egg;
     public boolean pork;
-    public boolean seafood;
+    public boolean fish;
     public boolean soy;
     public boolean wheat;
     public boolean gluten;
