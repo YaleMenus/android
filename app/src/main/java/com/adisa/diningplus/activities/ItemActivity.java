@@ -41,9 +41,9 @@ public class ItemActivity extends AppCompatActivity {
     ArrayList<Allergen> allergens = new ArrayList<>();
     SharedPreferences preferences;
 
-    private class Allergen {
-        int image;
-        String name;
+    public class Allergen {
+        public int image;
+        public String name;
 
         Allergen(int image, String name) {
             this.image = image;
@@ -105,51 +105,36 @@ public class ItemActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Item item;
+            Item item = null;
             try {
                 item = api.getItem(itemId);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            if (item.alcohol) allergens.add(new Allergen(R.drawable.key_alcohol, "Alcohol"));
-            if (item.nuts) allergens.add(new Allergen(R.drawable.key_nuts, "Nuts"));
-            if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"))
-            if (item.peanuts) allergens.add(new Allergen(R.drawable.key_peanuts, "Peanuts"));
-            if (item.dairy) allergens.add(new Allergen(R.drawable.key_dairy, "Dairy"));
-            if (item.egg) allergens.add(new Allergen(R.drawable.key_egg, "Egg"));
-            if (item.pork) allergens.add(new Allergen(R.drawable.key_pork, "Pork"));
-            if (item.fish) allergens.add(new Allergen(R.drawable.key_fish, "Fish"));
-            if (item.soy) allergens.add(new Allergen(R.drawable.key_soy, "Soy"));
-            if (item.wheat) allergens.add(new Allergen(R.drawable.key_wheat, "Wheat"));
-            if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
-            // TODO: make sure this image renders properly
-            if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
+            if (item != null) {
+                if (item.alcohol) allergens.add(new Allergen(R.drawable.key_alcohol, "Alcohol"));
+                if (item.nuts) allergens.add(new Allergen(R.drawable.key_nuts, "Nuts"));
+                if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"))
+                if (item.peanuts) allergens.add(new Allergen(R.drawable.key_peanuts, "Peanuts"));
+                if (item.dairy) allergens.add(new Allergen(R.drawable.key_dairy, "Dairy"));
+                if (item.egg) allergens.add(new Allergen(R.drawable.key_egg, "Egg"));
+                if (item.pork) allergens.add(new Allergen(R.drawable.key_pork, "Pork"));
+                if (item.fish) allergens.add(new Allergen(R.drawable.key_fish, "Fish"));
+                if (item.soy) allergens.add(new Allergen(R.drawable.key_soy, "Soy"));
+                if (item.wheat) allergens.add(new Allergen(R.drawable.key_wheat, "Wheat"));
+                if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
+                if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
+            }
 
-            Nutrition nutrition;
+
+            Nutrition nutrition = null;
             try {
-                nutrition = api.getNutrition(itemId);
+                nutrition = api.getItemNutrition(itemId);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
+            if (nutrition != null) {
 
-                detailList.add(new Detail(-1, "Nutrition"));
-                detailList.add(new Detail(-3, "Serving Size: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.SERVING_SIZE))));
-                detailList.add(new Detail(-3, "Calories: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.CALORIES))));
-                detailList.add(new Detail(-3, "Protein: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.PROTEIN))));
-                detailList.add(new Detail(-3, "Fat: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.FAT))));
-                detailList.add(new Detail(-3, "Saturated Fat: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.SATURATED_FAT))));
-                detailList.add(new Detail(-3, "Cholesterol: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.CHOLESTEROL))));
-                detailList.add(new Detail(-3, "Carbohydrates: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.CARBOHYDRATES))));
-                detailList.add(new Detail(-3, "Sugar: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.SUGAR))));
-                detailList.add(new Detail(-3, "Dietary Fiber: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.DIETARY_FIBER))));
-                detailList.add(new Detail(-3, "Vitamin C: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_C))));
-                detailList.add(new Detail(-3, "Vitamin A: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_A))));
-                detailList.add(new Detail(-3, "Iron: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.IRON))));
-
-            Cursor ingredients = dbHelper.getIngredients(nutritionId);
-            detailList.add(new Detail(-1, "Ingredients"));
-            while (ingredients.moveToNext()) {
-                detailList.add(new Detail(-3, ingredients.getString(ingredients.getColumnIndex(DatabaseContract.Ingredient.NAME))));
             }
 
             return null;
