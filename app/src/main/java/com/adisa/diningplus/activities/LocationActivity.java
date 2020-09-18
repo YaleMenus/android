@@ -122,8 +122,8 @@ public class LocationActivity extends AppCompatActivity {
         emptyView = findViewById(R.id.location_empty);
         loadingView = findViewById(R.id.location_progress);
         expandableListView.setEmptyView(emptyView);
-        MenuTask menuTask = new MenuTask();
-        menuTask.execute();
+        MealsTask mealsTask = new MealsTask();
+        mealsTask.execute();
     }
 
     @Override
@@ -173,7 +173,7 @@ public class LocationActivity extends AppCompatActivity {
         }
     }
 
-    private class MenuTask extends AsyncTask<Void, Void, Void> {
+    private class MealsTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("get", "start");

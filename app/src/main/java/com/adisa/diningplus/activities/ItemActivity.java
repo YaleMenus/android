@@ -145,7 +145,6 @@ public class ItemActivity extends AppCompatActivity {
                 detailList.add(new Detail(-3, "Vitamin C: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_C))));
                 detailList.add(new Detail(-3, "Vitamin A: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.VITAMIN_A))));
                 detailList.add(new Detail(-3, "Iron: " + nutrition.getString(nutrition.getColumnIndex(DatabaseContract.Nutrition.IRON))));
-            }
 
             Cursor ingredients = dbHelper.getIngredients(nutritionId);
             detailList.add(new Detail(-1, "Ingredients"));
