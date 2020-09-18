@@ -183,22 +183,22 @@ public class LocationActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            List<Meal> meals = null;
             try {
-                api.getLocationMeals(locationId);
+                meals = api.getLocationMeals(locationId);
             } catch (JSONException | IOException e) {
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-            meals = db.getDB().mealDao().getLocation(locationId);
             mealItems = new HashMap<>();
             for (Meal meal : meals) {
+                List<Item> items = null;
                 try {
-                    api.getMealItems(meal.id);
+                    items = api.getMealItems(meal.id);
                 } catch (JSONException | IOException e) {
                     Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
-                List<Item> items = db.getDB().itemDao().getMeal(meal.id);
                 mealItems.put(meal.name, items);
             }
             return null;
