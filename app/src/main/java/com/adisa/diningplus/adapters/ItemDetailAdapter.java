@@ -13,10 +13,6 @@ import com.adisa.diningplus.activities.ItemActivity;
 
 import java.util.ArrayList;
 
-/**
- * Created by Adisa on 4/23/2017.
- */
-
 public class ItemDetailAdapter extends BaseAdapter {
     @Override
     public int getCount() {
