@@ -6,6 +6,7 @@ import com.adisa.diningplus.db.DatabaseClient;
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Location;
 import com.adisa.diningplus.db.entities.Meal;
+import com.adisa.diningplus.db.entities.Nutrition;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -99,7 +100,7 @@ public class DiningAPI {
             item.dairy = itemRaw.getBoolean("dairy");
             item.egg = itemRaw.getBoolean("egg");
             item.pork = itemRaw.getBoolean("pork");
-            item.seafood = itemRaw.getBoolean("seafood");
+            item.fish = itemRaw.getBoolean("seafood");
             item.soy = itemRaw.getBoolean("soy");
             item.wheat = itemRaw.getBoolean("wheat");
             item.gluten = itemRaw.getBoolean("gluten");
@@ -125,7 +126,7 @@ public class DiningAPI {
             item.dairy = itemRaw.getBoolean("dairy");
             item.egg = itemRaw.getBoolean("egg");
             item.pork = itemRaw.getBoolean("pork");
-            item.seafood = itemRaw.getBoolean("seafood");
+            item.fish = itemRaw.getBoolean("seafood");
             item.soy = itemRaw.getBoolean("soy");
             item.wheat = itemRaw.getBoolean("wheat");
             item.gluten = itemRaw.getBoolean("gluten");
@@ -133,5 +134,49 @@ public class DiningAPI {
             db.getDB().itemDao().insert(item);
         }
         return item;
+    }
+
+    public Nutrition getItemNutrition(int itemId) throws IOException, JSONException {
+        Nutrition nutrition = db.getDB().nutritionDao().get(itemId);
+        if (nutrition == null) {
+            JSONObject nutritionRaw = new JSONObject(getJSON("items/" + itemId + "/nutrition"));
+            nutrition = new Nutrition();
+            nutrition.id = nutritionRaw.getInt("id");
+            nutrition.name = nutritionRaw.getString("name");
+            nutrition.portionSize = nutritionRaw.getString("portion_size");
+
+            nutrition.totalFat = nutritionRaw.getString("total_fat");
+            nutrition.saturatedFat = nutritionRaw.getString("saturated_fat");
+            nutrition.transFat = nutritionRaw.getString("trans_fat");
+            nutrition.cholesterol = nutritionRaw.getString("cholesterol");
+            nutrition.sodium = nutritionRaw.getString("sodium");
+            nutrition.totalCarbohydrate = nutritionRaw.getString("total_carbohydrate");
+            nutrition.dietaryFiber = nutritionRaw.getString("dietary_fiber");
+            nutrition.totalSugars = nutritionRaw.getString("total_sugars");
+            nutrition.protein = nutritionRaw.getString("protein");
+            nutrition.vitaminD = nutritionRaw.getString("vitamin_d");
+            nutrition.vitaminA = nutritionRaw.getString("vitamin_a");
+            nutrition.vitaminC = nutritionRaw.getString("vitamin_c");
+            nutrition.calcium = nutritionRaw.getString("calcium");
+            nutrition.iron = nutritionRaw.getString("iron");
+            nutrition.potassium = nutritionRaw.getString("potassium");
+
+            nutrition.totalFatPDV = nutritionRaw.getString("total_fat_pdv");
+            nutrition.saturatedFatPDV = nutritionRaw.getString("saturated_fat_pdv");
+            nutrition.transFatPDV = nutritionRaw.getString("trans_fat_pdv");
+            nutrition.cholesterolPDV = nutritionRaw.getString("cholesterol_pdv");
+            nutrition.sodiumPDV = nutritionRaw.getString("sodium_pdv");
+            nutrition.totalCarbohydratePDV = nutritionRaw.getString("total_carbohydrate_pdv");
+            nutrition.dietaryFiberPDV = nutritionRaw.getString("dietary_fiber_pdv");
+            nutrition.totalSugarsPDV = nutritionRaw.getString("total_sugars_pdv");
+            nutrition.proteinPDV = nutritionRaw.getString("protein_pdv");
+            nutrition.vitaminDPDV = nutritionRaw.getString("vitamin_d_pdv");
+            nutrition.vitaminAPDV = nutritionRaw.getString("vitamin_a_pdv");
+            nutrition.vitaminCPDV = nutritionRaw.getString("vitamin_c_pdv");
+            nutrition.calciumPDV = nutritionRaw.getString("calcium_pdv");
+            nutrition.ironPDV = nutritionRaw.getString("iron_pdv");
+            nutrition.potassiumPDV = nutritionRaw.getString("potassium_pdv");
+        }
+        return nutrition;
     }
 }
