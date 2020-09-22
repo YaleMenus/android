@@ -2,17 +2,22 @@ package com.adisa.diningplus.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.adisa.diningplus.adapters.AllergenAdapter;
 import com.adisa.diningplus.db.entities.Item;
@@ -30,6 +35,7 @@ import java.util.HashSet;
 
 public class ItemActivity extends AppCompatActivity {
     API api;
+    SharedPreferences preferences;
 
     String itemName;
     int itemId;
@@ -39,7 +45,44 @@ public class ItemActivity extends AppCompatActivity {
 
     ListView allergenListView;
     ArrayList<Allergen> allergens = new ArrayList<>();
-    SharedPreferences preferences;
+
+    Nutrition nutrition;
+    TextView portionSize;
+    TextView calories;
+
+    TextView totalFat;
+    TextView saturatedFat;
+    TextView transFat;
+    TextView cholesterol;
+    TextView sodium;
+    TextView totalCarbohydrate;
+    TextView dietaryFiber;
+    TextView totalSugars;
+    TextView protein;
+    TextView vitaminD;
+    TextView vitaminA;
+    TextView vitaminC;
+    TextView calcium;
+    TextView iron;
+    TextView potassium;
+
+    TextView portionSizePDV;
+    TextView caloriesPDV;
+    TextView totalFatPDV;
+    TextView saturatedFatPDV;
+    TextView transFatPDV;
+    TextView cholesterolPDV;
+    TextView sodiumPDV;
+    TextView totalCarbohydratePDV;
+    TextView dietaryFiberPDV;
+    TextView totalSugarsPDV;
+    TextView proteinPDV;
+    TextView vitaminDPDV;
+    TextView vitaminAPDV;
+    TextView vitaminCPDV;
+    TextView calciumPDV;
+    TextView ironPDV;
+    TextView potassiumPDV;
 
     public class Allergen {
         public int image;
@@ -63,7 +106,40 @@ public class ItemActivity extends AppCompatActivity {
         itemId = i.getIntExtra("id", -1);
 
         allergenListView = (ListView) findViewById(R.id.allergenListView);
-        itemDetailListView = (ListView) findViewById(R.id.itemDetailListView);
+
+        portionSize = findViewById(R.id.portionSize);
+
+        totalFat = findViewById(R.id.totalFat);
+        saturatedFat = findViewById(R.id.saturatedFat);
+        transFat = findViewById(R.id.transFat);
+        cholesterol = findViewById(R.id.cholesterol);
+        sodium = findViewById(R.id.sodium);
+        totalCarbohydrate = findViewById(R.id.totalCarbohydrate);
+        dietaryFiber = findViewById(R.id.dietaryFiber);
+        totalSugars = findViewById(R.id.totalSugars);
+        protein = findViewById(R.id.protein);
+        vitaminD = findViewById(R.id.vitaminD);
+        vitaminA = findViewById(R.id.vitaminA);
+        vitaminC = findViewById(R.id.vitaminC);
+        calcium = findViewById(R.id.calcium);
+        iron = findViewById(R.id.iron);
+        potassium = findViewById(R.id.potassium);
+
+        totalFatPDV = findViewById(R.id.totalFatPDV);
+        saturatedFatPDV = findViewById(R.id.saturatedFatPDV);
+        transFatPDV = findViewById(R.id.transFatPDV);
+        cholesterolPDV = findViewById(R.id.cholesterolPDV);
+        sodiumPDV = findViewById(R.id.sodiumPDV);
+        totalCarbohydratePDV = findViewById(R.id.totalCarbohydratePDV);
+        dietaryFiberPDV = findViewById(R.id.dietaryFiberPDV);
+        totalSugarsPDV = findViewById(R.id.totalSugarsPDV);
+        proteinPDV = findViewById(R.id.proteinPDV);
+        vitaminDPDV = findViewById(R.id.vitaminDPDV);
+        vitaminAPDV = findViewById(R.id.vitaminAPDV);
+        vitaminCPDV = findViewById(R.id.vitaminCPDV);
+        calciumPDV = findViewById(R.id.calciumPDV);
+        ironPDV = findViewById(R.id.ironPDV);
+        potassiumPDV = findViewById(R.id.potassiumPDV);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -95,6 +171,12 @@ public class ItemActivity extends AppCompatActivity {
             menu.findItem(R.id.action_notify).setIcon(R.drawable.notifications_enabled);
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private SpannableString mixedWeight(String bold, String regular) {
+        SpannableString str = new SpannableString(bold + " " + regular);
+        str.setSpan(new StyleSpan(Typeface.BOLD), 0, bold.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return str;
     }
 
     private class ItemTask extends AsyncTask<Void, Void, Void> {
@@ -141,8 +223,39 @@ public class ItemActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             AllergenAdapter allergenAdapter = new AllergenAdapter(ItemActivity.this, allergens);
             allergenListView.setAdapter(allergenAdapter);
-//            itemDetailAdapter = new ItemDetailAdapter(ItemActivity.this, detailList);
-//            itemDetailListView.setAdapter(itemDetailAdapter);
+
+            totalFat.setText(mixedWeight("Total Fat", nutrition.totalFat));
+            saturatedFat.setText(mixedWeight("SaturatedFat", nutrition.saturatedFat));
+            transFat.setText(mixedWeight("Trans Fat", nutrition.transFat));
+            cholesterol.setText(mixedWeight("Cholesterol", nutrition.cholesterol));
+            sodium.setText(mixedWeight("Sodium", nutrition.sodium));
+            totalCarbohydrate.setText(mixedWeight("Total Carbohydrate", nutrition.totalCarbohydrate));
+            dietaryFiber.setText(mixedWeight("Dietary Fiber", nutrition.dietaryFiber));
+            totalSugars.setText(mixedWeight("Total Sugars", nutrition.totalSugars));
+            protein.setText(mixedWeight("Protein", nutrition.protein));
+            vitaminD.setText(mixedWeight("Vitamin D", nutrition.vitaminD));
+            vitaminA.setText(mixedWeight("Vitamin A", nutrition.vitaminA));
+            vitaminC.setText(mixedWeight("Vitamin C", nutrition.vitaminC));
+            calcium.setText(mixedWeight("Calcium", nutrition.calcium));
+            iron.setText(mixedWeight("Iron", nutrition.iron));
+            potassium.setText(mixedWeight("Potassium", nutrition.potassium));
+
+            totalFatPDV.setText(nutrition.totalFatPDV);
+            saturatedFatPDV.setText(nutrition.saturatedFatPDV);
+            transFatPDV.setText(nutrition.transFatPDV);
+            cholesterolPDV.setText(nutrition.cholesterolPDV);
+            sodiumPDV.setText(nutrition.sodiumPDV);
+            totalCarbohydratePDV.setText(nutrition.totalCarbohydratePDV);
+            dietaryFiberPDV.setText(nutrition.dietaryFiberPDV);
+            totalSugarsPDV.setText(nutrition.totalSugarsPDV);
+            proteinPDV.setText(nutrition.proteinPDV);
+            vitaminDPDV.setText(nutrition.vitaminDPDV);
+            vitaminAPDV.setText(nutrition.vitaminAPDV);
+            vitaminCPDV.setText(nutrition.vitaminCPDV);
+            calciumPDV.setText(nutrition.calciumPDV);
+            ironPDV.setText(nutrition.ironPDV);
+            potassiumPDV.setText(nutrition.potassiumPDV);
+
             Log.e("get", "done");
         }
     }
