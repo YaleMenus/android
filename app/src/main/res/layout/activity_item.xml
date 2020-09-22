@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.adisa.diningplus.activities.ItemActivity">
+    tools:context="com.adisa.diningplus.activities.ItemActivity"
+    android:orientation="horizontal">
 
     <ListView
         android:id="@+id/allergenListView"
@@ -14,11 +15,153 @@
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false" />
 
-    <ListView
-        android:id="@+id/itemDetailListView"
+
+    <TextView
+        android:text="Nutrition Facts"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/nutritionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+            <TextView android:text="Serving size" />
+            <TextView
+                android:id="@+id/portionSize"
+                android:gravity="end" />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:text="Calories" />
+            <TextView
+                android:id="@+id/calories"
+                android:gravity="end" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="% Daily Value*"
+                android:gravity="end" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/totalFat" />
+            <TextView
+                android:id="@+id/totalFatPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/saturatedFat" />
+            <TextView
+                android:id="@+id/saturatedFatPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/transFat" />
+            <TextView
+                android:id="@+id/transFatPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/cholesterol" />
+            <TextView
+                android:id="@+id/cholesterolPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/sodium" />
+            <TextView
+                android:id="@+id/sodiumPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/totalCarbohydrate" />
+            <TextView
+                android:id="@+id/totalCarbohydratePDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/dietaryFiber" />
+            <TextView
+                android:id="@+id/dietaryFiberPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/totalSugars" />
+            <TextView
+                android:id="@+id/totalSugarsPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/protein" />
+            <TextView
+                android:id="@+id/proteinPDV" />
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/vitaminD" />
+            <TextView
+                android:id="@+id/vitaminDPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/vitaminA" />
+            <TextView
+                android:id="@+id/vitaminAPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/vitaminC" />
+            <TextView
+                android:id="@+id/vitaminCPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/calcium" />
+            <TextView
+                android:id="@+id/calciumPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/iron" />
+            <TextView
+                android:id="@+id/ironPDV" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/potassium" />
+            <TextView
+                android:id="@+id/potassiumPDV" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false" />
+        android:text="* Percent Daily Values are based on a 2,000 calorie diet. Your Daily Values may be higher or lower depending on your calorie needs." />
+
 </LinearLayout>
