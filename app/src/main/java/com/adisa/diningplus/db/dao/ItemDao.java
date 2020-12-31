@@ -3,6 +3,7 @@ package com.adisa.diningplus.db.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -22,7 +23,7 @@ public interface ItemDao {
     @Query("SELECT * FROM items WHERE id = :id")
     Item get(int id);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Item item);
 
     @Delete

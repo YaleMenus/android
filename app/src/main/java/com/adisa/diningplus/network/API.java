@@ -2,6 +2,7 @@ package com.adisa.diningplus.network;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import com.adisa.diningplus.db.AppDatabase;
 import com.adisa.diningplus.db.DatabaseClient;
@@ -20,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class API {
@@ -45,6 +47,7 @@ public class API {
         while ((line = reader.readLine()) != null) {
             buffer.append(line).append("\n");
         }
+        Log.d("API", buffer.toString());
         return buffer.toString();
     }
 
@@ -114,9 +117,10 @@ public class API {
             item.wheat = itemRaw.getBoolean("wheat");
             item.gluten = itemRaw.getBoolean("gluten");
             item.coconut = itemRaw.getBoolean("coconut");
-            db.itemDao().insert(item);
+            // db.itemDao().insert(item);
         }
-        return db.itemDao().getMeal(mealId);
+        return items;
+        // return db.itemDao().getMeal(mealId);
     }
 
     public Item getItem(int itemId) throws IOException, JSONException {
