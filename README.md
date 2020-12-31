@@ -3,7 +3,9 @@
 
 [<img src="https://cdn.rawgit.com/steverichey/google-play-badge-svg/master/img/en_get.svg" width="25%">](https://play.google.com/store/apps/details?id=com.adisa.diningplus)
 
-The [existing Yale Dining app](https://play.google.com/store/apps/details?id=org.yaledining.app) on Android is not very pleasant to use, due to outdated graphics, usability issues, and several recurring bugs. This project replaces the official app by displaying current menu items and nutritional information for each dining hall on campus, using information retrieved from the Yale Dining API. Beyond this, it adds new features such as the ability to set a dining hall as an auto-opening favorite, marking menu items as favorites to be notified when they're served, and setting up visual warnings when a recipe violates your dietary restrictions.
+This app was created to replace the [official Yale Dining app](https://play.google.com/store/apps/details?id=org.yaledining.app) on Android, which was unpleasant to use, due to outdated graphics, usability issues, and several recurring bugs. It provided a cleaner and better-designed interface to Yale Dining data, including new features such as the ability to set a dining hall as an auto-opening favorite, marking menu items as favorites to be notified when they're served, and setting up visual warnings when a recipe violates your dietary restrictions.
+
+During Summer 2020, Yale Dining removed the iOS and Android versions of their dining apps, and replaced their API with a human-facing website. [YaleDine](https://yaledine.com) was created to develop a scraping-based solution to replace the official API with a new one that was better designed. Subsequently, this app was rebuilt to rely on the new YaleDine API. At the same time, this version of the app was rebranded to Yale Menus, in order to act as an Android parallel to the existing [Yale Menus iOS app](https://github.com/YaleMenus/ios).
 
 ## Features
 Yale Menus for Android contains several useful features not included in the original app.
