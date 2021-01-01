@@ -183,7 +183,6 @@ public class LocationActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            List<Meal> meals = null;
             try {
                 meals = api.getLocationMeals(locationId, new Date());
             } catch (JSONException | IOException e) {
