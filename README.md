@@ -1,9 +1,9 @@
 # Yale Menus (formerly Yale Dining Plus)
-> A new version of the Yale Dining app for Android.
+> Android version of the best student-made app for dining at Yale.
 
 [<img src="https://cdn.rawgit.com/steverichey/google-play-badge-svg/master/img/en_get.svg" width="25%">](https://play.google.com/store/apps/details?id=com.adisa.diningplus)
 
-This app was created to replace the [official Yale Dining app](https://play.google.com/store/apps/details?id=org.yaledining.app) on Android, which was unpleasant to use, due to outdated graphics, usability issues, and several recurring bugs. It provided a cleaner and better-designed interface to Yale Dining data, including new features such as the ability to set a dining hall as an auto-opening favorite, marking menu items as favorites to be notified when they're served, and setting up visual warnings when a recipe violates your dietary restrictions.
+This app was created to replace the [official Yale Dining app](https://play.google.com/store/apps/details?id=org.yaledining.app) on Android, which was unpleasant to use due to outdated graphics, usability issues, and several recurring bugs. It provided a cleaner and better-designed interface to Yale Dining data, including new features such as the ability to set a dining hall as an auto-opening favorite, marking menu items as favorites to be notified when they're served, and setting up visual warnings when a recipe violates your dietary restrictions.
 
 During Summer 2020, Yale Dining removed the iOS and Android versions of their dining apps, and replaced their API with a human-facing website. [YaleDine](https://yaledine.com) was created to develop a scraping-based solution to replace the official API with a new one that was better designed. Subsequently, this app was rebuilt to rely on the new YaleDine API. At the same time, this version of the app was rebranded to Yale Menus, in order to act as an Android parallel to the existing [Yale Menus iOS app](https://github.com/YaleMenus/ios).
 

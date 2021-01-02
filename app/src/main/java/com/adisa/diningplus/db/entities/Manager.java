@@ -13,6 +13,4 @@ public class Manager implements Serializable {
     public String name;
     public String email;
     public String position;
-    @ColumnInfo(name = "location_id")
-    public int locationId;
 }

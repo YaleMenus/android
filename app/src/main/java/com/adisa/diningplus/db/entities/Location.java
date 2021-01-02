@@ -11,7 +11,8 @@ public class Location implements Serializable {
     @PrimaryKey
     public int id;
     public String name;
-    public String type;
+    public String shortname;
+    public String code;
     @ColumnInfo(name = "is_open")
     public boolean isOpen;
     public int capacity;

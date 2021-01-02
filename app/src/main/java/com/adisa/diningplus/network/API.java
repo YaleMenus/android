@@ -61,7 +61,8 @@ public class API {
                 Location location = new Location();
                 location.id = locationRaw.getInt("id");
                 location.name = locationRaw.getString("name");
-                location.type = type;
+                location.shortname = locationRaw.getString("shortname");
+                location.code = locationRaw.getString("code");
                 location.isOpen = locationRaw.optBoolean("is_open", false);
                 location.capacity = locationRaw.optInt("capacity", 0);
                 location.latitude = locationRaw.optDouble("latitude", 0);
