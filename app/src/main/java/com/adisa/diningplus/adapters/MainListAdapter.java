@@ -48,20 +48,20 @@ public class MainListAdapter extends BaseAdapter {
     public MainListAdapter(Context context) {
         this.context = context;
         this.preferences = PreferenceManager.getDefaultSharedPreferences(this.context);
-        shieldMap.put("Berkeley", R.drawable.berkeley);
-        shieldMap.put("Branford", R.drawable.branford);
-        shieldMap.put("Grace Hopper", R.drawable.hopper);
-        shieldMap.put("Stiles", R.drawable.stiles);
-        shieldMap.put("Davenport", R.drawable.davenport);
-        shieldMap.put("Franklin", R.drawable.franklin);
-        shieldMap.put("Pauli Murray", R.drawable.murray);
-        shieldMap.put("Jonathan Edwards", R.drawable.je);
-        shieldMap.put("Morse", R.drawable.morse);
-        shieldMap.put("Pierson", R.drawable.pierson);
-        shieldMap.put("Saybrook", R.drawable.saybrook);
-        shieldMap.put("Silliman", R.drawable.silliman);
-        shieldMap.put("Timothy Dwight", R.drawable.td);
-        shieldMap.put("Trumbull", R.drawable.trumbull);
+        shieldMap.put("BK", R.drawable.berkeley);
+        shieldMap.put("BR", R.drawable.branford);
+        shieldMap.put("GH", R.drawable.hopper);
+        shieldMap.put("ES", R.drawable.stiles);
+        shieldMap.put("DC", R.drawable.davenport);
+        shieldMap.put("BF", R.drawable.franklin);
+        shieldMap.put("MY", R.drawable.murray);
+        shieldMap.put("JE", R.drawable.je);
+        shieldMap.put("MC", R.drawable.morse);
+        shieldMap.put("PC", R.drawable.pierson);
+        shieldMap.put("SY", R.drawable.saybrook);
+        shieldMap.put("SM", R.drawable.silliman);
+        shieldMap.put("TD", R.drawable.td);
+        shieldMap.put("TC", R.drawable.trumbull);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class MainListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Integer shieldId = shieldMap.get(item.name);
+        Integer shieldId = shieldMap.get(item.code);
         if (shieldId != null) {
             viewHolder.shield.setImageDrawable(context.getResources().getDrawable(shieldId));
         } else {

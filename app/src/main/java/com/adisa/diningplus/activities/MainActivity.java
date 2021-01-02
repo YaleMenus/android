@@ -79,8 +79,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                     int position, long id) {
                 Intent i = new Intent();
                 i.setClass(getApplicationContext(), LocationActivity.class);
-                i.putExtra("Name", adapter.getItem(position).name);
-                i.putExtra("LocationId", adapter.getItem(position).id);
+                i.putExtra("name", adapter.getItem(position).name);
+                i.putExtra("code", adapter.getItem(position).code);
+                i.putExtra("id", adapter.getItem(position).id);
                 startActivity(i);
             }
         });
@@ -223,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     public static class LocationItem {
         public String name;
+        public String code;
         public int capacity;
         public int id;
         public double latitude;
