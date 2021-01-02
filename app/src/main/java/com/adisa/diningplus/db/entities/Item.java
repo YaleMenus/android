@@ -13,6 +13,7 @@ public class Item implements Serializable {
     public int id;
     public String name;
     public String ingredients;
+    public String course;
 
     public boolean vegetarian;
     public boolean vegan;
@@ -32,8 +33,6 @@ public class Item implements Serializable {
 
     @ColumnInfo(name = "meal_id")
     public int mealId;
-    @ColumnInfo(name = "course_id")
-    public int courseId;
 
     @Ignore
     public boolean allergenic;
