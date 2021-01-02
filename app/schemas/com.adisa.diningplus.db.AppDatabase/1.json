@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4277879fed35ac9c146890cb3b7dc5c2",
+    "identityHash": "ee0d35815fc67949bd7839dc6c0fd3b5",
     "entities": [
       {
         "tableName": "locations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `type` TEXT, `is_open` INTEGER NOT NULL, `capacity` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT, `phone` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `shortname` TEXT, `code` TEXT, `is_open` INTEGER NOT NULL, `capacity` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT, `phone` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,8 +21,14 @@
             "notNull": false
           },
           {
-            "fieldPath": "type",
-            "columnName": "type",
+            "fieldPath": "shortname",
+            "columnName": "shortname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "code",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -74,7 +80,7 @@
       },
       {
         "tableName": "managers",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `email` TEXT, `position` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `email` TEXT, `position` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -99,12 +105,6 @@
             "columnName": "position",
             "affinity": "TEXT",
             "notNull": false
-          },
-          {
-            "fieldPath": "locationId",
-            "columnName": "location_id",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -167,46 +167,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "courses",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `email` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "email",
-            "columnName": "email",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "locationId",
-            "columnName": "location_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
         "tableName": "items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `vegetarian` INTEGER NOT NULL, `vegan` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `fish` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, `course_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `course` TEXT, `vegetarian` INTEGER NOT NULL, `vegan` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `fish` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -223,6 +185,12 @@
           {
             "fieldPath": "ingredients",
             "columnName": "ingredients",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "course",
+            "columnName": "course",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -313,12 +281,6 @@
           {
             "fieldPath": "mealId",
             "columnName": "meal_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "courseId",
-            "columnName": "course_id",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -554,7 +516,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4277879fed35ac9c146890cb3b7dc5c2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee0d35815fc67949bd7839dc6c0fd3b5')"
     ]
   }
 }
