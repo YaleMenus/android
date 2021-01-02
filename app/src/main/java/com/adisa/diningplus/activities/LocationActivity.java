@@ -42,6 +42,7 @@ public class LocationActivity extends AppCompatActivity {
 
     CollapsingToolbarLayout collapsingToolbar;
     String locationName;
+    String locationCode;
     int locationId;
     HashMap<String, List<Item>> mealItems;
     HashMap<String, Integer> headerMap = new HashMap<>();
@@ -68,20 +69,20 @@ public class LocationActivity extends AppCompatActivity {
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coord_layout);
 
-        headerMap.put("Berkeley", R.drawable.berkeley_header);
-        headerMap.put("Branford", R.drawable.branford_header);
-        headerMap.put("Grace Hopper", R.drawable.hopper_header);
-        headerMap.put("Stiles", R.drawable.stiles_header);
-        headerMap.put("Davenport", R.drawable.davenport_header);
-        headerMap.put("Franklin", R.drawable.franklin_header);
-        headerMap.put("Pauli Murray", R.drawable.murray_header);
-        headerMap.put("Jonathan Edwards", R.drawable.je_header);
-        headerMap.put("Morse", R.drawable.morse_header);
-        headerMap.put("Pierson", R.drawable.pierson_header);
-        headerMap.put("Saybrook", R.drawable.saybrook_header);
-        headerMap.put("Silliman", R.drawable.silliman_header);
-        headerMap.put("Timothy Dwight", R.drawable.td_header);
-        headerMap.put("Trumbull", R.drawable.trumbull_header);
+        headerMap.put("BK", R.drawable.berkeley_header);
+        headerMap.put("BR", R.drawable.branford_header);
+        headerMap.put("GH", R.drawable.hopper_header);
+        headerMap.put("ES", R.drawable.stiles_header);
+        headerMap.put("DC", R.drawable.davenport_header);
+        headerMap.put("BF", R.drawable.franklin_header);
+        headerMap.put("MY", R.drawable.murray_header);
+        headerMap.put("JE", R.drawable.je_header);
+        headerMap.put("MC", R.drawable.morse_header);
+        headerMap.put("PC", R.drawable.pierson_header);
+        headerMap.put("SY", R.drawable.saybrook_header);
+        headerMap.put("SM", R.drawable.silliman_header);
+        headerMap.put("TD", R.drawable.td_header);
+        headerMap.put("TC", R.drawable.trumbull_header);
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListView.setChildDivider(getResources().getDrawable(R.color.transparent));
@@ -111,11 +112,12 @@ public class LocationActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
-        locationName = i.getStringExtra("Name");
-        locationId = i.getIntExtra("LocationId", -1);
+        locationName = i.getStringExtra("name");
+        locationCode = i.getStringExtra("code");
+        locationId = i.getIntExtra("id", -1);
         collapsingToolbar.setTitle(locationName);
         ImageView header = (ImageView) findViewById(R.id.header);
-        header.setImageDrawable(getResources().getDrawable(headerMap.get(locationName)));
+        header.setImageDrawable(getResources().getDrawable(headerMap.get(locationCode)));
         emptyView = findViewById(R.id.location_empty);
         loadingView = findViewById(R.id.location_progress);
         expandableListView.setEmptyView(emptyView);
