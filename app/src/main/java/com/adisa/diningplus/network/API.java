@@ -56,21 +56,18 @@ public class API {
         db.locationDao().clear();
         for (int i = 0; i < locationsRaw.length(); i++) {
             JSONObject locationRaw = locationsRaw.getJSONObject(i);
-            String type = locationRaw.getString("type");
-            if (type.equals("Residential")) { // TODO: remove if API stops providing non-residential locations
-                Location location = new Location();
-                location.id = locationRaw.getInt("id");
-                location.name = locationRaw.getString("name");
-                location.shortname = locationRaw.getString("shortname");
-                location.code = locationRaw.getString("code");
-                location.isOpen = locationRaw.optBoolean("is_open", false);
-                location.capacity = locationRaw.optInt("capacity", 0);
-                location.latitude = locationRaw.optDouble("latitude", 0);
-                location.longitude = locationRaw.optDouble("longitude", 0);
-                location.address = locationRaw.optString("address", null);
-                location.phone = locationRaw.optString("phone", null);
-                db.locationDao().insert(location);
-            }
+            Location location = new Location();
+            location.id = locationRaw.getInt("id");
+            location.name = locationRaw.getString("name");
+            location.shortname = locationRaw.getString("shortname");
+            location.code = locationRaw.getString("code");
+            location.isOpen = locationRaw.optBoolean("is_open", false);
+            location.capacity = locationRaw.optInt("capacity", 0);
+            location.latitude = locationRaw.optDouble("latitude", 0);
+            location.longitude = locationRaw.optDouble("longitude", 0);
+            location.address = locationRaw.optString("address", null);
+            location.phone = locationRaw.optString("phone", null);
+            db.locationDao().insert(location);
         }
         return db.locationDao().getAll();
     }
