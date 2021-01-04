@@ -10,6 +10,7 @@ import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Location;
 import com.adisa.diningplus.db.entities.Meal;
 import com.adisa.diningplus.db.entities.Nutrition;
+import com.adisa.diningplus.utils.DateFormatProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class API {
@@ -72,8 +74,9 @@ public class API {
         return db.locationDao().getAll();
     }
 
-    public List<Meal> getLocationMeals(int locationId) throws IOException, JSONException {
-        JSONArray mealsRaw = new JSONArray(getJSON("locations/" + locationId + "/meals"));
+    public List<Meal> getLocationMeals(int locationId, Date date) throws IOException, JSONException {
+        String query = "date=" + DateFormatProvider.date.format(date);
+        JSONArray mealsRaw = new JSONArray(getJSON("locations/" + locationId + "/meals" + "?" + query));
         db.mealDao().clearLocation(locationId);
         for (int i = 0; i < mealsRaw.length(); i++) {
             JSONObject mealRaw = mealsRaw.getJSONObject(i);
