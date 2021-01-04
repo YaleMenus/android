@@ -227,20 +227,23 @@ public class LocationActivity extends AppCompatActivity {
             HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
             for (Meal meal : meals) {
                 ArrayList<Item> newList = new ArrayList<>();
-                for (Item item : mealItems.get(meal.name)) {
-                    for (String allergen : allergens) {
-                        try {
-                            if ((boolean) item.getClass().getField(allergen).get(item)) {
-                                item.allergenic = true;
-                                break;
+                List<Item> items = mealItems.get(meal.name);
+                if (items != null) {
+                    for (Item item : items) {
+                        for (String allergen : allergens) {
+                            try {
+                                if ((boolean) item.getClass().getField(allergen).get(item)) {
+                                    item.allergenic = true;
+                                    break;
+                                }
+                            } catch (NoSuchFieldException e) {
+                                // Should never happen
+                            } catch (IllegalAccessException e) {
+                                // Should never happen
                             }
-                        } catch (NoSuchFieldException e) {
-                            // Should never happen
-                        } catch (IllegalAccessException e) {
-                            // Should never happen
                         }
+                        newList.add(item);
                     }
-                    newList.add(item);
                 }
             }
             return null;

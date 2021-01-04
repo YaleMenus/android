@@ -49,7 +49,7 @@ public class API {
         while ((line = reader.readLine()) != null) {
             buffer.append(line).append("\n");
         }
-        Log.d("API", buffer.toString());
+        //Log.d("API", buffer.toString());
         return buffer.toString();
     }
 
@@ -97,6 +97,7 @@ public class API {
         if (!items.isEmpty()) {
             return items;
         }
+        ArrayList<Item> fetchedItems = new ArrayList<>();
         JSONArray itemsRaw = new JSONArray(getJSON("meals/" + mealId + "/items"));
         for (int i = 0; i < itemsRaw.length(); i++) {
             JSONObject itemRaw = itemsRaw.getJSONObject(i);
@@ -114,14 +115,15 @@ public class API {
             item.dairy = itemRaw.getBoolean("dairy");
             item.egg = itemRaw.getBoolean("egg");
             item.pork = itemRaw.getBoolean("pork");
-            item.fish = itemRaw.getBoolean("seafood");
+            item.fish = itemRaw.getBoolean("fish");
             item.soy = itemRaw.getBoolean("soy");
             item.wheat = itemRaw.getBoolean("wheat");
             item.gluten = itemRaw.getBoolean("gluten");
             item.coconut = itemRaw.getBoolean("coconut");
+            fetchedItems.add(item);
             // db.itemDao().insert(item);
         }
-        return items;
+        return fetchedItems;
         // return db.itemDao().getMeal(mealId);
     }
 
