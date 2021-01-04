@@ -100,6 +100,7 @@ public class API {
             Item item = new Item();
             item.id = itemRaw.getInt("id");
             item.name = itemRaw.getString("name");
+            item.course = itemRaw.getString("course");
             item.ingredients = itemRaw.getString("ingredients");
             item.vegetarian = itemRaw.getBoolean("vegetarian");
             item.vegan = itemRaw.getBoolean("vegan");
