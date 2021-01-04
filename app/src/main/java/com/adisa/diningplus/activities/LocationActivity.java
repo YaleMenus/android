@@ -33,6 +33,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -184,7 +185,7 @@ public class LocationActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             List<Meal> meals = null;
             try {
-                meals = api.getLocationMeals(locationId);
+                meals = api.getLocationMeals(locationId, new Date());
             } catch (JSONException | IOException e) {
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                 e.printStackTrace();
