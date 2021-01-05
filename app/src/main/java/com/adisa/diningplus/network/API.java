@@ -144,7 +144,7 @@ public class API {
             item.dairy = itemRaw.getBoolean("dairy");
             item.egg = itemRaw.getBoolean("egg");
             item.pork = itemRaw.getBoolean("pork");
-            item.fish = itemRaw.getBoolean("seafood");
+            item.fish = itemRaw.getBoolean("fish");
             item.soy = itemRaw.getBoolean("soy");
             item.wheat = itemRaw.getBoolean("wheat");
             item.gluten = itemRaw.getBoolean("gluten");
