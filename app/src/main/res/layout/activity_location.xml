@@ -56,45 +56,52 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
-        android:id="@+id/date_bar"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/date_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_arrow_back_24"
-            android:padding="16dp"
-            android:text="Previous"
-            android:gravity="start" />
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:layout_width="wrap_content"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_arrow_back_24"
+                android:gravity="center"
+                style="?android:attr/borderlessButtonStyle" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="?android:attr/borderlessButtonStyle" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_24"
+                android:gravity="center"
+                style="?android:attr/borderlessButtonStyle" />
+
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/expandableListView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_calendar_today_24"
-            android:padding="16dp"
-            android:text="Choose date"
-            android:gravity="center" />
+            android:divider="#1F000000"
+            android:dividerHeight="1dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_baseline_arrow_forward_24"
-            android:padding="16dp"
-            android:text="Next"
-            android:gravity="end" />
-
-    </RelativeLayout>
-
-    <ExpandableListView
-        android:id="@+id/expandableListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#1F000000"
-        android:dividerHeight="1dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/location_empty"
