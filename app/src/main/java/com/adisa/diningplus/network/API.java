@@ -1,8 +1,6 @@
 package com.adisa.diningplus.network;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 
 import com.adisa.diningplus.db.AppDatabase;
 import com.adisa.diningplus.db.DatabaseClient;
@@ -63,8 +61,8 @@ public class API {
             location.name = locationRaw.getString("name");
             location.shortname = locationRaw.getString("shortname");
             location.code = locationRaw.getString("code");
-            location.isOpen = locationRaw.optBoolean("is_open", false);
-            location.capacity = locationRaw.optInt("capacity", 0);
+            location.open = locationRaw.optBoolean("open", false);
+            location.occupancy = locationRaw.optInt("occupancy", 0);
             location.latitude = locationRaw.optDouble("latitude", 0);
             location.longitude = locationRaw.optDouble("longitude", 0);
             location.address = locationRaw.optString("address", null);
@@ -159,7 +157,6 @@ public class API {
         if (nutrition == null) {
             JSONObject nutritionRaw = new JSONObject(getJSON("items/" + itemId + "/nutrition"));
             nutrition = new Nutrition();
-            nutrition.id = nutritionRaw.getInt("id");
             nutrition.name = nutritionRaw.getString("name");
             nutrition.portionSize = nutritionRaw.getString("portion_size");
 
@@ -194,6 +191,8 @@ public class API {
             nutrition.calciumPDV = nutritionRaw.getString("calcium_pdv");
             nutrition.ironPDV = nutritionRaw.getString("iron_pdv");
             nutrition.potassiumPDV = nutritionRaw.getString("potassium_pdv");
+
+            nutrition.itemId = nutritionRaw.getInt("item_id");
         }
         return nutrition;
     }

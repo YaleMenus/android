@@ -32,8 +32,9 @@ import com.adisa.diningplus.network.API;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;

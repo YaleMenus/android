@@ -11,7 +11,7 @@ During Summer 2020, Yale Dining removed the iOS and Android versions of their di
 Yale Menus for Android contains several useful features not included in the original app.
 
 ### Main menu
-The dining halls in the main menu are sorted by their distance to the user's location, in addition to displaying their capacity and open/closed status like the original app.
+The dining halls in the main menu are sorted by their distance to the user's location, in addition to displaying their occupancy and open/closed status like the original app.
 
 <img src="readme/pic1.png" width="350">
 
