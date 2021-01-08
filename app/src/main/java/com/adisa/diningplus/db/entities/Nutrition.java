@@ -8,8 +8,6 @@ import java.io.Serializable;
 
 @Entity(tableName = "nutrition")
 public class Nutrition implements Serializable {
-    @PrimaryKey
-    public int id;
     public String name;
     @ColumnInfo(name = "portion_size")
     public String portionSize;
@@ -70,6 +68,7 @@ public class Nutrition implements Serializable {
     @ColumnInfo(name="potassium_pdv")
     public String potassiumPDV;
 
+    @PrimaryKey
     @ColumnInfo(name = "item_id")
     public int itemId;
 }

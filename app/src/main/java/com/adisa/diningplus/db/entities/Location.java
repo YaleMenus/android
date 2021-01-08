@@ -13,9 +13,8 @@ public class Location implements Serializable {
     public String name;
     public String shortname;
     public String code;
-    @ColumnInfo(name = "is_open")
-    public boolean isOpen;
-    public int capacity;
+    public boolean open;
+    public int occupancy;
     public double latitude;
     public double longitude;
     public String address;

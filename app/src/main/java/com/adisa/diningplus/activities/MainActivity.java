@@ -225,17 +225,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public static class LocationItem {
         public String name;
         public String code;
-        public int capacity;
+        public int occupancy;
         public int id;
         public double latitude;
         public double longitude;
         public double distance;
         public boolean open;
 
-        LocationItem(String name, String code, int capacity, double latitude, double longitude, int id, boolean open) {
+        LocationItem(String name, String code, int occupancy, double latitude, double longitude, int id, boolean open) {
             this.name = name;
             this.code = code;
-            this.capacity = capacity;
+            this.occupancy = occupancy;
             this.latitude = latitude;
             this.longitude = longitude;
             this.id = id;
@@ -273,11 +273,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             for (Location location : locations) {
                 LocationItem item = new LocationItem(location.name,
                                                      location.code,
-                                                     location.capacity,
+                                                     location.occupancy,
                                                      location.latitude,
                                                      location.longitude,
                                                      location.id,
-                                                     location.isOpen);
+                                                     location.open);
                 item.setDistance(currentLocation);
                 if (item.open) {
                     openLocations.add(item);

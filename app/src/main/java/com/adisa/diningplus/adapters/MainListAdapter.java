@@ -118,18 +118,18 @@ public class MainListAdapter extends BaseAdapter {
         } else {
             viewHolder.distance.setText("" + numberFormat.format(distance) + unit);
         }
-        int capacity = item.capacity * 10;
+        int occupancy = item.occupancy * 10;
 
         if (!item.open) {
             viewHolder.occupancy.setTextColor(Color.parseColor("#A8030303"));
-        } else if (capacity >= 80) {
+        } else if (occupancy >= 80) {
             viewHolder.occupancy.setTextColor(Color.parseColor("#d62b2b"));
-        } else if (capacity >= 30) {
+        } else if (occupancy >= 30) {
             viewHolder.occupancy.setTextColor(Color.parseColor("#eb9438"));
         } else {
             viewHolder.occupancy.setTextColor(Color.parseColor("#64dd17"));
         }
-        viewHolder.occupancy.setText(item.open ? capacity + "%" : "Closed");
+        viewHolder.occupancy.setText(item.open ? occupancy + "%" : "Closed");
         // Gray out closed location
         convertView.setAlpha(item.open ? 1f : 0.4f);
 

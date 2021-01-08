@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ee0d35815fc67949bd7839dc6c0fd3b5",
+    "identityHash": "877e7505b1d880f2a9fc7f40380a7b45",
     "entities": [
       {
         "tableName": "locations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `shortname` TEXT, `code` TEXT, `is_open` INTEGER NOT NULL, `capacity` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT, `phone` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `shortname` TEXT, `code` TEXT, `open` INTEGER NOT NULL, `occupancy` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT, `phone` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -33,14 +33,14 @@
             "notNull": false
           },
           {
-            "fieldPath": "isOpen",
-            "columnName": "is_open",
+            "fieldPath": "open",
+            "columnName": "open",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "capacity",
-            "columnName": "capacity",
+            "fieldPath": "occupancy",
+            "columnName": "occupancy",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -296,14 +296,8 @@
       },
       {
         "tableName": "nutrition",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `portion_size` TEXT, `total_fat` TEXT, `saturated_fat` TEXT, `trans_fat` TEXT, `cholesterol` TEXT, `sodium` TEXT, `total_carbohydrate` TEXT, `dietary_fiber` TEXT, `total_sugars` TEXT, `protein` TEXT, `vitamin_d` TEXT, `vitamin_a` TEXT, `vitamin_c` TEXT, `calcium` TEXT, `iron` TEXT, `potassium` TEXT, `total_fat_pdv` TEXT, `saturated_fat_pdv` TEXT, `trans_fat_pdv` TEXT, `cholesterol_pdv` TEXT, `sodium_pdv` TEXT, `total_carbohydrate_pdv` TEXT, `dietary_fiber_pdv` TEXT, `total_sugars_pdv` TEXT, `protein_pdv` TEXT, `vitamin_d_pdv` TEXT, `vitamin_a_pdv` TEXT, `vitamin_c_pdv` TEXT, `calcium_pdv` TEXT, `iron_pdv` TEXT, `potassium_pdv` TEXT, `item_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT, `portion_size` TEXT, `total_fat` TEXT, `saturated_fat` TEXT, `trans_fat` TEXT, `cholesterol` TEXT, `sodium` TEXT, `total_carbohydrate` TEXT, `dietary_fiber` TEXT, `total_sugars` TEXT, `protein` TEXT, `vitamin_d` TEXT, `vitamin_a` TEXT, `vitamin_c` TEXT, `calcium` TEXT, `iron` TEXT, `potassium` TEXT, `total_fat_pdv` TEXT, `saturated_fat_pdv` TEXT, `trans_fat_pdv` TEXT, `cholesterol_pdv` TEXT, `sodium_pdv` TEXT, `total_carbohydrate_pdv` TEXT, `dietary_fiber_pdv` TEXT, `total_sugars_pdv` TEXT, `protein_pdv` TEXT, `vitamin_d_pdv` TEXT, `vitamin_a_pdv` TEXT, `vitamin_c_pdv` TEXT, `calcium_pdv` TEXT, `iron_pdv` TEXT, `potassium_pdv` TEXT, `item_id` INTEGER NOT NULL, PRIMARY KEY(`item_id`))",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "name",
             "columnName": "name",
@@ -505,7 +499,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "item_id"
           ],
           "autoGenerate": false
         },
@@ -516,7 +510,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee0d35815fc67949bd7839dc6c0fd3b5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '877e7505b1d880f2a9fc7f40380a7b45')"
     ]
   }
 }
