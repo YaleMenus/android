@@ -55,6 +55,7 @@ public class LocationActivity extends AppCompatActivity {
     SharedPreferences preferences;
     View emptyView;
     View loadingView;
+    Calendar date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,12 @@ public class LocationActivity extends AppCompatActivity {
         emptyView = findViewById(R.id.location_empty);
         loadingView = findViewById(R.id.location_progress);
         expandableListView.setEmptyView(emptyView);
-        MealsTask mealsTask = new MealsTask();
+
+        this.date = Calendar.getInstance();
+    }
+
+    private void getMeals() {
+        MealsTask mealsTask = new MealsTask(this.date);
         mealsTask.execute();
     }
 
@@ -174,7 +180,27 @@ public class LocationActivity extends AppCompatActivity {
         }
     }
 
+    public void previousDate(View view) {
+        this.date.add(Calendar.DATE, -1);
+        this.getMeals();
+    }
+
+    public void nextDate(View view) {
+        this.date.add(Calendar.DATE, 1);
+        this.getMeals();
+    }
+
+    public void chooseDate(View view) {
+    }
+
     private class MealsTask extends AsyncTask<Void, Void, Void> {
+        Calendar date;
+
+        public MealsTask(Calendar date) {
+            super();
+            this.date = date;
+        }
+
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("get", "start");
@@ -185,7 +211,7 @@ public class LocationActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                meals = api.getLocationMeals(locationId, new Date());
+                meals = api.getLocationMeals(locationId, this.date);
             } catch (JSONException | IOException e) {
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                 e.printStackTrace();
