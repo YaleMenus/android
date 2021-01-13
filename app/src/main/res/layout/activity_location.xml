@@ -63,7 +63,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:id="@+id/date_bar"
+            android:id="@+id/dateBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -78,6 +78,7 @@
                 style="?android:attr/borderlessButtonStyle" />
 
             <Button
+                android:id="@+id/dateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_calendar_today_24"
