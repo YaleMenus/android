@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Meal;
+import com.adisa.diningplus.utils.DateFormatProvider;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
@@ -56,6 +58,7 @@ public class LocationActivity extends AppCompatActivity {
     View emptyView;
     View loadingView;
     Calendar date;
+    Button dateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,10 +128,13 @@ public class LocationActivity extends AppCompatActivity {
         loadingView = findViewById(R.id.location_progress);
         expandableListView.setEmptyView(emptyView);
 
+        this.dateButton = findViewById(R.id.dateButton);
         this.date = Calendar.getInstance();
+        this.getMeals();
     }
 
     private void getMeals() {
+        this.dateButton.setText(DateFormatProvider.dateFull.format(this.date.getTime()));
         MealsTask mealsTask = new MealsTask(this.date);
         mealsTask.execute();
     }

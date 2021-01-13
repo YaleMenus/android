@@ -21,7 +21,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class API {
@@ -72,8 +72,9 @@ public class API {
         return db.locationDao().getAll();
     }
 
-    public List<Meal> getLocationMeals(int locationId, Date date) throws IOException, JSONException {
-        String query = "date=" + DateFormatProvider.date.format(date);
+    public List<Meal> getLocationMeals(int locationId, Calendar date) throws IOException, JSONException {
+        String query = "date=" + DateFormatProvider.date.format(date.getTime());
+        System.out.println(query);
         JSONArray mealsRaw = new JSONArray(getJSON("locations/" + locationId + "/meals" + "?" + query));
         db.mealDao().clearLocation(locationId);
         for (int i = 0; i < mealsRaw.length(); i++) {
