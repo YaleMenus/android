@@ -85,6 +85,8 @@
                 android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
                 style="?android:attr/borderlessButtonStyle"
                 android:onClick="chooseDate" />
 
