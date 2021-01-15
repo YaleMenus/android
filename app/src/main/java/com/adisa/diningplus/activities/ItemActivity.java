@@ -182,7 +182,6 @@ public class ItemActivity extends AppCompatActivity {
     private class ItemTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("get", "start");
         }
 
         @Override
@@ -224,6 +223,9 @@ public class ItemActivity extends AppCompatActivity {
             AllergenAdapter allergenAdapter = new AllergenAdapter(ItemActivity.this, allergens);
             allergenListView.setAdapter(allergenAdapter);
 
+
+
+            /*
             totalFat.setText(mixedWeight("Total Fat", nutrition.totalFat));
             saturatedFat.setText(mixedWeight("SaturatedFat", nutrition.saturatedFat));
             transFat.setText(mixedWeight("Trans Fat", nutrition.transFat));
@@ -255,8 +257,7 @@ public class ItemActivity extends AppCompatActivity {
             calciumPDV.setText(nutrition.calciumPDV);
             ironPDV.setText(nutrition.ironPDV);
             potassiumPDV.setText(nutrition.potassiumPDV);
-
-            Log.e("get", "done");
+            */
         }
     }
 
