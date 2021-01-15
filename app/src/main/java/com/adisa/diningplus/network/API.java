@@ -74,7 +74,6 @@ public class API {
 
     public List<Meal> getLocationMeals(int locationId, Calendar date) throws IOException, JSONException {
         String query = "date=" + DateFormatProvider.date.format(date.getTime());
-        System.out.println(query);
         JSONArray mealsRaw = new JSONArray(getJSON("locations/" + locationId + "/meals" + "?" + query));
         db.mealDao().clearLocation(locationId);
         for (int i = 0; i < mealsRaw.length(); i++) {
