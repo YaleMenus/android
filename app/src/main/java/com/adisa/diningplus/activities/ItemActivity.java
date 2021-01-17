@@ -94,6 +94,19 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
+    public class Nutrient {
+        public String name;
+        public String amount;
+        public Integer pdv;
+
+        Nutrient(String name, String amount) {
+            this.name = name;
+            this.amount = amount;
+            this.pdv = null;
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
