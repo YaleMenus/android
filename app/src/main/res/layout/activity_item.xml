@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.adisa.diningplus.activities.ItemActivity"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <ListView
         android:id="@+id/allergenListView"
@@ -14,7 +14,6 @@
         android:divider="@null"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false" />
-
 
     <TextView
         android:text="Nutrition Facts"
