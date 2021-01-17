@@ -219,7 +219,7 @@ public class ItemActivity extends AppCompatActivity {
             if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
             if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
 
-            Nutrition nutrition = null;
+            nutrition = null;
             try {
                 nutrition = api.getItemNutrition(itemId);
             } catch (IOException | JSONException e) {
