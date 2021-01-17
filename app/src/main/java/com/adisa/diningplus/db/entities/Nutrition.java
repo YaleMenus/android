@@ -11,6 +11,7 @@ public class Nutrition implements Serializable {
     public String name;
     @ColumnInfo(name = "portion_size")
     public String portionSize;
+    public String calories;
 
     @ColumnInfo(name="total_fat")
     public String totalFat;
