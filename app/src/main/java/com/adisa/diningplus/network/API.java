@@ -158,6 +158,7 @@ public class API {
             JSONObject nutritionRaw = new JSONObject(getJSON("items/" + itemId + "/nutrition"));
             nutrition = new Nutrition();
             nutrition.portionSize = nutritionRaw.getString("portion_size");
+            nutrition.calories = nutritionRaw.getString("calories");
 
             nutrition.totalFat = nutritionRaw.optString("total_fat");
             nutrition.saturatedFat = nutritionRaw.optString("saturated_fat");
