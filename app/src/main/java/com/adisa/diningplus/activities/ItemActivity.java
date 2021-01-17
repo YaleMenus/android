@@ -227,7 +227,6 @@ public class ItemActivity extends AppCompatActivity {
                 return null;
             }
 
-
             return null;
         }
 
@@ -255,22 +254,21 @@ public class ItemActivity extends AppCompatActivity {
             iron.setText(mixedWeight("Iron", nutrition.iron));
             potassium.setText(mixedWeight("Potassium", nutrition.potassium));
 
-            totalFatPDV.setText(nutrition.totalFatPDV);
-            saturatedFatPDV.setText(nutrition.saturatedFatPDV);
-            transFatPDV.setText(nutrition.transFatPDV);
-            cholesterolPDV.setText(nutrition.cholesterolPDV);
-            sodiumPDV.setText(nutrition.sodiumPDV);
-            totalCarbohydratePDV.setText(nutrition.totalCarbohydratePDV);
-            dietaryFiberPDV.setText(nutrition.dietaryFiberPDV);
-            totalSugarsPDV.setText(nutrition.totalSugarsPDV);
-            proteinPDV.setText(nutrition.proteinPDV);
-            vitaminDPDV.setText(nutrition.vitaminDPDV);
-            vitaminAPDV.setText(nutrition.vitaminAPDV);
-            vitaminCPDV.setText(nutrition.vitaminCPDV);
-            calciumPDV.setText(nutrition.calciumPDV);
-            ironPDV.setText(nutrition.ironPDV);
-            potassiumPDV.setText(nutrition.potassiumPDV);
-            */
+            totalFatPDV.setText(nutrition.totalFatPDV + "%");
+            saturatedFatPDV.setText(nutrition.saturatedFatPDV + "%");
+            transFatPDV.setText(nutrition.transFatPDV + "%");
+            cholesterolPDV.setText(nutrition.cholesterolPDV + "%");
+            sodiumPDV.setText(nutrition.sodiumPDV + "%");
+            totalCarbohydratePDV.setText(nutrition.totalCarbohydratePDV + "%");
+            dietaryFiberPDV.setText(nutrition.dietaryFiberPDV + "%");
+            totalSugarsPDV.setText(nutrition.totalSugarsPDV + "%");
+            proteinPDV.setText(nutrition.proteinPDV + "%");
+            vitaminDPDV.setText(nutrition.vitaminDPDV + "%");
+            vitaminAPDV.setText(nutrition.vitaminAPDV + "%");
+            vitaminCPDV.setText(nutrition.vitaminCPDV + "%");
+            calciumPDV.setText(nutrition.calciumPDV + "%");
+            ironPDV.setText(nutrition.ironPDV + "%");
+            potassiumPDV.setText(nutrition.potassiumPDV + "%");
         }
     }
 

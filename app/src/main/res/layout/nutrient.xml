@@ -5,34 +5,35 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/ingredient"
+        android:id="@+id/nutrient_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sodium"
         android:paddingBottom="16dp"
         android:paddingStart="24dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/nutrient_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1mg"
+        android:layout_weight="1"
+        android:paddingBottom="16dp"
+        android:paddingStart="12dp"
         android:paddingEnd="24dp"
         android:paddingTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/amount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="1mg"
-        android:layout_weight="1"
-        android:paddingBottom="16dp"
-        android:paddingEnd="24dp"
-        android:paddingTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textSize="16sp" /> />
-
-    <TextView
-        android:id="@+id/pdv"
+        android:id="@+id/nutrient_pdv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2%"
+        android:text="25%"
         android:paddingBottom="16dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
