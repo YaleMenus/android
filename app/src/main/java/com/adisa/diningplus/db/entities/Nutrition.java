@@ -39,35 +39,35 @@ public class Nutrition implements Serializable {
     public String potassium;
 
     @ColumnInfo(name="total_fat_pdv")
-    public int totalFatPDV;
+    public Integer totalFatPDV;
     @ColumnInfo(name="saturated_fat_pdv")
-    public int saturatedFatPDV;
+    public Integer saturatedFatPDV;
     @ColumnInfo(name="trans_fat_pdv")
-    public int transFatPDV;
+    public Integer transFatPDV;
     @ColumnInfo(name="cholesterol_pdv")
-    public int cholesterolPDV;
+    public Integer cholesterolPDV;
     @ColumnInfo(name="sodium_pdv")
-    public int sodiumPDV;
+    public Integer sodiumPDV;
     @ColumnInfo(name="total_carbohydrate_pdv")
-    public int totalCarbohydratePDV;
+    public Integer totalCarbohydratePDV;
     @ColumnInfo(name="dietary_fiber_pdv")
-    public int dietaryFiberPDV;
+    public Integer dietaryFiberPDV;
     @ColumnInfo(name="total_sugars_pdv")
-    public int totalSugarsPDV;
+    public Integer totalSugarsPDV;
     @ColumnInfo(name="protein_pdv")
-    public int proteinPDV;
+    public Integer proteinPDV;
     @ColumnInfo(name="vitamin_d_pdv")
-    public int vitaminDPDV;
+    public Integer vitaminDPDV;
     @ColumnInfo(name="vitamin_a_pdv")
-    public int vitaminAPDV;
+    public Integer vitaminAPDV;
     @ColumnInfo(name="vitamin_c_pdv")
-    public int vitaminCPDV;
+    public Integer vitaminCPDV;
     @ColumnInfo(name="calcium_pdv")
-    public int calciumPDV;
+    public Integer calciumPDV;
     @ColumnInfo(name="iron_pdv")
-    public int ironPDV;
+    public Integer ironPDV;
     @ColumnInfo(name="potassium_pdv")
-    public int potassiumPDV;
+    public Integer potassiumPDV;
 
     @PrimaryKey
     @ColumnInfo(name = "item_id")
