@@ -44,6 +44,9 @@ public class ItemActivity extends AppCompatActivity {
     int itemId;
     Item item;
 
+
+    View loadingView;
+    View bodyView;
     ListView itemDetailListView;
     ItemDetailAdapter itemDetailAdapter;
 
@@ -94,6 +97,8 @@ public class ItemActivity extends AppCompatActivity {
         itemName = i.getStringExtra("name");
         itemId = i.getIntExtra("id", -1);
 
+        loadingView = findViewById(R.id.location_progress);
+        bodyView = findViewById(R.id.body);
         allergenListView = (ListView) findViewById(R.id.allergenListView);
         nutrientsView = findViewById(R.id.nutrientsView);
         ingredientsView = findViewById(R.id.ingredients);
@@ -200,6 +205,8 @@ public class ItemActivity extends AppCompatActivity {
                 nutrientsView.addView(nutritionAdapter.getView(position, null, null));
             }
             ingredientsView.setText("Ingredients: " + item.ingredients);
+            bodyView.setVisibility(View.VISIBLE);
+            loadingView.setVisibility(View.GONE);
         }
     }
 
