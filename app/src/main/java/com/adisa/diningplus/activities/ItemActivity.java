@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,7 +48,7 @@ public class ItemActivity extends AppCompatActivity {
 
     ListView allergenListView;
     ArrayList<Allergen> allergens = new ArrayList<>();
-    ListView nutrientListView;
+    LinearLayout nutrientListView;
     ArrayList<Nutrient> nutrients = new ArrayList<>();
 
     Nutrition nutrition;
@@ -93,7 +95,7 @@ public class ItemActivity extends AppCompatActivity {
         itemId = i.getIntExtra("id", -1);
 
         allergenListView = (ListView) findViewById(R.id.allergenListView);
-        nutrientListView = (ListView) findViewById(R.id.nutrientListView);
+        nutrientListView = findViewById(R.id.nutrientListView);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -193,7 +195,9 @@ public class ItemActivity extends AppCompatActivity {
             AllergenAdapter allergenAdapter = new AllergenAdapter(ItemActivity.this, allergens);
             allergenListView.setAdapter(allergenAdapter);
             NutritionAdapter nutritionAdapter = new NutritionAdapter(ItemActivity.this, nutrients);
-            nutrientListView.setAdapter(nutritionAdapter);
+            for (int position = 0; position < nutritionAdapter.getCount(); position++) {
+                nutrientListView.addView(nutritionAdapter.getView(position, null, null));
+            }
         }
     }
 
