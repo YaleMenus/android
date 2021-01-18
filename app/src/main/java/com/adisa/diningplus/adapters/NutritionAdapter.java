@@ -50,6 +50,8 @@ public class NutritionAdapter extends BaseAdapter {
         viewHolder.amount.setText(allergen.amount);
         if (allergen.pdv != null) {
             viewHolder.pdv.setText(allergen.pdv + "%");
+        } else {
+            viewHolder.pdv.setText("");
         }
 
         return convertView;
