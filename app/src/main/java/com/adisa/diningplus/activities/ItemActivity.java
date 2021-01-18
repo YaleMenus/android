@@ -42,18 +42,18 @@ public class ItemActivity extends AppCompatActivity {
 
     String itemName;
     int itemId;
+    Item item;
 
     ListView itemDetailListView;
     ItemDetailAdapter itemDetailAdapter;
 
-    ListView allergenListView;
     ArrayList<Allergen> allergens = new ArrayList<>();
-    LinearLayout nutrientListView;
     ArrayList<Nutrient> nutrients = new ArrayList<>();
+    ListView allergenListView;
+    LinearLayout nutrientsView;
+    TextView ingredientsView;
 
     Nutrition nutrition;
-    TextView portionSize;
-    TextView calories;
 
     public class Allergen {
         public int image;
@@ -95,7 +95,8 @@ public class ItemActivity extends AppCompatActivity {
         itemId = i.getIntExtra("id", -1);
 
         allergenListView = (ListView) findViewById(R.id.allergenListView);
-        nutrientListView = findViewById(R.id.nutrientListView);
+        nutrientsView = findViewById(R.id.nutrientsView);
+        ingredientsView = findViewById(R.id.ingredients);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -142,7 +143,7 @@ public class ItemActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Item item = null;
+            item = null;
             try {
                 item = api.getItem(itemId);
             } catch (IOException | JSONException e) {
@@ -196,8 +197,9 @@ public class ItemActivity extends AppCompatActivity {
             allergenListView.setAdapter(allergenAdapter);
             NutritionAdapter nutritionAdapter = new NutritionAdapter(ItemActivity.this, nutrients);
             for (int position = 0; position < nutritionAdapter.getCount(); position++) {
-                nutrientListView.addView(nutritionAdapter.getView(position, null, null));
+                nutrientsView.addView(nutritionAdapter.getView(position, null, null));
             }
+            ingredientsView.setText("Ingredients: " + item.ingredients);
         }
     }
 
