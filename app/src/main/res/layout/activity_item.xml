@@ -64,7 +64,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/colorMedium"
+                android:textColor="@color/medium"
                 android:text="* Percent Daily Values are based on a 2,000 calorie diet. Your Daily Values may be higher or lower depending on your calorie needs." />
 
         </LinearLayout>

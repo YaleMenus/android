@@ -101,7 +101,7 @@ public class MenuAdapter extends BaseExpandableListAdapter {
         }
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
         listTitleTextView.setText(meal.name);
-        listTitleTextView.setTextColor(this.context.getResources().getColor(R.color.colorPrimary));
+        listTitleTextView.setTextColor(this.context.getResources().getColor(R.color.primary));
 
         TextView mealTimeTextView = (TextView) convertView.findViewById(R.id.mealTime);
         Date startTime = null, endTime = null;

@@ -28,7 +28,7 @@ public class DatabaseUpdateReceiver extends BroadcastReceiver {
                         .setContentTitle("Favorite Dish")
                         .setContentText(itemName + " is being served today!")
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                        .setColor(ContextCompat.getColor(context, R.color.primary));
 
         Intent resultIntent = new Intent(context, LocationActivity.class);
         resultIntent.putExtra("locationId", locationId);

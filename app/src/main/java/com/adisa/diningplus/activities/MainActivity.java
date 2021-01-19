@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 updateTask.execute();
             }
         });
-        swipeContainer.setColorSchemeResources(R.color.colorAccent);
+        swipeContainer.setColorSchemeResources(R.color.accent);
 
         coordinatorLayout = findViewById(R.id.snackbar);
 
