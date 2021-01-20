@@ -56,7 +56,7 @@ public class AllergenDialogFragment extends DialogFragment {
                         String[] traitArray = getResources().getStringArray(R.array.allergens);
                         for (int i = 0; i < finalSelections.length; i++) {
                             if (finalSelections[i]) {
-                                String trait = traitArray[i].toLowerCase();
+                                String trait = traitArray[i].toLowerCase().replace(' ', '_');
                                 // Remove parenthesized explanation if present
                                 int parenthesisIndex = trait.indexOf('(');
                                 if (parenthesisIndex != -1) {
