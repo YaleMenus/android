@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="allergens">
+        <item>Vegetarian</item>
+        <item>Vegan</item>
         <item>Alcohol</item>
         <item>Nuts</item>
         <item>Shellfish</item>

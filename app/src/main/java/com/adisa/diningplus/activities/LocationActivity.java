@@ -281,6 +281,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
                 if (items != null) {
                     for (Item item : items) {
                         for (String allergen : allergens) {
+                            System.out.println(allergen);
                             try {
                                 if ((boolean) item.getClass().getField(allergen).get(item)) {
                                     item.allergenic = true;
