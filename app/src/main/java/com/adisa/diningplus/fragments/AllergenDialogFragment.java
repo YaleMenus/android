@@ -42,7 +42,7 @@ public class AllergenDialogFragment extends DialogFragment {
         }
 
         final boolean[] finalSelections = selections;
-        builder.setTitle("Select dietary traits that you want to avoid.")
+        builder.setTitle("Select dietary restrictions to warn about.")
                 .setMultiChoiceItems(R.array.allergens, selections, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -51,6 +51,10 @@ public class AllergenDialogFragment extends DialogFragment {
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // Invert selections for Vegan and Vegetarian
+                        finalSelections[0] = !finalSelections[0];
+                        finalSelections[1] = !finalSelections[1];
+
                         SharedPreferences.Editor editor = preferences.edit();
                         HashSet<String> traitSet = new HashSet<String>();
                         String[] traitArray = getResources().getStringArray(R.array.allergens);
