@@ -20,6 +20,16 @@ import java.util.HashSet;
 
 public class AllergenDialogFragment extends DialogFragment {
 
+    private String cleanTrait(String trait) {
+        trait = trait.toLowerCase().replace(' ', '_');
+        // Remove parenthesized explanation if present
+        int parenthesisIndex = trait.indexOf('(');
+        if (parenthesisIndex != -1) {
+            trait = trait.substring(0, parenthesisIndex - 1);
+        }
+        return trait;
+    }
+
     // Use this instance of the interface to deliver action events
     // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
     @Override
@@ -38,7 +48,7 @@ public class AllergenDialogFragment extends DialogFragment {
         HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
 
         for (int i = 0; i < allergenOptions.length; i++) {
-            selections[i] = allergens.contains(allergenOptions[i]);
+            selections[i] = allergens.contains(cleanTrait(allergenOptions[i]));
         }
 
         final boolean[] finalSelections = selections;
@@ -56,14 +66,8 @@ public class AllergenDialogFragment extends DialogFragment {
                         String[] traitArray = getResources().getStringArray(R.array.allergens);
                         for (int i = 0; i < finalSelections.length; i++) {
                             if (finalSelections[i]) {
-                                String trait = traitArray[i].toLowerCase().replace(' ', '_');
-                                // Remove parenthesized explanation if present
-                                int parenthesisIndex = trait.indexOf('(');
-                                if (parenthesisIndex != -1) {
-                                    trait = trait.substring(0, parenthesisIndex - 1);
-                                }
-                                System.out.println(trait);
-                                traitSet.add(trait);
+                                traitSet.add(cleanTrait(traitArray[i]));
+                                System.out.println(cleanTrait(traitArray[i]));
                             }
                         }
                         editor.putStringSet("allergens", traitSet);
