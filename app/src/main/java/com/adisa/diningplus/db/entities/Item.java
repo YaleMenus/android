@@ -15,9 +15,8 @@ public class Item implements Serializable {
     public String ingredients;
     public String course;
 
-    public boolean vegetarian;
-    public boolean vegan;
-
+    public boolean meat;
+    public boolean animal_products;
     public boolean alcohol;
     public boolean nuts;
     public boolean shellfish;

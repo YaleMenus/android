@@ -104,8 +104,8 @@ public class API {
             item.name = itemRaw.getString("name");
             item.course = itemRaw.getString("course");
             item.ingredients = itemRaw.getString("ingredients");
-            item.vegetarian = itemRaw.getBoolean("vegetarian");
-            item.vegan = itemRaw.getBoolean("vegan");
+            item.meat = itemRaw.getBoolean("meat");
+            item.animal_products = itemRaw.getBoolean("animal_products");
             item.alcohol = itemRaw.getBoolean("alcohol");
             item.nuts = itemRaw.getBoolean("nuts");
             item.shellfish = itemRaw.getBoolean("shellfish");
@@ -133,8 +133,8 @@ public class API {
             item.id = itemRaw.getInt("id");
             item.name = itemRaw.getString("name");
             item.ingredients = itemRaw.getString("ingredients");
-            item.vegetarian = itemRaw.getBoolean("vegetarian");
-            item.vegan = itemRaw.getBoolean("vegan");
+            item.meat = itemRaw.getBoolean("meat");
+            item.animal_products = itemRaw.getBoolean("animal_products");
             item.alcohol = itemRaw.getBoolean("alcohol");
             item.nuts = itemRaw.getBoolean("nuts");
             item.shellfish = itemRaw.getBoolean("shellfish");

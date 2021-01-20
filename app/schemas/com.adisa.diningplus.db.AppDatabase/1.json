@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ca8aba48ef591a1ce0bf61fe685e7e63",
+    "identityHash": "18d3f00742acd6122c054b8a1bc34ef0",
     "entities": [
       {
         "tableName": "locations",
@@ -168,7 +168,7 @@
       },
       {
         "tableName": "items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `course` TEXT, `vegetarian` INTEGER NOT NULL, `vegan` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `fish` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `course` TEXT, `meat` INTEGER NOT NULL, `animal_products` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `fish` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -195,14 +195,14 @@
             "notNull": false
           },
           {
-            "fieldPath": "vegetarian",
-            "columnName": "vegetarian",
+            "fieldPath": "meat",
+            "columnName": "meat",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "vegan",
-            "columnName": "vegan",
+            "fieldPath": "animal_products",
+            "columnName": "animal_products",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -516,7 +516,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca8aba48ef591a1ce0bf61fe685e7e63')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '18d3f00742acd6122c054b8a1bc34ef0')"
     ]
   }
 }
