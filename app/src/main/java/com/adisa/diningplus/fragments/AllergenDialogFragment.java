@@ -42,7 +42,7 @@ public class AllergenDialogFragment extends DialogFragment {
         }
 
         final boolean[] finalSelections = selections;
-        builder.setTitle("Select dietary restrictions to warn about.")
+        builder.setTitle("Choose your dietary restrictions, or other ingredients you want to be warned about.")
                 .setMultiChoiceItems(R.array.allergens, selections, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -51,16 +51,18 @@ public class AllergenDialogFragment extends DialogFragment {
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Invert selections for Vegan and Vegetarian
-                        finalSelections[0] = !finalSelections[0];
-                        finalSelections[1] = !finalSelections[1];
-
                         SharedPreferences.Editor editor = preferences.edit();
                         HashSet<String> traitSet = new HashSet<String>();
                         String[] traitArray = getResources().getStringArray(R.array.allergens);
                         for (int i = 0; i < finalSelections.length; i++) {
                             if (finalSelections[i]) {
-                                traitSet.add(traitArray[i].toLowerCase());
+                                String trait = traitArray[i].toLowerCase();
+                                // Remove parenthesized explanation if present
+                                int parenthesisIndex = trait.indexOf('(');
+                                if (parenthesisIndex != -1) {
+                                    trait = trait.substring(0, parenthesisIndex - 1);
+                                }
+                                traitSet.add(trait);
                             }
                         }
                         editor.putStringSet("allergens", traitSet);
