@@ -62,6 +62,7 @@ public class AllergenDialogFragment extends DialogFragment {
                                 if (parenthesisIndex != -1) {
                                     trait = trait.substring(0, parenthesisIndex - 1);
                                 }
+                                System.out.println(trait);
                                 traitSet.add(trait);
                             }
                         }
