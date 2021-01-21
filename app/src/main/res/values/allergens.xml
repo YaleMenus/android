@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="allergens">
+    <array name="dietary_restrictions">
         <item>meat</item>
         <item>animal_products</item>
         <item>alcohol</item>
@@ -16,7 +16,7 @@
         <item>gluten</item>
         <item>coconut</item>
     </array>
-    <array name="allergenLabels">
+    <array name="dietary_restriction_labels">
         <item>Meat (I\'m Vegetarian)</item>
         <item>Animal Products (I\'m Vegan)</item>
         <item>Alcohol</item>

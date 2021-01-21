@@ -1,6 +1,5 @@
 package com.adisa.diningplus.fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -18,15 +17,15 @@ import java.util.HashSet;
  * Created by Adisa on 4/30/2017.
  */
 
-public class AllergenDialogFragment extends DialogFragment {
+public class DietaryRestrictionDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        String[] allergenOptions = getResources().getStringArray(R.array.allergens);
+        String[] allergenOptions = getResources().getStringArray(R.array.dietary_restrictions);
         boolean[] selections = new boolean[allergenOptions.length];
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
+        HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("dietary_restrictions", new HashSet<String>());
 
         for (int i = 0; i < allergenOptions.length; i++) {
             selections[i] = allergens.contains(allergenOptions[i]);
@@ -34,7 +33,7 @@ public class AllergenDialogFragment extends DialogFragment {
 
         final boolean[] finalSelections = selections;
         builder.setTitle("Choose your dietary restrictions, or other ingredients you want to be warned about.")
-                .setMultiChoiceItems(R.array.allergenLabels, selections, new DialogInterface.OnMultiChoiceClickListener() {
+                .setMultiChoiceItems(R.array.dietary_restriction_labels, selections, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         finalSelections[which] = isChecked;
@@ -44,13 +43,13 @@ public class AllergenDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences.Editor editor = preferences.edit();
                         HashSet<String> traitSet = new HashSet<String>();
-                        String[] traitArray = getResources().getStringArray(R.array.allergens);
+                        String[] traitArray = getResources().getStringArray(R.array.dietary_restrictions);
                         for (int i = 0; i < finalSelections.length; i++) {
                             if (finalSelections[i]) {
                                 traitSet.add(traitArray[i]);
                             }
                         }
-                        editor.putStringSet("allergens", traitSet);
+                        editor.putStringSet("dietary_restrictions", traitSet);
                         editor.apply();
                     }
                 });

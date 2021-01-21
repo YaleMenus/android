@@ -274,7 +274,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
 
         @Override
         protected Void doInBackground(Void... params) {
-            HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("allergens", new HashSet<String>());
+            HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("dietary_restrictions", new HashSet<String>());
             for (Meal meal : meals) {
                 ArrayList<Item> newList = new ArrayList<>();
                 List<Item> items = mealItems.get(meal.name);

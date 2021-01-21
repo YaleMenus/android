@@ -37,8 +37,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences_main);
-            MultiSelectListPreference multiSelectListPreference = (MultiSelectListPreference) findPreference("allergens");
-            HashSet<String> stringSet = (HashSet<String>) PreferenceManager.getDefaultSharedPreferences(getActivity()).getStringSet("allergens", new HashSet<String>());
+            MultiSelectListPreference multiSelectListPreference = (MultiSelectListPreference) findPreference("dietary_restrictions");
+            HashSet<String> stringSet = (HashSet<String>) PreferenceManager.getDefaultSharedPreferences(getActivity()).getStringSet("dietary_restrictions", new HashSet<String>());
             multiSelectListPreference.setValues(stringSet);
         }
     }
