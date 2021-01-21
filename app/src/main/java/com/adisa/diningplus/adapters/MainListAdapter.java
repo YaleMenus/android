@@ -103,7 +103,7 @@ public class MainListAdapter extends BaseAdapter {
         DecimalFormat numberFormat = new DecimalFormat("0.00");
         double distance = item.distance;
         String unit = " ";
-        switch (preferences.getString("unitPrefs", "Imperial")) {
+        switch (preferences.getString("units", "Imperial")) {
             case "Metric":
                 unit += "km";
                 // No adjustment of distance needed as it's stored in kilometers
