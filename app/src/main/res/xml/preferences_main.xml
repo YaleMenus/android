@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <MultiSelectListPreference
-        android:entries="@array/allergenLabels"
-        android:entryValues="@array/allergens"
-        android:key="allergens"
+        android:entries="@array/dietary_restriction_labels"
+        android:entryValues="@array/dietary_restrictions"
+        android:key="dietary_restrictions"
         android:summary="The allergens that you selected to avoid."
         android:title="Allergens" />
     <com.adisa.diningplus.FollowDialogPreference
