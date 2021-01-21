@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="allergens">
+        <item>meat</item>
+        <item>animal_products</item>
+        <item>alcohol</item>
+        <item>nuts</item>
+        <item>shellfish</item>
+        <item>peanuts</item>
+        <item>dairy</item>
+        <item>egg</item>
+        <item>pork</item>
+        <item>fish</item>
+        <item>soy</item>
+        <item>wheat</item>
+        <item>gluten</item>
+        <item>coconut</item>
+    </array>
+    <array name="allergenLabels">
         <item>Meat (I\'m Vegetarian)</item>
         <item>Animal Products (I\'m Vegan)</item>
         <item>Alcohol</item>
