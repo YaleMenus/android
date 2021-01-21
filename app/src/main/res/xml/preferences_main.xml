@@ -13,7 +13,7 @@
         android:entries="@array/units"
         android:entryValues="@array/units"
         android:defaultValue="Imperial"
-        android:key="unitPrefs"
+        android:key="units"
         android:summary="System of measurement to use for representing distances."
         android:title="Units" />
 </PreferenceScreen>
