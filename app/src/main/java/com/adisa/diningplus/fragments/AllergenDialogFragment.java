@@ -19,15 +19,6 @@ import java.util.HashSet;
  */
 
 public class AllergenDialogFragment extends DialogFragment {
-
-    // Use this instance of the interface to deliver action events
-    // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        // Verify that the host activity implements the callback interface
-    }
-
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
