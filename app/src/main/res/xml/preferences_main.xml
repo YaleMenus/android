@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <MultiSelectListPreference
-        android:entries="@array/allergens"
+        android:entries="@array/allergenLabels"
         android:entryValues="@array/allergens"
         android:key="allergens"
         android:summary="The allergens that you selected to avoid."
