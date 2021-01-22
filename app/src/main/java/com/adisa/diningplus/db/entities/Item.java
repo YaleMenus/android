@@ -34,5 +34,5 @@ public class Item implements Serializable {
     public int mealId;
 
     @Ignore
-    public boolean allergenic;
+    public boolean restricted;
 }
