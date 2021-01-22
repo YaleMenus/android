@@ -131,12 +131,6 @@ public class ItemActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private SpannableString mixedWeight(String bold, String regular) {
-        SpannableString str = new SpannableString(bold + " " + regular);
-        str.setSpan(new StyleSpan(Typeface.BOLD), 0, bold.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return str;
-    }
-
     private class ItemTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
