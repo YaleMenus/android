@@ -42,49 +42,29 @@ class API(ctx: Context?) {
         return buffer.toString()
     }
 
-    @get:Throws(IOException::class, JSONException::class)
-    val locations: List<Location>
-        get() {
-            val locationsRaw = JSONArray(getJSON("locations"))
-            db.locationDao().clear()
-            for (i in 0 until locationsRaw.length()) {
-                val locationRaw = locationsRaw.getJSONObject(i)
-                val location = Location()
-                location.id = locationRaw.getInt("id")
-                location.name = locationRaw.getString("name")
-                location.shortname = locationRaw.getString("shortname")
-                location.code = locationRaw.getString("code")
-                location.open = locationRaw.optBoolean("open", false)
-                location.occupancy = locationRaw.optInt("occupancy", 0)
-                location.latitude = locationRaw.optDouble("latitude", 0.0)
-                location.longitude = locationRaw.optDouble("longitude", 0.0)
-                location.address = locationRaw.optString("address", null)
-                location.phone = locationRaw.optString("phone", null)
-                db.locationDao().insert(location)
-            }
-            return db.locationDao().all
+    fun getLocations(): List<Location> {
+        val locationsRaw = JSONArray(getJSON("locations"))
+        db.locationDao().clear()
+        for (i in 0 until locationsRaw.length()) {
+            val locationRaw = locationsRaw.getJSONObject(i)
+            val location = Location.fromJSON(locationRaw)
+            db.locationDao().insert(location)
         }
+        return db.locationDao().all
+    }
 
-    @Throws(IOException::class, JSONException::class)
     fun getLocationMeals(locationId: Int, date: Calendar): List<Meal> {
         val query = "date=" + DateFormatProvider.date.format(date.time)
         val mealsRaw = JSONArray(getJSON("locations/$locationId/meals?$query"))
         db.mealDao().clearLocation(locationId)
         for (i in 0 until mealsRaw.length()) {
             val mealRaw = mealsRaw.getJSONObject(i)
-            val meal = Meal()
-            meal.id = mealRaw.getInt("id")
-            meal.name = mealRaw.getString("name")
-            meal.date = mealRaw.getString("date")
-            meal.startTime = mealRaw.optString("start_time")
-            meal.endTime = mealRaw.optString("end_time")
-            meal.locationId = mealRaw.getInt("location_id")
+            val meal = Meal.fromJSON(mealRaw)
             db.mealDao().insert(meal)
         }
         return db.mealDao().getLocation(locationId)
     }
 
-    @Throws(IOException::class, JSONException::class)
     fun getMealItems(mealId: Int): List<Item> {
         val items = db.itemDao().getMeal(mealId)
         if (!items.isEmpty()) {
@@ -94,25 +74,7 @@ class API(ctx: Context?) {
         val itemsRaw = JSONArray(getJSON("meals/$mealId/items"))
         for (i in 0 until itemsRaw.length()) {
             val itemRaw = itemsRaw.getJSONObject(i)
-            val item = Item()
-            item.id = itemRaw.getInt("id")
-            item.name = itemRaw.getString("name")
-            item.course = itemRaw.getString("course")
-            item.ingredients = itemRaw.getString("ingredients")
-            item.meat = itemRaw.getBoolean("meat")
-            item.animal_products = itemRaw.getBoolean("animal_products")
-            item.alcohol = itemRaw.getBoolean("alcohol")
-            item.nuts = itemRaw.getBoolean("nuts")
-            item.shellfish = itemRaw.getBoolean("shellfish")
-            item.peanuts = itemRaw.getBoolean("peanuts")
-            item.dairy = itemRaw.getBoolean("dairy")
-            item.egg = itemRaw.getBoolean("egg")
-            item.pork = itemRaw.getBoolean("pork")
-            item.fish = itemRaw.getBoolean("fish")
-            item.soy = itemRaw.getBoolean("soy")
-            item.wheat = itemRaw.getBoolean("wheat")
-            item.gluten = itemRaw.getBoolean("gluten")
-            item.coconut = itemRaw.getBoolean("coconut")
+            val item = Item.fromJSON(itemRaw)
             fetchedItems.add(item)
             // db.itemDao().insert(item);
         }
@@ -120,35 +82,16 @@ class API(ctx: Context?) {
         // return db.itemDao().getMeal(mealId);
     }
 
-    @Throws(IOException::class, JSONException::class)
     fun getItem(itemId: Int): Item {
         var item = db.itemDao()[itemId]
         if (item == null) {
             val itemRaw = JSONObject(getJSON("items/$itemId"))
-            item = Item()
-            item.id = itemRaw.getInt("id")
-            item.name = itemRaw.getString("name")
-            item.ingredients = itemRaw.getString("ingredients")
-            item.meat = itemRaw.getBoolean("meat")
-            item.animal_products = itemRaw.getBoolean("animal_products")
-            item.alcohol = itemRaw.getBoolean("alcohol")
-            item.nuts = itemRaw.getBoolean("nuts")
-            item.shellfish = itemRaw.getBoolean("shellfish")
-            item.peanuts = itemRaw.getBoolean("peanuts")
-            item.dairy = itemRaw.getBoolean("dairy")
-            item.egg = itemRaw.getBoolean("egg")
-            item.pork = itemRaw.getBoolean("pork")
-            item.fish = itemRaw.getBoolean("fish")
-            item.soy = itemRaw.getBoolean("soy")
-            item.wheat = itemRaw.getBoolean("wheat")
-            item.gluten = itemRaw.getBoolean("gluten")
-            item.coconut = itemRaw.getBoolean("coconut")
+            item = Item.fromJSON(itemRaw)
             db.itemDao().insert(item)
         }
         return item
     }
 
-    @Throws(IOException::class, JSONException::class)
     fun getItemNutrition(itemId: Int): Nutrition {
         var nutrition = db.nutritionDao()[itemId]
         if (nutrition == null) {

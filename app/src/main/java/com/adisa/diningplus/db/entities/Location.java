@@ -1,8 +1,10 @@
 package com.adisa.diningplus.db.entities;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 
@@ -19,4 +21,19 @@ public class Location implements Serializable {
     public double longitude;
     public String address;
     public String phone;
+
+    public static Location fromJSON(JSONObject raw) throws JSONException {
+        Location location = new Location();
+        location.id = raw.getInt("id");
+        location.name = raw.getString("name");
+        location.shortname = raw.getString("shortname");
+        location.code = raw.getString("code");
+        location.open = raw.optBoolean("open");
+        location.occupancy = raw.optInt("occupancy");
+        location.latitude = raw.optDouble("latitude");
+        location.longitude = raw.optDouble("longitude");
+        location.address = raw.optString("address");
+        location.phone = raw.optString("phone");
+        return location;
+    }
 }

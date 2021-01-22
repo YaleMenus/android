@@ -134,12 +134,7 @@ public class ItemActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             item = null;
-            try {
-                item = api.getItem(itemId);
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
+            item = api.getItem(itemId);
             // TODO: use meat/animal product icons
             if (!item.meat) traits.add(new Trait(R.drawable.key_vegetarian, "Vegetarian"));
             if (!item.animal_products) traits.add(new Trait(R.drawable.key_vegan, "Vegan"));
@@ -156,13 +151,7 @@ public class ItemActivity extends AppCompatActivity {
             if (item.gluten) traits.add(new Trait(R.drawable.key_gluten, "Gluten"));
             if (item.coconut) traits.add(new Trait(R.drawable.key_coconut, "Coconut"));
 
-            nutrition = null;
-            try {
-                nutrition = api.getItemNutrition(itemId);
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
+            nutrition = api.getItemNutrition(itemId);
             nutrients.add(new Nutrient("Serving Size", nutrition.portionSize));
             nutrients.add(new Nutrient("Calories", nutrition.calories));
             nutrients.add(new Nutrient("Total Fat", nutrition.totalFat, nutrition.totalFatPDV));
