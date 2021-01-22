@@ -22,16 +22,16 @@ public class TraitAdapter extends BaseAdapter {
         TextView name;
     }
 
-    public TraitAdapter(Context context, ArrayList<ItemActivity.Trait> allergens) {
+    public TraitAdapter(Context context, ArrayList<ItemActivity.Trait> traits) {
         this.context = context;
-        this.traits = allergens;
+        this.traits = traits;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder viewHolder;
-        ItemActivity.Trait allergen = traits.get(position);
+        ItemActivity.Trait trait = traits.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.allergen, null);
@@ -45,8 +45,8 @@ public class TraitAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.image.setImageDrawable(context.getResources().getDrawable(allergen.image));
-        viewHolder.name.setText(allergen.name);
+        viewHolder.image.setImageDrawable(context.getResources().getDrawable(trait.image));
+        viewHolder.name.setText(trait.name);
 
         return convertView;
     }

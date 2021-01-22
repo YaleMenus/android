@@ -22,13 +22,13 @@ public class DietaryRestrictionDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        String[] allergenOptions = getResources().getStringArray(R.array.dietary_restrictions);
-        boolean[] selections = new boolean[allergenOptions.length];
+        String[] restrictionOptions = getResources().getStringArray(R.array.dietary_restrictions);
+        boolean[] selections = new boolean[restrictionOptions.length];
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("dietary_restrictions", new HashSet<String>());
 
-        for (int i = 0; i < allergenOptions.length; i++) {
-            selections[i] = allergens.contains(allergenOptions[i]);
+        for (int i = 0; i < restrictionOptions.length; i++) {
+            selections[i] = allergens.contains(restrictionOptions[i]);
         }
 
         final boolean[] finalSelections = selections;
