@@ -15,14 +15,14 @@ import java.util.ArrayList;
 
 public class AllergenAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<ItemActivity.Allergen> allergens;
+    private ArrayList<ItemActivity.Trait> allergens;
 
     class ViewHolder {
         ImageView image;
         TextView name;
     }
 
-    public AllergenAdapter(Context context, ArrayList<ItemActivity.Allergen> allergens) {
+    public AllergenAdapter(Context context, ArrayList<ItemActivity.Trait> allergens) {
         this.context = context;
         this.allergens = allergens;
     }
@@ -31,7 +31,7 @@ public class AllergenAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder viewHolder;
-        ItemActivity.Allergen allergen = allergens.get(position);
+        ItemActivity.Trait allergen = allergens.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.allergen, null);

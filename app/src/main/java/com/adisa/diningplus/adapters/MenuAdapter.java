@@ -1,7 +1,6 @@
 package com.adisa.diningplus.adapters;
 
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,9 @@ import android.widget.TextView;
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Meal;
 import com.adisa.diningplus.utils.DateFormatProvider;
-import com.adisa.diningplus.activities.LocationActivity;
 import com.adisa.diningplus.R;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +56,7 @@ public class MenuAdapter extends BaseExpandableListAdapter {
         }
         TextView expandedListTextView = (TextView) convertView.findViewById(R.id.expandedListItem);
         expandedListTextView.setText(item.name.replace('`', '\''));
-        if (item.allergenic) {
+        if (item.restricted) {
             expandedListTextView.setBackgroundColor(context.getResources().getColor(R.color.backgroundMarked));
             expandedListTextView.setTextColor(context.getResources().getColor(R.color.colorMarked));
         } else {

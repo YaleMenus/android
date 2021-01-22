@@ -4,8 +4,8 @@
         android:entries="@array/dietary_restriction_labels"
         android:entryValues="@array/dietary_restrictions"
         android:key="dietary_restrictions"
-        android:summary="The allergens that you selected to avoid."
-        android:title="Allergens" />
+        android:summary="Allergens or other ingredients you've selected to avoid."
+        android:title="Dietary Restrictions" />
     <com.adisa.diningplus.FollowDialogPreference
         android:summary="Receive notifications when these items are being served."
         android:title="Followed items" />

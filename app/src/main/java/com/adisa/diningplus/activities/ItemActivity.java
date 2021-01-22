@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,13 +43,10 @@ public class ItemActivity extends AppCompatActivity {
     int itemId;
     Item item;
 
-
     View loadingView;
     View bodyView;
-    ListView itemDetailListView;
-    ItemDetailAdapter itemDetailAdapter;
 
-    ArrayList<Allergen> allergens = new ArrayList<>();
+    ArrayList<Trait> traits = new ArrayList<>();
     ArrayList<Nutrient> nutrients = new ArrayList<>();
     ListView allergenListView;
     LinearLayout nutrientsView;
@@ -58,11 +54,11 @@ public class ItemActivity extends AppCompatActivity {
 
     Nutrition nutrition;
 
-    public class Allergen {
+    public class Trait {
         public int image;
         public String name;
 
-        Allergen(int image, String name) {
+        Trait(int image, String name) {
             this.image = image;
             this.name = name;
         }
@@ -155,18 +151,21 @@ public class ItemActivity extends AppCompatActivity {
                 e.printStackTrace();
                 return null;
             }
-            if (item.alcohol) allergens.add(new Allergen(R.drawable.key_alcohol, "Alcohol"));
-            if (item.nuts) allergens.add(new Allergen(R.drawable.key_nuts, "Nuts"));
-            if (item.shellfish) allergens.add(new Allergen(R.drawable.key_shellfish, "Shellfish"));
-            if (item.peanuts) allergens.add(new Allergen(R.drawable.key_peanuts, "Peanuts"));
-            if (item.dairy) allergens.add(new Allergen(R.drawable.key_dairy, "Dairy"));
-            if (item.egg) allergens.add(new Allergen(R.drawable.key_egg, "Egg"));
-            if (item.pork) allergens.add(new Allergen(R.drawable.key_pork, "Pork"));
-            if (item.fish) allergens.add(new Allergen(R.drawable.key_fish, "Fish"));
-            if (item.soy) allergens.add(new Allergen(R.drawable.key_soy, "Soy"));
-            if (item.wheat) allergens.add(new Allergen(R.drawable.key_wheat, "Wheat"));
-            if (item.gluten) allergens.add(new Allergen(R.drawable.key_gluten, "Gluten"));
-            if (item.coconut) allergens.add(new Allergen(R.drawable.key_coconut, "Coconut"));
+            // TODO: use meat/animal product icons
+            if (!item.meat) traits.add(new Trait(R.drawable.key_vegetarian, "Vegetarian"));
+            if (!item.animal_products) traits.add(new Trait(R.drawable.key_vegan, "Vegan"));
+            if (item.alcohol) traits.add(new Trait(R.drawable.key_alcohol, "Alcohol"));
+            if (item.nuts) traits.add(new Trait(R.drawable.key_nuts, "Nuts"));
+            if (item.shellfish) traits.add(new Trait(R.drawable.key_shellfish, "Shellfish"));
+            if (item.peanuts) traits.add(new Trait(R.drawable.key_peanuts, "Peanuts"));
+            if (item.dairy) traits.add(new Trait(R.drawable.key_dairy, "Dairy"));
+            if (item.egg) traits.add(new Trait(R.drawable.key_egg, "Egg"));
+            if (item.pork) traits.add(new Trait(R.drawable.key_pork, "Pork"));
+            if (item.fish) traits.add(new Trait(R.drawable.key_fish, "Fish"));
+            if (item.soy) traits.add(new Trait(R.drawable.key_soy, "Soy"));
+            if (item.wheat) traits.add(new Trait(R.drawable.key_wheat, "Wheat"));
+            if (item.gluten) traits.add(new Trait(R.drawable.key_gluten, "Gluten"));
+            if (item.coconut) traits.add(new Trait(R.drawable.key_coconut, "Coconut"));
 
             nutrition = null;
             try {
@@ -198,7 +197,7 @@ public class ItemActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            AllergenAdapter allergenAdapter = new AllergenAdapter(ItemActivity.this, allergens);
+            AllergenAdapter allergenAdapter = new AllergenAdapter(ItemActivity.this, traits);
             allergenListView.setAdapter(allergenAdapter);
             NutritionAdapter nutritionAdapter = new NutritionAdapter(ItemActivity.this, nutrients);
             for (int position = 0; position < nutritionAdapter.getCount(); position++) {

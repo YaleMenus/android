@@ -36,8 +36,6 @@ import com.adisa.diningplus.network.API;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -260,13 +258,13 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
             if (menuAdapter.getGroupCount() > 0)
                 expandableListView.expandGroup(0);
             expandableListView.setEmptyView(findViewById(R.id.location_empty));
-            AllergenTask allergenTask = new AllergenTask();
-            allergenTask.execute();
+            DietaryRestrictionTask dietaryRestrictionTask = new DietaryRestrictionTask();
+            dietaryRestrictionTask.execute();
             Log.d("get", "done");
         }
     }
 
-    private class AllergenTask extends AsyncTask<Void, Void, Void> {
+    private class DietaryRestrictionTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("get", "start");
@@ -274,17 +272,15 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
 
         @Override
         protected Void doInBackground(Void... params) {
-            HashSet<String> allergens = (HashSet<String>) preferences.getStringSet("dietary_restrictions", new HashSet<String>());
+            HashSet<String> dietaryRestrictions = (HashSet<String>) preferences.getStringSet("dietary_restrictions", new HashSet<String>());
             for (Meal meal : meals) {
-                ArrayList<Item> newList = new ArrayList<>();
                 List<Item> items = mealItems.get(meal.name);
                 if (items != null) {
                     for (Item item : items) {
-                        for (String allergen : allergens) {
-                            System.out.println(allergen);
+                        for (String restriction : dietaryRestrictions) {
                             try {
-                                if ((boolean) item.getClass().getField(allergen).get(item)) {
-                                    item.allergenic = true;
+                                if ((boolean) item.getClass().getField(restriction).get(item)) {
+                                    item.restricted = true;
                                     break;
                                 }
                             } catch (NoSuchFieldException e) {
@@ -293,7 +289,6 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
                                 // Should never happen
                             }
                         }
-                        newList.add(item);
                     }
                 }
             }
