@@ -24,9 +24,6 @@ import com.adisa.diningplus.fragments.FollowDialogFragment;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.network.API;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -137,7 +134,7 @@ public class ItemActivity extends AppCompatActivity {
             item = api.getItem(itemId);
             // TODO: use meat/animal product icons
             if (!item.meat) traits.add(new Trait(R.drawable.key_vegetarian, "Vegetarian"));
-            if (!item.animal_products) traits.add(new Trait(R.drawable.key_vegan, "Vegan"));
+            if (!item.animalProducts) traits.add(new Trait(R.drawable.key_vegan, "Vegan"));
             if (item.alcohol) traits.add(new Trait(R.drawable.key_alcohol, "Alcohol"));
             if (item.nuts) traits.add(new Trait(R.drawable.key_nuts, "Nuts"));
             if (item.shellfish) traits.add(new Trait(R.drawable.key_shellfish, "Shellfish"));
