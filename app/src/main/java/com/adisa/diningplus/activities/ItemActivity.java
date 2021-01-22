@@ -2,16 +2,12 @@ package com.adisa.diningplus.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,12 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.adisa.diningplus.adapters.AllergenAdapter;
+import com.adisa.diningplus.adapters.TraitAdapter;
 import com.adisa.diningplus.adapters.NutritionAdapter;
 import com.adisa.diningplus.db.entities.Item;
 import com.adisa.diningplus.db.entities.Nutrition;
 import com.adisa.diningplus.fragments.FollowDialogFragment;
-import com.adisa.diningplus.adapters.ItemDetailAdapter;
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.network.API;
 
@@ -191,7 +186,7 @@ public class ItemActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            AllergenAdapter allergenAdapter = new AllergenAdapter(ItemActivity.this, traits);
+            TraitAdapter allergenAdapter = new TraitAdapter(ItemActivity.this, traits);
             allergenListView.setAdapter(allergenAdapter);
             NutritionAdapter nutritionAdapter = new NutritionAdapter(ItemActivity.this, nutrients);
             for (int position = 0; position < nutritionAdapter.getCount(); position++) {
