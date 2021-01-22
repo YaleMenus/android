@@ -125,7 +125,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         ImageView header = (ImageView) findViewById(R.id.header);
         header.setImageDrawable(getResources().getDrawable(headerMap.get(locationCode)));
         emptyView = findViewById(R.id.location_empty);
-        loadingView = findViewById(R.id.location_progress);
+        loadingView = findViewById(R.id.loader);
         expandableListView.setEmptyView(emptyView);
 
         this.dateButton = findViewById(R.id.dateButton);
@@ -225,7 +225,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("get", "start");
-            expandableListView.setEmptyView(findViewById(R.id.location_progress));
+            expandableListView.setEmptyView(findViewById(R.id.loader));
             emptyView.setVisibility(View.GONE);
         }
 

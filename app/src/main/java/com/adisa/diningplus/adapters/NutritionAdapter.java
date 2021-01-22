@@ -31,7 +31,7 @@ public class NutritionAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder viewHolder;
-        ItemActivity.Nutrient allergen = nutrients.get(position);
+        ItemActivity.Nutrient nutrient = nutrients.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.nutrient, null);
@@ -46,10 +46,10 @@ public class NutritionAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.name.setText(allergen.name);
-        viewHolder.amount.setText(allergen.amount);
-        if (allergen.pdv != null) {
-            viewHolder.pdv.setText(allergen.pdv + "%");
+        viewHolder.name.setText(nutrient.name);
+        viewHolder.amount.setText(nutrient.amount);
+        if (nutrient.pdv != null) {
+            viewHolder.pdv.setText(nutrient.pdv + "%");
         } else {
             viewHolder.pdv.setText("");
         }

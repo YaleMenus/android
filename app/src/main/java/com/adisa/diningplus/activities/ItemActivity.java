@@ -38,12 +38,12 @@ public class ItemActivity extends AppCompatActivity {
     int itemId;
     Item item;
 
-    View loadingView;
+    View loaderView;
     View bodyView;
 
     ArrayList<Trait> traits = new ArrayList<>();
     ArrayList<Nutrient> nutrients = new ArrayList<>();
-    ListView allergenListView;
+    ListView traitsView;
     LinearLayout nutrientsView;
     TextView ingredientsView;
 
@@ -88,10 +88,10 @@ public class ItemActivity extends AppCompatActivity {
         itemName = i.getStringExtra("name");
         itemId = i.getIntExtra("id", -1);
 
-        loadingView = findViewById(R.id.location_progress);
+        loaderView = findViewById(R.id.loader);
         bodyView = findViewById(R.id.body);
-        allergenListView = (ListView) findViewById(R.id.allergenListView);
-        nutrientsView = findViewById(R.id.nutrientsView);
+        traitsView = (ListView) findViewById(R.id.traits);
+        nutrientsView = findViewById(R.id.nutrients);
         ingredientsView = findViewById(R.id.ingredients);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -186,15 +186,15 @@ public class ItemActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            TraitAdapter allergenAdapter = new TraitAdapter(ItemActivity.this, traits);
-            allergenListView.setAdapter(allergenAdapter);
+            TraitAdapter traitAdapter = new TraitAdapter(ItemActivity.this, traits);
+            traitsView.setAdapter(traitAdapter);
             NutritionAdapter nutritionAdapter = new NutritionAdapter(ItemActivity.this, nutrients);
             for (int position = 0; position < nutritionAdapter.getCount(); position++) {
                 nutrientsView.addView(nutritionAdapter.getView(position, null, null));
             }
             ingredientsView.setText("Ingredients: " + item.ingredients);
             bodyView.setVisibility(View.VISIBLE);
-            loadingView.setVisibility(View.GONE);
+            loaderView.setVisibility(View.GONE);
         }
     }
 
