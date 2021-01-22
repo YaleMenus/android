@@ -13,25 +13,25 @@ import com.adisa.diningplus.activities.ItemActivity;
 
 import java.util.ArrayList;
 
-public class AllergenAdapter extends BaseAdapter {
+public class TraitAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<ItemActivity.Trait> allergens;
+    private ArrayList<ItemActivity.Trait> traits;
 
     class ViewHolder {
         ImageView image;
         TextView name;
     }
 
-    public AllergenAdapter(Context context, ArrayList<ItemActivity.Trait> allergens) {
+    public TraitAdapter(Context context, ArrayList<ItemActivity.Trait> allergens) {
         this.context = context;
-        this.allergens = allergens;
+        this.traits = allergens;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder viewHolder;
-        ItemActivity.Trait allergen = allergens.get(position);
+        ItemActivity.Trait allergen = traits.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.allergen, null);
@@ -53,7 +53,7 @@ public class AllergenAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return allergens.size();
+        return traits.size();
     }
 
     @Override
