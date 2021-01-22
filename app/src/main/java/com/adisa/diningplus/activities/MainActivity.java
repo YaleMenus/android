@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 Intent i = new Intent();
                 i.setClass(getApplicationContext(), LocationActivity.class);
                 i.putExtra("name", adapter.getItem(position).name);
-                i.putExtra("code", adapter.getItem(position).code);
                 i.putExtra("id", adapter.getItem(position).id);
                 startActivity(i);
             }
@@ -223,22 +222,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public static class LocationItem {
+        public String id;
         public String name;
-        public String code;
         public int occupancy;
-        public int id;
         public double latitude;
         public double longitude;
         public double distance;
         public boolean open;
 
-        LocationItem(String name, String code, int occupancy, double latitude, double longitude, int id, boolean open) {
+        LocationItem(String id, String name, int occupancy, double latitude, double longitude, boolean open) {
+            this.id = id;
             this.name = name;
-            this.code = code;
             this.occupancy = occupancy;
             this.latitude = latitude;
             this.longitude = longitude;
-            this.id = id;
             this.open = open;
         }
 
@@ -271,12 +268,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 return null;
             }
             for (Location location : locations) {
-                LocationItem item = new LocationItem(location.name,
-                                                     location.code,
+                LocationItem item = new LocationItem(location.id,
+                                                     location.name,
                                                      location.occupancy,
                                                      location.latitude,
                                                      location.longitude,
-                                                     location.id,
                                                      location.open);
                 item.setDistance(currentLocation);
                 if (item.open) {
