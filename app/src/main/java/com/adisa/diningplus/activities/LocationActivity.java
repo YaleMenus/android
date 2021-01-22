@@ -231,21 +231,21 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
 
         @Override
         protected Void doInBackground(Void... params) {
-            try {
+//            try {
                 meals = api.getLocationMeals(locationId, this.date);
-            } catch (JSONException | IOException e) {
-                Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
+//            } catch (JSONException | IOException e) {
+//                Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
+//                e.printStackTrace();
+//            }
             mealItems = new HashMap<>();
             for (Meal meal : meals) {
                 List<Item> items = null;
-                try {
+//                try {
                     items = api.getMealItems(meal.id);
-                } catch (JSONException | IOException e) {
-                    Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
+//                } catch (JSONException | IOException e) {
+//                    Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
+//                    e.printStackTrace();
+//                }
                 mealItems.put(meal.name, items);
             }
             return null;

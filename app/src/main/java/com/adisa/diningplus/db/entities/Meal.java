@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 @Entity(tableName = "meals")
@@ -18,4 +21,15 @@ public class Meal implements Serializable {
     public String endTime;
     @ColumnInfo(name = "location_id")
     public int locationId;
+
+    public static Meal fromJSON(JSONObject raw) throws JSONException {
+        Meal meal = new Meal();
+        meal.id = raw.getInt("id");
+        meal.name = raw.getString("name");
+        meal.date = raw.getString("date");
+        meal.startTime = raw.optString("start_time");
+        meal.endTime = raw.optString("end_time");
+        meal.locationId = raw.getInt("location_id");
+        return meal;
+    }
 }
