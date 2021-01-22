@@ -19,7 +19,7 @@ public class Item implements Serializable {
     public String course;
 
     public boolean meat;
-    public boolean animal_products;
+    public boolean animalProducts;
     public boolean alcohol;
     public boolean nuts;
     public boolean shellfish;
@@ -46,7 +46,7 @@ public class Item implements Serializable {
         item.course = raw.getString("course");
         item.ingredients = raw.getString("ingredients");
         item.meat = raw.getBoolean("meat");
-        item.animal_products = raw.getBoolean("animal_products");
+        item.animalProducts = raw.getBoolean("animal_products");
         item.alcohol = raw.getBoolean("alcohol");
         item.nuts = raw.getBoolean("nuts");
         item.shellfish = raw.getBoolean("shellfish");
