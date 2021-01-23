@@ -116,7 +116,7 @@ public class ItemActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_item, menu);
-        HashSet<String> current = (HashSet<String>) preferences.getStringSet("followedItems", new HashSet<String>());
+        HashSet<String> current = (HashSet<String>) preferences.getStringSet("followed_items", new HashSet<String>());
         if (current.contains(itemName)) {
             menu.findItem(R.id.action_notify).setIcon(R.drawable.notifications_enabled);
         }
@@ -192,7 +192,7 @@ public class ItemActivity extends AppCompatActivity {
                 return true;
             case R.id.action_notify:
                 SharedPreferences.Editor editor = preferences.edit();
-                HashSet<String> currentSet = (HashSet<String>) preferences.getStringSet("followedItems", new HashSet<String>());
+                HashSet<String> currentSet = (HashSet<String>) preferences.getStringSet("followed_items", new HashSet<String>());
                 HashSet<String> newSet = new HashSet<String>();
                 newSet.addAll(currentSet);
                 if (!currentSet.contains(itemName)) {
@@ -202,7 +202,7 @@ public class ItemActivity extends AppCompatActivity {
                     item.setIcon(R.drawable.notifications_disabled);
                     newSet.remove(itemName);
                 }
-                editor.putStringSet("followedItems", newSet);
+                editor.putStringSet("followed_items", newSet);
                 editor.apply();
                 return true;
             default:

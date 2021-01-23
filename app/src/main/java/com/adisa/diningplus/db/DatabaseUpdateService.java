@@ -62,7 +62,7 @@ public class DatabaseUpdateService extends JobService {
                 api.getMeals(location.id);
                 List<Meal> = dbHelper.getMeals(id);
                 while (menu.moveToNext()) {
-                    if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)))) {
+                    if (preferences.getStringSet("followed_items", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)))) {
                         Intent localIntent = new Intent(BROADCAST_ACTION);
                         localIntent.putExtra("itemName", menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)));
                         localIntent.putExtra("hallId", menu.getInt(menu.getColumnIndex(DatabaseContract.Item.LOCATION_ID)));
