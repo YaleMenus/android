@@ -13,7 +13,6 @@ import com.adisa.diningplus.db.entities.Meal;
 import com.adisa.diningplus.utils.DateFormatProvider;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.core.app.NavUtils;
 import androidx.core.app.TaskStackBuilder;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,21 +32,17 @@ import com.adisa.diningplus.R;
 import com.adisa.diningplus.adapters.MenuAdapter;
 import com.adisa.diningplus.network.API;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class LocationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class HallActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     API api;
 
     CollapsingToolbarLayout collapsingToolbar;
-    String locationName;
-    String locationCode;
-    int locationId;
+    String hallName;
+    String hallId;
     HashMap<String, List<Item>> mealItems;
     HashMap<String, Integer> headerMap = new HashMap<>();
     List<Meal> meals;
@@ -63,7 +58,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_hall);
 
         api = new API(this);
 
@@ -118,13 +113,12 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
 
         Intent i = getIntent();
 
-        locationName = i.getStringExtra("name");
-        locationCode = i.getStringExtra("code");
-        locationId = i.getIntExtra("id", -1);
-        collapsingToolbar.setTitle(locationName);
+        hallName = i.getStringExtra("name");
+        hallId = i.getStringExtra("id");
+        collapsingToolbar.setTitle(hallName);
         ImageView header = (ImageView) findViewById(R.id.header);
-        header.setImageDrawable(getResources().getDrawable(headerMap.get(locationCode)));
-        emptyView = findViewById(R.id.location_empty);
+        header.setImageDrawable(getResources().getDrawable(headerMap.get(hallId)));
+        emptyView = findViewById(R.id.hall_empty);
         loadingView = findViewById(R.id.loader);
         expandableListView.setEmptyView(emptyView);
 
@@ -142,8 +136,8 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_location, menu);
-        if (preferences.getInt("startLocation", -1) == locationId) {
+        inflater.inflate(R.menu.menu_hall, menu);
+        if (preferences.getString("default_hall_id", "") == hallId) {
             menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_favorite_black_24dp);
         }
         return super.onCreateOptionsMenu(menu);
@@ -154,13 +148,13 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 SharedPreferences.Editor editor = preferences.edit();
-                if (preferences.getInt("startLocation", -1) != locationId) {
+                if (preferences.getString("default_hall_id", "") != hallId) {
                     item.setIcon(R.drawable.ic_favorite_black_24dp);
-                    editor.putInt("startLocation", locationId);
-                    editor.putString("startLocationName", locationName);
+                    editor.putString("default_hall_id", hallId);
+                    editor.putString("default_hall_name", hallName);
                 } else {
                     item.setIcon(R.drawable.ic_favorite_border_black_24dp);
-                    editor.putInt("startLocation", -1);
+                    editor.putString("default_hall_id", "");
                 }
                 editor.apply();
                 return true;
@@ -232,7 +226,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         @Override
         protected Void doInBackground(Void... params) {
 //            try {
-                meals = api.getLocationMeals(locationId, this.date);
+                meals = api.getHallMeals(hallId, this.date);
 //            } catch (JSONException | IOException e) {
 //                Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
 //                e.printStackTrace();
@@ -253,11 +247,11 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
 
         @Override
         protected void onPostExecute(Void result) {
-            menuAdapter = new MenuAdapter(LocationActivity.this, meals, mealItems);
+            menuAdapter = new MenuAdapter(HallActivity.this, meals, mealItems);
             expandableListView.setAdapter(menuAdapter);
             if (menuAdapter.getGroupCount() > 0)
                 expandableListView.expandGroup(0);
-            expandableListView.setEmptyView(findViewById(R.id.location_empty));
+            expandableListView.setEmptyView(findViewById(R.id.hall_empty));
             DietaryRestrictionTask dietaryRestrictionTask = new DietaryRestrictionTask();
             dietaryRestrictionTask.execute();
             Log.d("get", "done");

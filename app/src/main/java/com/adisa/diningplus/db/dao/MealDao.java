@@ -16,8 +16,8 @@ public interface MealDao {
     @Query("SELECT * FROM meals")
     List<Meal> getAll();
 
-    @Query("SELECT * FROM meals WHERE location_id = :locationId")
-    List<Meal> getLocation(int locationId);
+    @Query("SELECT * FROM meals WHERE hall_id = :hallId")
+    List<Meal> getHall(String hallId);
 
     @Insert
     void insert(Meal meal);
@@ -28,6 +28,6 @@ public interface MealDao {
     @Update
     void update(Meal meal);
 
-    @Query("DELETE FROM meals WHERE location_id = :locationId")
-    void clearLocation(int locationId);
+    @Query("DELETE FROM meals WHERE hall_id = :hallId")
+    void clearHall(String hallId);
 }

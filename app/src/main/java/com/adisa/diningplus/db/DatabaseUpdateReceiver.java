@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat;
 import android.util.Log;
 
 import com.adisa.diningplus.R;
-import com.adisa.diningplus.activities.LocationActivity;
+import com.adisa.diningplus.activities.HallActivity;
 
 public class DatabaseUpdateReceiver extends BroadcastReceiver {
 
@@ -20,8 +20,8 @@ public class DatabaseUpdateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d("receiver", "start");
         String itemName = intent.getStringExtra("itemName");
-        int locationId = intent.getIntExtra("locationId", -1);
-        String locationName = intent.getStringExtra("locationName");
+        String hallId = intent.getStringExtra("hallId");
+        String hallName = intent.getStringExtra("hallName");
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_restaurant_black_24dp)
@@ -30,12 +30,12 @@ public class DatabaseUpdateReceiver extends BroadcastReceiver {
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setColor(ContextCompat.getColor(context, R.color.primary));
 
-        Intent resultIntent = new Intent(context, LocationActivity.class);
-        resultIntent.putExtra("locationId", locationId);
-        resultIntent.putExtra("locationName", locationName);
+        Intent resultIntent = new Intent(context, HallActivity.class);
+        resultIntent.putExtra("hallId", hallId);
+        resultIntent.putExtra("hallName", hallName);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(LocationActivity.class);
+        stackBuilder.addParentStack(HallActivity.class);
         // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =

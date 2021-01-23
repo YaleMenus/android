@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
@@ -11,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.adisa.diningplus.db.entities.Location;
+import com.adisa.diningplus.db.entities.Hall;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -52,15 +53,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     API api;
 
     private MainListAdapter adapter;
-    ArrayList<LocationItem> openLocations = new ArrayList<>();
-    ArrayList<LocationItem> closedLocations = new ArrayList<>();
+    ArrayList<HallItem> openHalls = new ArrayList<>();
+    ArrayList<HallItem> closedHalls = new ArrayList<>();
     SwipeRefreshLayout swipeContainer;
     CoordinatorLayout coordinatorLayout;
 
     GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient fused;
-    android.location.Location currentLocation;
-
+    Location currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 Intent i = new Intent();
-                i.setClass(getApplicationContext(), LocationActivity.class);
+                i.setClass(getApplicationContext(), HallActivity.class);
                 i.putExtra("name", adapter.getItem(position).name);
                 i.putExtra("id", adapter.getItem(position).id);
                 startActivity(i);
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    public static class LocationItem {
+    public static class HallItem {
         public String id;
         public String name;
         public int occupancy;
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         public double distance;
         public boolean open;
 
-        LocationItem(String id, String name, int occupancy, double latitude, double longitude, boolean open) {
+        HallItem(String id, String name, int occupancy, double latitude, double longitude, boolean open) {
             this.id = id;
             this.name = name;
             this.occupancy = occupancy;
@@ -239,9 +239,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             this.open = open;
         }
 
-        void setDistance(android.location.Location location) {
+        void setDistance(Location location) {
             if (location != null) {
-                android.location.Location loc = new android.location.Location("");
+                Location loc = new Location("");
                 loc.setLatitude(latitude);
                 loc.setLongitude(longitude);
                 // Convert m -> km
@@ -253,32 +253,32 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private class UpdateTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
-            closedLocations = new ArrayList<>();
-            openLocations = new ArrayList<>();
+            closedHalls = new ArrayList<>();
+            openHalls = new ArrayList<>();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            List<Location> locations = null;
+            List<Hall> halls;
             try {
-                locations = api.getLocations();
+                halls = api.getHalls();
             } catch (Exception e) {
                 e.printStackTrace();
                 Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
                 return null;
             }
-            for (Location location : locations) {
-                LocationItem item = new LocationItem(location.id,
-                                                     location.name,
-                                                     location.occupancy,
-                                                     location.latitude,
-                                                     location.longitude,
-                                                     location.open);
+            for (Hall hall : halls) {
+                HallItem item = new HallItem(hall.id,
+                                             hall.name,
+                                             hall.occupancy,
+                                             hall.latitude,
+                                             hall.longitude,
+                                             hall.open);
                 item.setDistance(currentLocation);
                 if (item.open) {
-                    openLocations.add(item);
+                    openHalls.add(item);
                 } else {
-                    closedLocations.add(item);
+                    closedHalls.add(item);
                 }
             }
             return null;
@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         @Override
         protected void onPostExecute(Void result) {
             Log.d("URI", "done");
-            adapter.setLists(openLocations, closedLocations);
+            adapter.setLists(openHalls, closedHalls);
             adapter.notifyDataSetChanged();
             swipeContainer.setRefreshing(false);
         }
