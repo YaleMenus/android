@@ -68,9 +68,7 @@ class FollowDialogAdapter(private val context: Context, itemNameSet: MutableSet<
     }
 
     init {
-        for (string in itemNameSet) {
-            itemNames.addAll(itemNameSet);
-        }
+        itemNames.addAll(itemNameSet);
         preferences = PreferenceManager.getDefaultSharedPreferences(context)
     }
 }
