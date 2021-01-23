@@ -38,18 +38,25 @@ class ItemActivity : AppCompatActivity() {
 
     inner class Trait internal constructor(var image: Int, var name: String)
 
+    enum class NutrientType {
+        HEADER, MAIN, SUB, PLAIN
+    }
+
     inner class Nutrient {
+        var type: NutrientType
         var name: String
         var amount: String
         var pdv: Int?
 
-        internal constructor(name: String, amount: String) {
+        internal constructor(type: NutrientType, name: String, amount: String) {
+            this.type = type
             this.name = name
             this.amount = amount
             pdv = null
         }
 
-        internal constructor(name: String, amount: String, pdv: Int?) {
+        internal constructor(type: NutrientType, name: String, amount: String, pdv: Int?) {
+            this.type = type
             this.name = name
             this.amount = amount
             this.pdv = pdv
@@ -120,23 +127,23 @@ class ItemActivity : AppCompatActivity() {
             if (item!!.gluten) traits.add(Trait(R.drawable.key_gluten, "Gluten"))
             if (item!!.coconut) traits.add(Trait(R.drawable.key_coconut, "Coconut"))
             nutrition = api!!.getItemNutrition(itemId)
-            nutrients.add(Nutrient("Serving Size", nutrition!!.portionSize))
-            nutrients.add(Nutrient("Calories", nutrition!!.calories))
-            nutrients.add(Nutrient("Total Fat", nutrition!!.totalFat, nutrition!!.totalFatPDV))
-            nutrients.add(Nutrient("Saturated Fat", nutrition!!.saturatedFat, nutrition!!.saturatedFatPDV))
-            nutrients.add(Nutrient("Trans Fat", nutrition!!.transFat, nutrition!!.transFatPDV))
-            nutrients.add(Nutrient("Cholesterol", nutrition!!.cholesterol, nutrition!!.cholesterolPDV))
-            nutrients.add(Nutrient("Sodium", nutrition!!.sodium, nutrition!!.sodiumPDV))
-            nutrients.add(Nutrient("Total Carbohydrate", nutrition!!.totalCarbohydrate, nutrition!!.totalCarbohydratePDV))
-            nutrients.add(Nutrient("Dietary Fiber", nutrition!!.dietaryFiber, nutrition!!.dietaryFiberPDV))
-            nutrients.add(Nutrient("Total Sugars", nutrition!!.totalSugars, nutrition!!.totalSugarsPDV))
-            nutrients.add(Nutrient("Protein", nutrition!!.protein, nutrition!!.proteinPDV))
-            nutrients.add(Nutrient("Vitamin D", nutrition!!.vitaminD, nutrition!!.vitaminDPDV))
-            nutrients.add(Nutrient("Vitamin A", nutrition!!.vitaminA, nutrition!!.vitaminAPDV))
-            nutrients.add(Nutrient("Vitamin C", nutrition!!.vitaminC, nutrition!!.vitaminCPDV))
-            nutrients.add(Nutrient("Calcium", nutrition!!.calcium, nutrition!!.calciumPDV))
-            nutrients.add(Nutrient("Iron", nutrition!!.iron, nutrition!!.ironPDV))
-            nutrients.add(Nutrient("Potassium", nutrition!!.potassium, nutrition!!.potassiumPDV))
+            nutrients.add(Nutrient(NutrientType.HEADER,"Serving Size", nutrition!!.portionSize))
+            nutrients.add(Nutrient(NutrientType.HEADER,"Calories", nutrition!!.calories))
+            nutrients.add(Nutrient(NutrientType.MAIN,"Total Fat", nutrition!!.totalFat, nutrition!!.totalFatPDV))
+            nutrients.add(Nutrient(NutrientType.SUB, "Saturated Fat", nutrition!!.saturatedFat, nutrition!!.saturatedFatPDV))
+            nutrients.add(Nutrient(NutrientType.SUB, "Trans Fat", nutrition!!.transFat, nutrition!!.transFatPDV))
+            nutrients.add(Nutrient(NutrientType.MAIN, "Cholesterol", nutrition!!.cholesterol, nutrition!!.cholesterolPDV))
+            nutrients.add(Nutrient(NutrientType.MAIN, "Sodium", nutrition!!.sodium, nutrition!!.sodiumPDV))
+            nutrients.add(Nutrient(NutrientType.MAIN, "Total Carbohydrate", nutrition!!.totalCarbohydrate, nutrition!!.totalCarbohydratePDV))
+            nutrients.add(Nutrient(NutrientType.SUB, "Dietary Fiber", nutrition!!.dietaryFiber, nutrition!!.dietaryFiberPDV))
+            nutrients.add(Nutrient(NutrientType.SUB, "Total Sugars", nutrition!!.totalSugars, nutrition!!.totalSugarsPDV))
+            nutrients.add(Nutrient(NutrientType.MAIN, "Protein", nutrition!!.protein, nutrition!!.proteinPDV))
+            nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin D", nutrition!!.vitaminD, nutrition!!.vitaminDPDV))
+            nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin A", nutrition!!.vitaminA, nutrition!!.vitaminAPDV))
+            nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin C", nutrition!!.vitaminC, nutrition!!.vitaminCPDV))
+            nutrients.add(Nutrient(NutrientType.PLAIN, "Calcium", nutrition!!.calcium, nutrition!!.calciumPDV))
+            nutrients.add(Nutrient(NutrientType.PLAIN, "Iron", nutrition!!.iron, nutrition!!.ironPDV))
+            nutrients.add(Nutrient(NutrientType.PLAIN, "Potassium", nutrition!!.potassium, nutrition!!.potassiumPDV))
             return null
         }
 

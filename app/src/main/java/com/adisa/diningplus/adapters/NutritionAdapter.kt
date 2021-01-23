@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.adisa.diningplus.R
+import com.adisa.diningplus.activities.ItemActivity
 import com.adisa.diningplus.activities.ItemActivity.Nutrient
 import java.util.*
 
 class NutritionAdapter(private val context: Context, private val nutrients: ArrayList<Nutrient>) : BaseAdapter() {
 
     internal inner class ViewHolder {
-        var spacer: View? = null
+        var indent: View? = null
         var name: TextView? = null
         var amount: TextView? = null
         var pdv: TextView? = null
@@ -27,6 +28,7 @@ class NutritionAdapter(private val context: Context, private val nutrients: Arra
         if (convertView == null) {
             viewHolder = ViewHolder()
             convertView = inflater.inflate(R.layout.nutrient, null)
+            viewHolder.indent = convertView.findViewById(R.id.nutrient_indent)
             viewHolder.name = convertView.findViewById(R.id.nutrient_name)
             viewHolder.amount = convertView.findViewById(R.id.nutrient_amount)
             viewHolder.pdv = convertView.findViewById(R.id.nutrient_pdv)
@@ -36,6 +38,7 @@ class NutritionAdapter(private val context: Context, private val nutrients: Arra
         } else {
             viewHolder = convertView.tag as ViewHolder
         }
+        viewHolder.indent!!.visibility =  if (nutrient.type == ItemActivity.NutrientType.SUB) View.VISIBLE else View.GONE
         viewHolder.name!!.text = nutrient.name
         viewHolder.amount!!.text = nutrient.amount
         if (nutrient.pdv != null) {
