@@ -2,16 +2,16 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "18d3f00742acd6122c054b8a1bc34ef0",
+    "identityHash": "00231d2f6150f1d8d6c0edfa06d5ae77",
     "entities": [
       {
-        "tableName": "locations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `shortname` TEXT, `code` TEXT, `open` INTEGER NOT NULL, `occupancy` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT, `phone` TEXT, PRIMARY KEY(`id`))",
+        "tableName": "halls",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT, `shortname` TEXT, `open` INTEGER NOT NULL, `occupancy` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `address` TEXT, `phone` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -23,12 +23,6 @@
           {
             "fieldPath": "shortname",
             "columnName": "shortname",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "code",
-            "columnName": "code",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -118,7 +112,7 @@
       },
       {
         "tableName": "meals",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `date` TEXT, `start_time` TEXT, `end_time` TEXT, `location_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `date` TEXT, `start_time` TEXT, `end_time` TEXT, `hall_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -151,8 +145,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "locationId",
-            "columnName": "location_id",
+            "fieldPath": "hallId",
+            "columnName": "hall_id",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -168,7 +162,7 @@
       },
       {
         "tableName": "items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `course` TEXT, `meat` INTEGER NOT NULL, `animal_products` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `fish` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `ingredients` TEXT, `course` TEXT, `meat` INTEGER NOT NULL, `animalProducts` INTEGER NOT NULL, `alcohol` INTEGER NOT NULL, `nuts` INTEGER NOT NULL, `shellfish` INTEGER NOT NULL, `peanuts` INTEGER NOT NULL, `dairy` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `pork` INTEGER NOT NULL, `fish` INTEGER NOT NULL, `soy` INTEGER NOT NULL, `wheat` INTEGER NOT NULL, `gluten` INTEGER NOT NULL, `coconut` INTEGER NOT NULL, `meal_id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -201,8 +195,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "animal_products",
-            "columnName": "animal_products",
+            "fieldPath": "animalProducts",
+            "columnName": "animalProducts",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -516,7 +510,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '18d3f00742acd6122c054b8a1bc34ef0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '00231d2f6150f1d8d6c0edfa06d5ae77')"
     ]
   }
 }
