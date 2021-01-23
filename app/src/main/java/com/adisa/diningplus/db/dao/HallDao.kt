@@ -9,13 +9,13 @@ interface HallDao {
     fun getAll(): List<Hall>
 
     @Insert
-    fun insert(hall: Hall?)
+    fun insert(hall: Hall)
 
     @Delete
-    fun delete(hall: Hall?)
+    fun delete(hall: Hall)
 
     @Update
-    fun update(hall: Hall?)
+    fun update(hall: Hall)
 
     @Query("DELETE FROM halls")
     fun clear()
