@@ -110,7 +110,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/location_empty"
+        android:id="@+id/hall_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="24dp"
@@ -142,7 +142,7 @@
             android:layout_marginBottom="140dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="@string/empty_location"
+            android:text="@string/empty_menu"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="?android:attr/textColorSecondary"

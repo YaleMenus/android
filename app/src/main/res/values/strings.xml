@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Yale Menus</string>
-    <string name="title_activity_location">DiningHallActivity</string>
+    <string name="title_activity_hall">DiningHallActivity</string>
     <string name="web_error">Unable to connect to the Yale Dining server. Check your internet connection and try again.</string>
-    <string name="empty_location">No meals available</string>
+    <string name="empty_menu">No meals available</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->

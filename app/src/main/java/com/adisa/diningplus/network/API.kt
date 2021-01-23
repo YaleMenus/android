@@ -4,12 +4,11 @@ import android.content.Context
 import com.adisa.diningplus.db.AppDatabase
 import com.adisa.diningplus.db.DatabaseClient
 import com.adisa.diningplus.db.entities.Item
-import com.adisa.diningplus.db.entities.Location
+import com.adisa.diningplus.db.entities.Hall
 import com.adisa.diningplus.db.entities.Meal
 import com.adisa.diningplus.db.entities.Nutrition
 import com.adisa.diningplus.utils.DateFormatProvider
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
@@ -42,27 +41,27 @@ class API(ctx: Context?) {
         return buffer.toString()
     }
 
-    fun getLocations(): List<Location> {
-        val locationsRaw = JSONArray(getJSON("locations"))
-        db.locationDao().clear()
-        for (i in 0 until locationsRaw.length()) {
-            val locationRaw = locationsRaw.getJSONObject(i)
-            val location = Location.fromJSON(locationRaw)
-            db.locationDao().insert(location)
+    fun getHalls(): List<Hall> {
+        val hallsRaw = JSONArray(getJSON("halls"))
+        db.hallDao().clear()
+        for (i in 0 until hallsRaw.length()) {
+            val hallRaw = hallsRaw.getJSONObject(i)
+            val hall = Hall.fromJSON(hallRaw)
+            db.hallDao().insert(hall)
         }
-        return db.locationDao().all
+        return db.hallDao().all
     }
 
-    fun getLocationMeals(locationId: Int, date: Calendar): List<Meal> {
+    fun getHallMeals(hallId: String, date: Calendar): List<Meal> {
         val query = "date=" + DateFormatProvider.date.format(date.time)
-        val mealsRaw = JSONArray(getJSON("locations/$locationId/meals?$query"))
-        db.mealDao().clearLocation(locationId)
+        val mealsRaw = JSONArray(getJSON("halls/$hallId/meals?$query"))
+        db.mealDao().clearHall(hallId)
         for (i in 0 until mealsRaw.length()) {
             val mealRaw = mealsRaw.getJSONObject(i)
             val meal = Meal.fromJSON(mealRaw)
             db.mealDao().insert(meal)
         }
-        return db.mealDao().getLocation(locationId)
+        return db.mealDao().getHall(hallId)
     }
 
     fun getMealItems(mealId: Int): List<Item> {

@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.adisa.diningplus.db.entities.Location;
+import com.adisa.diningplus.db.entities.Hall;
 import com.adisa.diningplus.network.API;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
@@ -56,8 +56,8 @@ public class DatabaseUpdateService extends JobService {
         @Override
         protected Boolean doInBackground(Void... params) {
             preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            List<Location> locations = db.getDB().locationDao().getAll();
-            for (Location location : locations) {
+            List<Hall> halls = db.getDB().hallDao().getAll();
+            for (Hall hall : halls) {
                 /*
                 api.getMeals(location.id);
                 List<Meal> = dbHelper.getMeals(id);
@@ -65,7 +65,7 @@ public class DatabaseUpdateService extends JobService {
                     if (preferences.getStringSet("followedItems", new HashSet<String>()).contains(menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)))) {
                         Intent localIntent = new Intent(BROADCAST_ACTION);
                         localIntent.putExtra("itemName", menu.getString(menu.getColumnIndex(DatabaseContract.Item.NAME)));
-                        localIntent.putExtra("locationId", menu.getInt(menu.getColumnIndex(DatabaseContract.Item.LOCATION_ID)));
+                        localIntent.putExtra("hallId", menu.getInt(menu.getColumnIndex(DatabaseContract.Item.LOCATION_ID)));
                         localIntent.putExtra("hallName", result.getString(result.getColumnIndex(DatabaseContract.Location.NAME)));
                         sendBroadcast(localIntent);
                         Log.d("service", "broadcast");

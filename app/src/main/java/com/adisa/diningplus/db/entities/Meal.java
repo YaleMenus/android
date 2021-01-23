@@ -19,8 +19,8 @@ public class Meal implements Serializable {
     public String startTime;
     @ColumnInfo(name = "end_time")
     public String endTime;
-    @ColumnInfo(name = "location_id")
-    public int locationId;
+    @ColumnInfo(name = "hall_id")
+    public int hallId;
 
     public static Meal fromJSON(JSONObject raw) throws JSONException {
         Meal meal = new Meal();
@@ -29,7 +29,7 @@ public class Meal implements Serializable {
         meal.date = raw.getString("date");
         meal.startTime = raw.optString("start_time");
         meal.endTime = raw.optString("end_time");
-        meal.locationId = raw.getInt("location_id");
+        meal.hallId = raw.getInt("hall_id");
         return meal;
     }
 }

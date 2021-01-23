@@ -59,6 +59,7 @@ public class Item implements Serializable {
         item.wheat = raw.getBoolean("wheat");
         item.gluten = raw.getBoolean("gluten");
         item.coconut = raw.getBoolean("coconut");
+        item.mealId = raw.getInt("meal_id");
         return item;
     }
 }
