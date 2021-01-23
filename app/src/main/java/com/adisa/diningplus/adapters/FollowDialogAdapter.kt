@@ -27,15 +27,14 @@ class FollowDialogAdapter(private val context: Context, itemNameSet: MutableSet<
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertView = convertView
-        val inflater = context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val viewHolder: ViewHolder
         val item = getItem(position)
         if (convertView == null) {
             viewHolder = ViewHolder()
             convertView = inflater.inflate(R.layout.follow_dialog_item, null)
-            viewHolder.name = convertView.findViewById<View>(R.id.followItemName) as TextView
-            viewHolder.button = convertView.findViewById<View>(R.id.followItemRemove) as ImageButton
+            viewHolder.name = convertView.findViewById(R.id.followItemName)
+            viewHolder.button = convertView.findViewById(R.id.followItemRemove)
             convertView.tag = viewHolder
         } else {
             viewHolder = convertView.tag as ViewHolder

@@ -40,7 +40,7 @@ class MenuAdapter(private val context: Context, var meals: List<Meal>,
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.menu_item, null)
         }
-        val expandedListTextView = convertView!!.findViewById<View>(R.id.expandedListItem) as TextView
+        val expandedListTextView: TextView = convertView!!.findViewById(R.id.expandedListItem)
         expandedListTextView.text = item.name.replace('`', '\'')
         if (item.restricted) {
             expandedListTextView.setBackgroundColor(context.resources.getColor(R.color.backgroundMarked))
@@ -76,10 +76,10 @@ class MenuAdapter(private val context: Context, var meals: List<Meal>,
             val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.meal, null)
         }
-        val listTitleTextView = convertView!!.findViewById<View>(R.id.listTitle) as TextView
+        val listTitleTextView: TextView = convertView!!.findViewById(R.id.listTitle)
         listTitleTextView.text = meal.name
         listTitleTextView.setTextColor(context.resources.getColor(R.color.primary))
-        val mealTimeTextView = convertView.findViewById<View>(R.id.mealTime) as TextView
+        val mealTimeTextView: TextView = convertView.findViewById(R.id.mealTime)
         var startTime: Date? = null
         var endTime: Date? = null
         // TODO: support 24 and 12 hour time
@@ -90,7 +90,7 @@ class MenuAdapter(private val context: Context, var meals: List<Meal>,
             e.printStackTrace()
         }
         mealTimeTextView.text = DateFormatProvider.hour.format(startTime) + "–" + DateFormatProvider.hour.format(endTime)
-        val groupIndicator = convertView!!.findViewById<View>(R.id.help_group_indicator) as ImageView
+        val groupIndicator: ImageView = convertView!!.findViewById(R.id.help_group_indicator)
         if (isExpanded) {
             groupIndicator.setImageResource(R.drawable.ic_expand_less_black_24dp)
         } else {
