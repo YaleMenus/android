@@ -49,7 +49,7 @@ class API(ctx: Context?) {
             val hall = Hall.fromJSON(hallRaw)
             db.hallDao().insert(hall)
         }
-        return db.hallDao().all
+        return db.hallDao().getAll()
     }
 
     fun getHallMeals(hallId: String, date: Calendar): List<Meal> {
