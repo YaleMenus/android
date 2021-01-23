@@ -1,5 +1,6 @@
 package com.adisa.diningplus.db.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Entity(tableName = "halls")
 public class Hall implements Serializable {
     @PrimaryKey
+    @NonNull
     public String id;
     public String name;
     public String shortname;
