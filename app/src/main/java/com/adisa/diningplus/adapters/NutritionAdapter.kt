@@ -18,7 +18,7 @@ class NutritionAdapter(private val context: Context, private val nutrients: Arra
         var pdv: TextView? = null
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertView = convertView
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val viewHolder: ViewHolder
