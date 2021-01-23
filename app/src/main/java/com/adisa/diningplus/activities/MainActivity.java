@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     API api;
 
     private MainListAdapter adapter;
-    ArrayList<HallItem> openHalls = new ArrayList<>();
-    ArrayList<HallItem> closedHalls = new ArrayList<>();
+    ArrayList<Hall> openHalls = new ArrayList<>();
+    ArrayList<Hall> closedHalls = new ArrayList<>();
     SwipeRefreshLayout swipeContainer;
     CoordinatorLayout coordinatorLayout;
 
@@ -221,35 +221,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    public static class HallItem {
-        public String id;
-        public String name;
-        public int occupancy;
-        public double latitude;
-        public double longitude;
-        public double distance;
-        public boolean open;
-
-        HallItem(String id, String name, int occupancy, double latitude, double longitude, boolean open) {
-            this.id = id;
-            this.name = name;
-            this.occupancy = occupancy;
-            this.latitude = latitude;
-            this.longitude = longitude;
-            this.open = open;
-        }
-
-        void setDistance(Location location) {
-            if (location != null) {
-                Location loc = new Location("");
-                loc.setLatitude(latitude);
-                loc.setLongitude(longitude);
-                // Convert m -> km
-                distance = location.distanceTo(loc) / 1000;
-            }
-        }
-    }
-
     private class UpdateTask extends AsyncTask<Void, Void, Void> {
         protected void onPreExecute() {
             super.onPreExecute();
@@ -268,17 +239,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 return null;
             }
             for (Hall hall : halls) {
-                HallItem item = new HallItem(hall.id,
-                                             hall.name,
-                                             hall.occupancy,
-                                             hall.latitude,
-                                             hall.longitude,
-                                             hall.open);
-                item.setDistance(currentLocation);
-                if (item.open) {
-                    openHalls.add(item);
+                hall.setDistance(currentLocation);
+                if (hall.open) {
+                    openHalls.add(hall);
                 } else {
-                    closedHalls.add(item);
+                    closedHalls.add(hall);
                 }
             }
             return null;

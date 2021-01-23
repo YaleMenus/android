@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.adisa.diningplus.R;
 import com.adisa.diningplus.activities.MainActivity;
+import com.adisa.diningplus.db.entities.Hall;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ public class MainListAdapter extends BaseAdapter {
     private Context context;
     private SharedPreferences preferences;
     private HashMap<String, Integer> shieldMap = new HashMap<>();
-    private ArrayList<MainActivity.HallItem> halls = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> openHalls = new ArrayList<>();
-    private ArrayList<MainActivity.HallItem> closedHalls = new ArrayList<>();
-    private Comparator<MainActivity.HallItem> hallSort = new Comparator<MainActivity.HallItem>() {
+    private ArrayList<Hall> halls = new ArrayList<>();
+    private ArrayList<Hall> openHalls = new ArrayList<>();
+    private ArrayList<Hall> closedHalls = new ArrayList<>();
+    private Comparator<Hall> hallSort = new Comparator<Hall>() {
         @Override
-        public int compare(MainActivity.HallItem o1, MainActivity.HallItem o2) {
+        public int compare(Hall o1, Hall o2) {
             return Double.compare(o1.distance, o2.distance);
         }
     };
@@ -79,7 +80,7 @@ public class MainListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder viewHolder;
-        MainActivity.HallItem item = getItem(position);
+        Hall item = getItem(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.hall_list, null);
@@ -136,7 +137,7 @@ public class MainListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setLists(ArrayList<MainActivity.HallItem> openHalls, ArrayList<MainActivity.HallItem> closedHalls) {
+    public void setLists(ArrayList<Hall> openHalls, ArrayList<Hall> closedHalls) {
         this.openHalls = openHalls;
         this.closedHalls = closedHalls;
     }
@@ -147,7 +148,7 @@ public class MainListAdapter extends BaseAdapter {
     }
 
     @Override
-    public MainActivity.HallItem getItem(int position) {
+    public Hall getItem(int position) {
         return halls.get(position);
     }
 

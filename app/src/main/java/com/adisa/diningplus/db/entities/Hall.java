@@ -1,7 +1,10 @@
 package com.adisa.diningplus.db.entities;
 
+import android.location.Location;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.json.JSONException;
@@ -23,6 +26,9 @@ public class Hall implements Serializable {
     public String address;
     public String phone;
 
+    @Ignore
+    public double distance;
+
     public static Hall fromJSON(JSONObject raw) throws JSONException {
         Hall hall = new Hall();
         hall.id = raw.getString("id");
@@ -35,5 +41,15 @@ public class Hall implements Serializable {
         hall.address = raw.optString("address");
         hall.phone = raw.optString("phone");
         return hall;
+    }
+
+    public void setDistance(Location location) {
+        if (location != null) {
+            Location loc = new Location("");
+            loc.setLatitude(latitude);
+            loc.setLongitude(longitude);
+            // Convert m -> km
+            distance = location.distanceTo(loc) / 1000;
+        }
     }
 }
