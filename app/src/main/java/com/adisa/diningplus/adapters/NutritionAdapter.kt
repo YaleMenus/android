@@ -1,6 +1,7 @@
 package com.adisa.diningplus.adapters
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,9 @@ class NutritionAdapter(private val context: Context, private val nutrients: Arra
         }
         viewHolder.indent!!.visibility =  if (nutrient.type == ItemActivity.NutrientType.SUB) View.VISIBLE else View.GONE
         viewHolder.name!!.text = nutrient.name
+        if (nutrient.type == ItemActivity.NutrientType.SUB || nutrient.type == ItemActivity.NutrientType.PLAIN) {
+            viewHolder.name!!.typeface = Typeface.DEFAULT
+        }
         viewHolder.amount!!.text = nutrient.amount
         if (nutrient.pdv != null) {
             viewHolder.pdv!!.text = nutrient.pdv.toString() + "%"
