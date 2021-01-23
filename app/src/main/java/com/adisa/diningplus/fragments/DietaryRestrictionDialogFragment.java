@@ -32,7 +32,7 @@ public class DietaryRestrictionDialogFragment extends DialogFragment {
         }
 
         final boolean[] finalSelections = selections;
-        builder.setTitle("Choose your dietary restrictions, or other ingredients you want to be warned about.")
+        builder.setTitle("Select your dietary restrictions.")
                 .setMultiChoiceItems(R.array.dietary_restriction_labels, selections, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {

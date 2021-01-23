@@ -15,7 +15,7 @@ public class Hall implements Serializable {
     @NonNull
     public String id;
     public String name;
-    public String shortname;
+    public String nickname;
     public boolean open;
     public int occupancy;
     public double latitude;
@@ -27,7 +27,7 @@ public class Hall implements Serializable {
         Hall hall = new Hall();
         hall.id = raw.getString("id");
         hall.name = raw.getString("name");
-        hall.shortname = raw.getString("shortname");
+        hall.nickname = raw.getString("nickname");
         hall.open = raw.optBoolean("open");
         hall.occupancy = raw.optInt("occupancy");
         hall.latitude = raw.optDouble("latitude");
