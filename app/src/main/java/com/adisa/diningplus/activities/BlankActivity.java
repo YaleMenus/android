@@ -16,12 +16,12 @@ public class BlankActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blank);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int startHall = preferences.getInt("startHall", -1);
+        String defaultHallId = preferences.getString("default_hall_id", null);
         Intent i = new Intent();
-        if (startHall != -1) {
+        if (defaultHallId != null) {
             i.setClass(getApplicationContext(), HallActivity.class);
-            i.putExtra("Name", preferences.getString("startHallName", ""));
-            i.putExtra("HallId", startHall);
+            i.putExtra("name", preferences.getString("default_hall_name", ""));
+            i.putExtra("id", defaultHallId);
             TaskStackBuilder.create(this)
                     .addNextIntentWithParentStack(i)
                     .startActivities();

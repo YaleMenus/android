@@ -233,7 +233,7 @@ public class HallActivity extends AppCompatActivity implements DatePickerDialog.
 //            }
             mealItems = new HashMap<>();
             for (Meal meal : meals) {
-                List<Item> items = null;
+                List<Item> items;
 //                try {
                     items = api.getMealItems(meal.id);
 //                } catch (JSONException | IOException e) {
