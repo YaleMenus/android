@@ -12,12 +12,12 @@ data class Hall(val raw: JSONObject) {
     var id: String = raw.getString("id")
     var name: String = raw.getString("name")
     var nickname: String = raw.getString("nickname")
-    var open: Boolean = raw.optBoolean("open")
-    var occupancy: Int = raw.optInt("occupancy")
-    var latitude: Double = raw.optDouble("latitude")
-    var longitude: Double = raw.optDouble("longitude")
-    var address: String = raw.optString("address")
-    var phone: String = raw.optString("phone")
+    var open: Boolean = raw.getBoolean("open")
+    var occupancy: Int = raw.getInt("occupancy")
+    var latitude: Double = raw.getDouble("latitude")
+    var longitude: Double = raw.getDouble("longitude")
+    var address: String = raw.getString("address")
+    var phone: String = raw.getString("phone")
 
     @Ignore
     var distance = 0.0
