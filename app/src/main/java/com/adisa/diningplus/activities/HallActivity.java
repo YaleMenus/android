@@ -291,7 +291,7 @@ public class HallActivity extends AppCompatActivity implements DatePickerDialog.
 
         @Override
         protected void onPostExecute(Void result) {
-            menuAdapter.setItems(mealItems);
+            menuAdapter.updateItems(mealItems);
             loadingView.setVisibility(View.GONE);
             Log.d("get", "done");
         }
