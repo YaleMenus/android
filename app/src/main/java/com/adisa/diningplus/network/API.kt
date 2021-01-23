@@ -82,22 +82,22 @@ class API(ctx: Context?) {
     }
 
     fun getItem(itemId: Int): Item {
-        var item = db.itemDao()[itemId]
+        var item = db.itemDao().get(itemId)
         if (item == null) {
             val itemRaw = JSONObject(getJSON("items/$itemId"))
             item = Item.fromJSON(itemRaw)
             db.itemDao().insert(item)
         }
-        return item
+        return item!!
     }
 
     fun getItemNutrition(itemId: Int): Nutrition {
-        var nutrition = db.nutritionDao()[itemId]
+        var nutrition = db.nutritionDao().get(itemId)
         if (nutrition == null) {
             val nutritionRaw = JSONObject(getJSON("items/$itemId/nutrition"))
             nutrition = Nutrition.fromJSON(nutritionRaw);
         }
-        return nutrition
+        return nutrition!!
     }
 
     init {
