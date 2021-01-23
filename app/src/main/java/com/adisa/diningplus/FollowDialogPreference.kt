@@ -14,7 +14,7 @@ class FollowDialogPreference(context: Context?, attrs: AttributeSet?) : DialogPr
     public override fun onBindDialogView(view: View) {
         val listView = view.findViewById<View>(R.id.followList) as ListView
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val stringSet = preferences.getStringSet("followedItems", HashSet()) as HashSet<String>?
+        val stringSet = preferences.getStringSet("followedItems", HashSet())!!
         val followDialogAdapter = FollowDialogAdapter(context, stringSet)
         listView.adapter = followDialogAdapter
         super.onBindDialogView(view)
