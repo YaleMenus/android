@@ -19,7 +19,7 @@ import java.util.*
 import kotlin.jvm.Throws
 
 class API(ctx: Context?) {
-    private val API_ROOT = "https://yaledine.herokuapp.com/api/"
+    private val API_ROOT = "https://yaledine.com/api/"
     var db: AppDatabase
 
     @Throws(IOException::class)
