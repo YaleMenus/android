@@ -12,8 +12,8 @@ import android.widget.TextView
 import com.adisa.diningplus.R
 import java.util.*
 
-class FollowDialogAdapter(private val context: Context, stringSet: MutableSet<String>) : BaseAdapter() {
-    private val stringList = ArrayList<String>()
+class FollowDialogAdapter(private val context: Context, itemNameSet: MutableSet<String>) : BaseAdapter() {
+    private val itemNames = ArrayList<String>()
     private val preferences: SharedPreferences
 
     private inner class ViewHolder {
@@ -42,13 +42,13 @@ class FollowDialogAdapter(private val context: Context, stringSet: MutableSet<St
         }
         viewHolder.name!!.text = item
         viewHolder.button!!.setOnClickListener {
-            val currentSet = preferences.getStringSet("followedItems", HashSet()) as HashSet<String>?
+            val currentSet = preferences.getStringSet("followed_items", HashSet()) as HashSet<String>?
             val newSet = HashSet<String>()
             newSet.addAll(currentSet!!)
             newSet.remove(item)
-            stringList.remove(item)
+            itemNames.remove(item)
             val editor = preferences.edit()
-            editor.putStringSet("followedItems", newSet)
+            editor.putStringSet("followed_items", newSet)
             editor.apply()
             notifyDataSetChanged()
         }
@@ -56,11 +56,11 @@ class FollowDialogAdapter(private val context: Context, stringSet: MutableSet<St
     }
 
     override fun getCount(): Int {
-        return stringList.size
+        return itemNames.size
     }
 
     override fun getItem(position: Int): String {
-        return stringList[position]
+        return itemNames[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -68,8 +68,8 @@ class FollowDialogAdapter(private val context: Context, stringSet: MutableSet<St
     }
 
     init {
-        for (string in stringSet) {
-            stringList.add(string)
+        for (string in itemNameSet) {
+            itemNames.addAll(itemNameSet);
         }
         preferences = PreferenceManager.getDefaultSharedPreferences(context)
     }
