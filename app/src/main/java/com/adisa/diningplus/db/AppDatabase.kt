@@ -13,9 +13,9 @@ import com.adisa.diningplus.db.entities.*
     Nutrition::class
 ], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun hallDao(): HallDao?
-    abstract fun managerDao(): ManagerDao?
-    abstract fun mealDao(): MealDao?
-    abstract fun itemDao(): ItemDao?
-    abstract fun nutritionDao(): NutritionDao?
+    abstract fun hallDao(): HallDao
+    abstract fun managerDao(): ManagerDao
+    abstract fun mealDao(): MealDao
+    abstract fun itemDao(): ItemDao
+    abstract fun nutritionDao(): NutritionDao
 }
