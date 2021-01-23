@@ -48,10 +48,10 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
         if (convertView == null) {
             viewHolder = ViewHolder()
             convertView = inflater.inflate(R.layout.hall_list, null)
-            viewHolder.shield = convertView.findViewById<View>(R.id.shield) as ImageView
-            viewHolder.name = convertView.findViewById<View>(R.id.hall_name) as TextView
-            viewHolder.distance = convertView.findViewById<View>(R.id.hall_distance) as TextView
-            viewHolder.occupancy = convertView.findViewById<View>(R.id.hall_occupancy) as TextView
+            viewHolder.shield = convertView.findViewById(R.id.shield)
+            viewHolder.name = convertView.findViewById(R.id.hall_name)
+            viewHolder.distance = convertView.findViewById(R.id.hall_distance)
+            viewHolder.occupancy = convertView.findViewById(R.id.hall_occupancy)
             convertView.tag = viewHolder
         } else {
             viewHolder = convertView.tag as ViewHolder

@@ -26,8 +26,8 @@ class TraitAdapter(private val context: Context, private val traits: ArrayList<T
         if (convertView == null) {
             viewHolder = ViewHolder()
             convertView = inflater.inflate(R.layout.allergen, null)
-            viewHolder.image = convertView.findViewById<View>(R.id.trait_img) as ImageView
-            viewHolder.name = convertView.findViewById<View>(R.id.trait_text) as TextView
+            viewHolder.image = convertView.findViewById(R.id.trait_img)
+            viewHolder.name = convertView.findViewById(R.id.trait_text)
             convertView.isEnabled = false
             convertView.setOnClickListener(null)
             convertView.tag = viewHolder

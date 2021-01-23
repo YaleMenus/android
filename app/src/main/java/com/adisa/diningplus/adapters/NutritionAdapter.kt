@@ -13,6 +13,7 @@ import java.util.*
 class NutritionAdapter(private val context: Context, private val nutrients: ArrayList<Nutrient>) : BaseAdapter() {
 
     internal inner class ViewHolder {
+        var spacer: View? = null
         var name: TextView? = null
         var amount: TextView? = null
         var pdv: TextView? = null
@@ -26,9 +27,9 @@ class NutritionAdapter(private val context: Context, private val nutrients: Arra
         if (convertView == null) {
             viewHolder = ViewHolder()
             convertView = inflater.inflate(R.layout.nutrient, null)
-            viewHolder.name = convertView.findViewById<View>(R.id.nutrient_name) as TextView
-            viewHolder.amount = convertView.findViewById<View>(R.id.nutrient_amount) as TextView
-            viewHolder.pdv = convertView.findViewById<View>(R.id.nutrient_pdv) as TextView
+            viewHolder.name = convertView.findViewById(R.id.nutrient_name)
+            viewHolder.amount = convertView.findViewById(R.id.nutrient_amount)
+            viewHolder.pdv = convertView.findViewById(R.id.nutrient_pdv)
             convertView.isEnabled = false
             convertView.setOnClickListener(null)
             convertView.tag = viewHolder
