@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "458b2a92404a4f07797ef1566c61f974",
+    "identityHash": "bcff59cc421e8745fa5fe8d9c5be5b88",
     "entities": [
       {
         "tableName": "halls",
@@ -290,7 +290,7 @@
       },
       {
         "tableName": "nutrition",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT, `portion_size` TEXT, `calories` TEXT, `total_fat` TEXT, `saturated_fat` TEXT, `trans_fat` TEXT, `cholesterol` TEXT, `sodium` TEXT, `total_carbohydrate` TEXT, `dietary_fiber` TEXT, `total_sugars` TEXT, `protein` TEXT, `vitamin_d` TEXT, `vitamin_a` TEXT, `vitamin_c` TEXT, `calcium` TEXT, `iron` TEXT, `potassium` TEXT, `total_fat_pdv` INTEGER, `saturated_fat_pdv` INTEGER, `trans_fat_pdv` INTEGER, `cholesterol_pdv` INTEGER, `sodium_pdv` INTEGER, `total_carbohydrate_pdv` INTEGER, `dietary_fiber_pdv` INTEGER, `total_sugars_pdv` INTEGER, `protein_pdv` INTEGER, `vitamin_d_pdv` INTEGER, `vitamin_a_pdv` INTEGER, `vitamin_c_pdv` INTEGER, `calcium_pdv` INTEGER, `iron_pdv` INTEGER, `potassium_pdv` INTEGER, `item_id` INTEGER NOT NULL, PRIMARY KEY(`item_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT, `serving_size` TEXT, `calories` INTEGER, `total_fat` TEXT, `saturated_fat` TEXT, `trans_fat` TEXT, `cholesterol` TEXT, `sodium` TEXT, `total_carbohydrate` TEXT, `dietary_fiber` TEXT, `total_sugars` TEXT, `protein` TEXT, `vitamin_d` TEXT, `vitamin_a` TEXT, `vitamin_c` TEXT, `calcium` TEXT, `iron` TEXT, `potassium` TEXT, `total_fat_pdv` INTEGER, `saturated_fat_pdv` INTEGER, `trans_fat_pdv` INTEGER, `cholesterol_pdv` INTEGER, `sodium_pdv` INTEGER, `total_carbohydrate_pdv` INTEGER, `dietary_fiber_pdv` INTEGER, `total_sugars_pdv` INTEGER, `protein_pdv` INTEGER, `vitamin_d_pdv` INTEGER, `vitamin_a_pdv` INTEGER, `vitamin_c_pdv` INTEGER, `calcium_pdv` INTEGER, `iron_pdv` INTEGER, `potassium_pdv` INTEGER, `item_id` INTEGER NOT NULL, PRIMARY KEY(`item_id`))",
         "fields": [
           {
             "fieldPath": "name",
@@ -299,15 +299,15 @@
             "notNull": false
           },
           {
-            "fieldPath": "portionSize",
-            "columnName": "portion_size",
+            "fieldPath": "servingSize",
+            "columnName": "serving_size",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "calories",
             "columnName": "calories",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": false
           },
           {
@@ -510,7 +510,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '458b2a92404a4f07797ef1566c61f974')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bcff59cc421e8745fa5fe8d9c5be5b88')"
     ]
   }
 }

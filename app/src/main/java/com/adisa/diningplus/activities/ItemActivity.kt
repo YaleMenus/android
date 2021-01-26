@@ -126,9 +126,11 @@ class ItemActivity : AppCompatActivity() {
             if (item!!.wheat) traits.add(Trait(R.drawable.key_wheat, "Wheat"))
             if (item!!.gluten) traits.add(Trait(R.drawable.key_gluten, "Gluten"))
             if (item!!.coconut) traits.add(Trait(R.drawable.key_coconut, "Coconut"))
+            println(traits)
+
             nutrition = api!!.getItemNutrition(itemId)
-            nutrients.add(Nutrient(NutrientType.HEADER,"Serving Size", nutrition!!.portionSize))
-            nutrients.add(Nutrient(NutrientType.HEADER,"Calories", nutrition!!.calories))
+            nutrients.add(Nutrient(NutrientType.HEADER, "Serving Size", nutrition!!.servingSize))
+            nutrients.add(Nutrient(NutrientType.HEADER, "Calories", nutrition!!.calories.toString()))
             nutrients.add(Nutrient(NutrientType.MAIN,"Total Fat", nutrition!!.totalFat, nutrition!!.totalFatPDV))
             nutrients.add(Nutrient(NutrientType.SUB, "Saturated Fat", nutrition!!.saturatedFat, nutrition!!.saturatedFatPDV))
             nutrients.add(Nutrient(NutrientType.SUB, "Trans Fat", nutrition!!.transFat, nutrition!!.transFatPDV))

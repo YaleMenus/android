@@ -12,9 +12,9 @@ import java.io.Serializable;
 @Entity(tableName = "nutrition")
 public class Nutrition implements Serializable {
     public String name;
-    @ColumnInfo(name = "portion_size")
-    public String portionSize;
-    public String calories;
+    @ColumnInfo(name = "serving_size")
+    public String servingSize;
+    public Integer calories;
 
     @ColumnInfo(name="total_fat")
     public String totalFat;
@@ -78,8 +78,8 @@ public class Nutrition implements Serializable {
 
     public static Nutrition fromJSON(JSONObject raw) throws JSONException {
         Nutrition nutrition = new Nutrition();
-        nutrition.portionSize = raw.getString("portion_size");
-        nutrition.calories = raw.getString("calories");
+        nutrition.servingSize = raw.getString("serving_size");
+        nutrition.calories = raw.getInt("calories");
         nutrition.totalFat = raw.optString("total_fat");
         nutrition.saturatedFat = raw.optString("saturated_fat");
         nutrition.transFat = raw.optString("trans_fat");
