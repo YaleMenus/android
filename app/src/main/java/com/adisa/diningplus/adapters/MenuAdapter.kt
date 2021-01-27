@@ -43,7 +43,7 @@ class MenuAdapter(private val context: Context, var meals: List<Meal>,
         val expandedListTextView: TextView = convertView!!.findViewById(R.id.expandedListItem)
         expandedListTextView.text = item.name.replace('`', '\'')
         if (item.restricted) {
-            expandedListTextView.setBackgroundColor(context.resources.getColor(R.color.backgroundMarked))
+            expandedListTextView.setBackgroundColor(context.resources.getColor(R.color.fail))
             expandedListTextView.setTextColor(context.resources.getColor(R.color.colorMarked))
         } else {
             expandedListTextView.setBackgroundColor(context.resources.getColor(R.color.transparent))

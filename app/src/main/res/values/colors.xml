@@ -5,7 +5,7 @@
     <color name="accent">#40c4ff</color>
     <color name="medium">#666666</color>
     <color name="transparent">#00000000</color>
-    <color name="backgroundMarked">#ff5252</color>
-    <color name="colorMarked">#ffffff</color>
     <color name="background">#ffffff</color>
+    <color name="colorMarked">#ffffff</color>
+    <color name="fail">#ff5252</color>
 </resources>
