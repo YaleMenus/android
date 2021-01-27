@@ -122,7 +122,6 @@ class ItemActivity : AppCompatActivity() {
             if (item!!.wheat) traits.add(Trait(R.drawable.key_wheat, "Wheat"))
             if (item!!.gluten) traits.add(Trait(R.drawable.key_gluten, "Gluten"))
             if (item!!.coconut) traits.add(Trait(R.drawable.key_coconut, "Coconut"))
-            println(traits)
 
             nutrition = api!!.getItemNutrition(itemId)
             nutrients.add(Nutrient(NutrientType.HEADER, "Serving Size", nutrition!!.servingSize))

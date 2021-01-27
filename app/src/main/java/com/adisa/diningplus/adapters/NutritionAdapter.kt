@@ -45,7 +45,8 @@ class NutritionAdapter(private val context: Context, private val nutrients: Arra
             viewHolder.name!!.typeface = Typeface.DEFAULT
         }
         viewHolder.amount!!.text = nutrient.amount
-        if (nutrient.pdv != null) {
+        // TODO: should only check for null, but currently null gets stored as 0
+        if (nutrient.pdv != null && nutrient.pdv != 0) {
             viewHolder.pdv!!.text = nutrient.pdv.toString() + "%"
         } else {
             viewHolder.pdv!!.text = ""
