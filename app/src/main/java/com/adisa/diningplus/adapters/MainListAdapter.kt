@@ -3,6 +3,7 @@ package com.adisa.diningplus.adapters
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import kotlin.collections.HashMap
 class MainListAdapter(private val context: Context) : BaseAdapter() {
     private val preferences: SharedPreferences
     private val shieldMap = HashMap<String, Int>()
+    private val occupancyImages: Array<Int>
     private var halls = ArrayList<Hall>()
     private val hallSort = Comparator<Hall> { h1, h2 -> h1.distance.compareTo(h2.distance) }
 
@@ -28,7 +30,7 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
         var shield: ImageView? = null
         var name: TextView? = null
         var distance: TextView? = null
-        var occupancy: TextView? = null
+        var occupancy: ImageView? = null
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -54,7 +56,7 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
         } else {
             viewHolder.shield!!.setImageDrawable(context.resources.getDrawable(R.drawable.commons))
         }
-        viewHolder.name!!.text = item.name
+        viewHolder.name!!.text = item.nickname
         var numberFormat = DecimalFormat("0.0")
         var distance = item.distance
         var unit = ""
@@ -80,17 +82,18 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
             }
         }
         viewHolder.distance!!.text = numberFormat.format(distance) + unit
-        val occupancy = item.occupancy * 10
-        if (!item.open) {
-            viewHolder.occupancy!!.setTextColor(Color.parseColor("#A8030303"))
-        } else if (occupancy >= 80) {
-            viewHolder.occupancy!!.setTextColor(Color.parseColor("#d62b2b"))
-        } else if (occupancy >= 30) {
-            viewHolder.occupancy!!.setTextColor(Color.parseColor("#eb9438"))
-        } else {
-            viewHolder.occupancy!!.setTextColor(Color.parseColor("#64dd17"))
-        }
-        viewHolder.occupancy!!.text = if (item.open) "$occupancy%" else "Closed"
+        viewHolder.occupancy!!.setImageDrawable(context.resources.getDrawable(occupancyImages[item.occupancy]))
+
+//        if (!item.open) {
+//            viewHolder.occupancy!!.setTextColor(Color.parseColor("#A8030303"))
+//        } else if (occupancy >= 80) {
+//            viewHolder.occupancy!!.setTextColor(Color.parseColor("#d62b2b"))
+//        } else if (occupancy >= 30) {
+//            viewHolder.occupancy!!.setTextColor(Color.parseColor("#eb9438"))
+//        } else {
+//            viewHolder.occupancy!!.setTextColor(Color.parseColor("#64dd17"))
+//        }
+//        viewHolder.occupancy!!.text = if (item.open) "$item.occupancy%" else "Closed"
         // Gray out closed halls
         convertView!!.alpha = if (item.open) 1f else 0.4f
         return convertView!!
@@ -136,5 +139,18 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
         shieldMap["SM"] = R.drawable.silliman
         shieldMap["TD"] = R.drawable.td
         shieldMap["TC"] = R.drawable.trumbull
+        occupancyImages = arrayOf(
+            R.drawable.occupancy0,
+            R.drawable.occupancy1,
+            R.drawable.occupancy2,
+            R.drawable.occupancy3,
+            R.drawable.occupancy4,
+            R.drawable.occupancy5,
+            R.drawable.occupancy6,
+            R.drawable.occupancy7,
+            R.drawable.occupancy8,
+            R.drawable.occupancy9,
+            R.drawable.occupancy10,
+        )
     }
 }
