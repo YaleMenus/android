@@ -31,7 +31,7 @@ class ItemActivity : AppCompatActivity() {
     var bodyView: View? = null
     var traits = ArrayList<Trait>()
     var nutrients = ArrayList<Nutrient>()
-    var traitsView: ListView? = null
+    var traitsView: LinearLayout? = null
     var nutrientsView: LinearLayout? = null
     var ingredientsView: TextView? = null
     var nutrition: Nutrition? = null
@@ -72,7 +72,7 @@ class ItemActivity : AppCompatActivity() {
         itemId = i.getIntExtra("id", -1)
         loaderView = findViewById(R.id.loader)
         bodyView = findViewById(R.id.body)
-        traitsView = findViewById<View>(R.id.traits) as ListView
+        traitsView = findViewById(R.id.traits)
         nutrientsView = findViewById(R.id.nutrients)
         ingredientsView = findViewById(R.id.ingredients)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
@@ -151,7 +151,10 @@ class ItemActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: Void?) {
             val traitAdapter = TraitAdapter(this@ItemActivity, traits)
-            traitsView!!.adapter = traitAdapter
+            // TODO: figure out a way to make this automatic through adapter. Right now we're doing this so we can use LinearLayout instead of ListAdapter.
+            for (position in 0 until traitAdapter.count) {
+                traitsView!!.addView(traitAdapter.getView(position, null, null))
+            }
             val nutritionAdapter = NutritionAdapter(this@ItemActivity, nutrients)
             for (position in 0 until nutritionAdapter.count) {
                 nutrientsView!!.addView(nutritionAdapter.getView(position, null, null))

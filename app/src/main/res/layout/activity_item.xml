@@ -18,13 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ListView
+            <LinearLayout
+                android:orientation="vertical"
                 android:id="@+id/traits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@null"
                 android:footerDividersEnabled="false"
-                android:headerDividersEnabled="false" />
+                android:headerDividersEnabled="false">
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
