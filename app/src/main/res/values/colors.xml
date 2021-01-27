@@ -8,4 +8,6 @@
     <color name="background">#ffffff</color>
     <color name="colorMarked">#ffffff</color>
     <color name="fail">#ff5252</color>
+    <color name="warning">#ffeb3b</color>
+    <color name="success">#4caf50</color>
 </resources>
