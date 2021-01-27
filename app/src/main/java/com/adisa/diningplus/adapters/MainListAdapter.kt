@@ -19,8 +19,6 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
     private val preferences: SharedPreferences
     private val shieldMap = HashMap<String, Int>()
     private var halls = ArrayList<Hall>()
-    private var openHalls = ArrayList<Hall>()
-    private var closedHalls = ArrayList<Hall>()
     private val hallSort = Comparator<Hall> { o1, o2 -> java.lang.Double.compare(o1.distance, o2.distance) }
 
     internal inner class ViewHolder {
@@ -28,15 +26,6 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
         var name: TextView? = null
         var distance: TextView? = null
         var occupancy: TextView? = null
-    }
-
-    override fun notifyDataSetChanged() {
-        halls = ArrayList()
-        Collections.sort(openHalls, hallSort)
-        Collections.sort(closedHalls, hallSort)
-        halls.addAll(openHalls)
-        halls.addAll(closedHalls)
-        super.notifyDataSetChanged()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -95,8 +84,11 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
     }
 
     fun setLists(openHalls: ArrayList<Hall>, closedHalls: ArrayList<Hall>) {
-        this.openHalls = openHalls
-        this.closedHalls = closedHalls
+        this.halls = ArrayList()
+        Collections.sort(openHalls, hallSort)
+        Collections.sort(closedHalls, hallSort)
+        this.halls.addAll(openHalls)
+        this.halls.addAll(closedHalls)
     }
 
     override fun getCount(): Int {
