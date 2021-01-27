@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/hall_name"
-        android:layout_width="175dp"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:ellipsize="end"
@@ -27,17 +27,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textSize="18sp" />
 
-    <TextView
+    <ImageView
         android:id="@+id/hall_occupancy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="98dp"
+        android:layout_height="30dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:text="TextView"
-        android:textAlignment="textEnd"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#64dd17"
-        android:textSize="16sp" />
+        android:textAlignment="textEnd" />
 
     <TextView
         android:id="@+id/hall_distance"
