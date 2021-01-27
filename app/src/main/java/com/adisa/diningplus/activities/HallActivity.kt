@@ -225,10 +225,6 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
     }
 
     private inner class DietaryRestrictionTask : AsyncTask<Void?, Void?, Void?>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
-            Log.d("get", "start")
-        }
 
         override fun doInBackground(vararg params: Void?): Void? {
             val dietaryRestrictions = preferences!!.getStringSet("dietary_restrictions", HashSet()) as HashSet<String>?
@@ -257,7 +253,6 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
         override fun onPostExecute(result: Void?) {
             menuAdapter!!.updateItems(mealItems!!)
             loadingView!!.visibility = View.GONE
-            Log.d("get", "done")
         }
     }
 }

@@ -37,10 +37,6 @@ class DatabaseUpdateService : JobService() {
     }
 
     private inner class UpdateTask : AsyncTask<Void?, Boolean?, Boolean>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
-            Log.d("service", "start")
-        }
 
         override fun doInBackground(vararg params: Void?): Boolean {
             preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
