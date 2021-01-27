@@ -55,21 +55,31 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
             viewHolder.shield!!.setImageDrawable(context.resources.getDrawable(R.drawable.commons))
         }
         viewHolder.name!!.text = item.name
-        val numberFormat = DecimalFormat("0.00")
+        var numberFormat = DecimalFormat("0.0")
         var distance = item.distance
-        var unit = " "
+        var unit = ""
         when (preferences.getString("units", "Imperial")) {
-            "Metric" -> unit += "km"
+            "Metric" -> {
+                if (distance < 1) {
+                    numberFormat = DecimalFormat("0")
+                    distance *= 1000
+                    unit += "m"
+                } else {
+                    unit += "km"
+                }
+            }
             "Imperial" -> {
                 distance *= 0.621371
-                unit += "mi"
+                if (distance < 0.15) {
+                    numberFormat = DecimalFormat("0")
+                    distance *= 5280
+                    unit += "ft"
+                } else {
+                    unit += "mi"
+                }
             }
         }
-        if (distance > 50) {
-            viewHolder.distance!!.text = "> 50$unit"
-        } else {
-            viewHolder.distance!!.text = "" + numberFormat.format(distance) + unit
-        }
+        viewHolder.distance!!.text = numberFormat.format(distance) + unit
         val occupancy = item.occupancy * 10
         if (!item.open) {
             viewHolder.occupancy!!.setTextColor(Color.parseColor("#A8030303"))
