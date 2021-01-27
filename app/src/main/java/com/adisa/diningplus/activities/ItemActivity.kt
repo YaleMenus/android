@@ -79,9 +79,9 @@ class ItemActivity : AppCompatActivity() {
         supportActionBar!!.title = itemName
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        if (preferences.getBoolean("followTutorial", true)) {
+        if (preferences.getBoolean("follow_tutorial", true)) {
             val editor = preferences.edit()
-            editor.putBoolean("followTutorial", false)
+            editor.putBoolean("follow_tutorial", false)
             editor.apply()
             val prev = supportFragmentManager.findFragmentByTag("follow")
             if (prev == null) {
@@ -104,10 +104,6 @@ class ItemActivity : AppCompatActivity() {
     }
 
     private inner class ItemTask : AsyncTask<Void?, Void?, Void?>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
-        }
-
         override fun doInBackground(vararg params: Void?): Void? {
             item = null
             item = api!!.getItem(itemId)
