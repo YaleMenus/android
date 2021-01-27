@@ -65,10 +65,10 @@ class API(ctx: Context?) {
     }
 
     fun getMealItems(mealId: Int): List<Item> {
-        val items = db.itemDao().getMeal(mealId)
-        if (!items.isEmpty()) {
-            return items
-        }
+//        val items = db.itemDao().getMeal(mealId)
+//        if (!items.isEmpty()) {
+//            return items
+//        }
         val fetchedItems = ArrayList<Item>()
         val itemsRaw = JSONArray(getJSON("meals/$mealId/items"))
         for (i in 0 until itemsRaw.length()) {
