@@ -22,7 +22,6 @@ import kotlin.collections.HashMap
 class MainListAdapter(private val context: Context) : BaseAdapter() {
     private val preferences: SharedPreferences
     private val shieldMap = HashMap<String, Int>()
-    private val occupancyImages: Array<Int>
     private var halls = ArrayList<Hall>()
     private val hallSort = Comparator<Hall> { h1, h2 -> h1.distance.compareTo(h2.distance) }
 
@@ -139,18 +138,5 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
         shieldMap["SM"] = R.drawable.silliman
         shieldMap["TD"] = R.drawable.td
         shieldMap["TC"] = R.drawable.trumbull
-        occupancyImages = arrayOf(
-            R.drawable.occupancy0,
-            R.drawable.occupancy1,
-            R.drawable.occupancy2,
-            R.drawable.occupancy3,
-            R.drawable.occupancy4,
-            R.drawable.occupancy5,
-            R.drawable.occupancy6,
-            R.drawable.occupancy7,
-            R.drawable.occupancy8,
-            R.drawable.occupancy9,
-            R.drawable.occupancy10,
-        )
     }
 }
