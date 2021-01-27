@@ -14,12 +14,15 @@ import com.adisa.diningplus.R
 import com.adisa.diningplus.db.entities.Hall
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.Comparator
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class MainListAdapter(private val context: Context) : BaseAdapter() {
     private val preferences: SharedPreferences
     private val shieldMap = HashMap<String, Int>()
     private var halls = ArrayList<Hall>()
-    private val hallSort = Comparator<Hall> { o1, o2 -> java.lang.Double.compare(o1.distance, o2.distance) }
+    private val hallSort = Comparator<Hall> { h1, h2 -> h1.distance.compareTo(h2.distance) }
 
     internal inner class ViewHolder {
         var shield: ImageView? = null
