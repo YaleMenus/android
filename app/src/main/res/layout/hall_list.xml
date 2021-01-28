@@ -30,7 +30,7 @@
     <ImageView
         android:id="@+id/hall_occupancy"
         android:layout_width="100dp"
-        android:layout_height="25dp"
+        android:layout_height="15dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:scaleType="centerCrop"
