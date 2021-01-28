@@ -57,13 +57,12 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
             viewHolder.shield!!.setImageDrawable(context.resources.getDrawable(R.drawable.commons))
         }
         viewHolder.name!!.text = item.nickname
-        var numberFormat = DecimalFormat("0.0")
         var distance = item.distance
+        var numberFormat = DecimalFormat("0")
         var unit = ""
         when (preferences.getString("units", "Imperial")) {
             "Metric" -> {
                 if (distance < 1) {
-                    numberFormat = DecimalFormat("0")
                     distance *= 1000
                     unit += "m"
                 } else {
@@ -73,10 +72,12 @@ class MainListAdapter(private val context: Context) : BaseAdapter() {
             "Imperial" -> {
                 distance *= 0.621371
                 if (distance < 0.15) {
-                    numberFormat = DecimalFormat("0")
                     distance *= 5280
                     unit += "ft"
                 } else {
+                    if (distance < 5) {
+                        numberFormat = DecimalFormat("0.0")
+                    }
                     unit += "mi"
                 }
             }
