@@ -1,6 +1,5 @@
 package com.adisa.diningplus.db.entities;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -33,9 +32,6 @@ public class Item implements Serializable {
     public boolean gluten;
     public boolean coconut;
 
-    @ColumnInfo(name = "meal_id")
-    public int mealId;
-
     @Ignore
     public boolean restricted;
 
@@ -59,7 +55,6 @@ public class Item implements Serializable {
         item.wheat = raw.getBoolean("wheat");
         item.gluten = raw.getBoolean("gluten");
         item.coconut = raw.getBoolean("coconut");
-        item.mealId = raw.getInt("meal_id");
         return item;
     }
 }
