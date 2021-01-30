@@ -1,12 +1,10 @@
 package com.adisa.diningplus.network
 
 import android.content.Context
-import com.adisa.diningplus.db.AppDatabase
-import com.adisa.diningplus.db.DatabaseClient
-import com.adisa.diningplus.db.entities.Item
-import com.adisa.diningplus.db.entities.Hall
-import com.adisa.diningplus.db.entities.Meal
-import com.adisa.diningplus.db.entities.Nutrition
+import com.adisa.diningplus.network.entities.Item
+import com.adisa.diningplus.network.entities.Hall
+import com.adisa.diningplus.network.entities.Meal
+import com.adisa.diningplus.network.entities.Nutrition
 import com.adisa.diningplus.utils.DateFormatProvider
 import org.json.JSONArray
 import org.json.JSONObject
@@ -20,7 +18,6 @@ import kotlin.jvm.Throws
 
 class API(ctx: Context?) {
     private val API_ROOT = "https://yaledine.com/api/"
-    var db: AppDatabase
 
     @Throws(IOException::class)
     fun getJSON(endpoint: String): String {
@@ -43,11 +40,10 @@ class API(ctx: Context?) {
 
     fun getHalls(): List<Hall> {
         val hallsRaw = JSONArray(getJSON("halls"))
-        db.hallDao().clear()
+        val halls =
         for (i in 0 until hallsRaw.length()) {
             val hallRaw = hallsRaw.getJSONObject(i)
             val hall = Hall.fromJSON(hallRaw)
-            db.hallDao().insert(hall)
         }
         return db.hallDao().getAll()
     }

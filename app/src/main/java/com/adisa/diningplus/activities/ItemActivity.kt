@@ -8,15 +8,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.adisa.diningplus.R
 import com.adisa.diningplus.adapters.NutritionAdapter
 import com.adisa.diningplus.adapters.TraitAdapter
-import com.adisa.diningplus.db.entities.Item
-import com.adisa.diningplus.db.entities.Nutrition
+import com.adisa.diningplus.network.entities.Item
+import com.adisa.diningplus.network.entities.Nutrition
 import com.adisa.diningplus.fragments.FollowDialogFragment
 import com.adisa.diningplus.network.API
 import java.util.*

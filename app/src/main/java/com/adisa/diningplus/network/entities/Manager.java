@@ -1,6 +1,5 @@
-package com.adisa.diningplus.db.entities;
+package com.adisa.diningplus.network.entities;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 

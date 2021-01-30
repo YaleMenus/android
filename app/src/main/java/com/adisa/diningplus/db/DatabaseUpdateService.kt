@@ -10,7 +10,6 @@ import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
 
 class DatabaseUpdateService : JobService() {
-    var db: DatabaseClient? = null
     var api: API? = null
     var preferences: SharedPreferences? = null
     var mDownloadStateReceiver: DatabaseUpdateReceiver? = null
@@ -40,9 +39,9 @@ class DatabaseUpdateService : JobService() {
 
         override fun doInBackground(vararg params: Void?): Boolean {
             preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+            /*
             val halls = db!!.db.hallDao().getAll()
             for (hall in halls) {
-                /*
                 api.getMeals(location.id);
                 List<Meal> = dbHelper.getMeals(id);
                 while (menu.moveToNext()) {
@@ -56,8 +55,8 @@ class DatabaseUpdateService : JobService() {
                         return false;
                     }
                 }
-                 */
             }
+             */
             return false
         }
 

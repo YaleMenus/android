@@ -8,8 +8,8 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.adisa.diningplus.R
-import com.adisa.diningplus.db.entities.Item
-import com.adisa.diningplus.db.entities.Meal
+import com.adisa.diningplus.network.entities.Item
+import com.adisa.diningplus.network.entities.Meal
 import com.adisa.diningplus.utils.DateFormatProvider
 import java.text.ParseException
 import java.util.*

@@ -24,8 +24,8 @@ import androidx.core.app.NavUtils
 import androidx.core.app.TaskStackBuilder
 import com.adisa.diningplus.R
 import com.adisa.diningplus.adapters.MenuAdapter
-import com.adisa.diningplus.db.entities.Item
-import com.adisa.diningplus.db.entities.Meal
+import com.adisa.diningplus.network.entities.Item
+import com.adisa.diningplus.network.entities.Meal
 import com.adisa.diningplus.network.API
 import com.adisa.diningplus.utils.DateFormatProvider
 import com.google.android.material.appbar.CollapsingToolbarLayout

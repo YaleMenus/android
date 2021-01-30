@@ -1,4 +1,4 @@
-package com.adisa.diningplus.db.entities;
+package com.adisa.diningplus.network.entities;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
