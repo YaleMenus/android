@@ -2,8 +2,6 @@ package com.adisa.diningplus.adapters
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.adisa.diningplus.R
-import com.adisa.diningplus.db.entities.Hall
+import com.adisa.diningplus.network.entities.Hall
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.Comparator
