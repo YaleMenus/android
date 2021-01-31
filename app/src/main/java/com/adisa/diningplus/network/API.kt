@@ -42,7 +42,7 @@ class API(ctx: Context?) {
         val halls = ArrayList<Hall>()
         for (i in 0 until hallsRaw.length()) {
             val hallRaw = hallsRaw.getJSONObject(i)
-            halls.add(Hall.fromJSON(hallRaw))
+            halls.add(Hall(hallRaw))
         }
         return halls
     }
