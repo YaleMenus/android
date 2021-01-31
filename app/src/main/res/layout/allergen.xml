@@ -21,6 +21,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="18dp"
         android:layout_weight="1"
-        android:text="Fish"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textSize="18sp"
+        android:text="Fish" />
 </LinearLayout>

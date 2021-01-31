@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="15sp"
+        android:textSize="18sp"
         tools:text="text" />
     <View
         android:layout_width="0dp"
@@ -37,7 +37,7 @@
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textColor="#8a000000"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/help_group_indicator"
