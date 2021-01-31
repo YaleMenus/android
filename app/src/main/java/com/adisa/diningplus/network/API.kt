@@ -53,7 +53,7 @@ class API(ctx: Context?) {
         val meals = ArrayList<Meal>()
         for (i in 0 until mealsRaw.length()) {
             val mealRaw = mealsRaw.getJSONObject(i)
-            meals.add(Meal.fromJSON(mealRaw))
+            meals.add(Meal(mealRaw))
         }
         return meals
     }
