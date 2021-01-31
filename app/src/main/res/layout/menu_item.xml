@@ -13,5 +13,5 @@
         android:paddingRight="24dp"
         android:paddingTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 </LinearLayout>

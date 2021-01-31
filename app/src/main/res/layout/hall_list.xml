@@ -47,5 +47,5 @@
         android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#A8030303"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 </LinearLayout>

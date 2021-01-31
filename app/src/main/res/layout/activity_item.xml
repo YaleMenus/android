@@ -54,8 +54,10 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingTop="16dp"
-                android:paddingBottom="8dp"
+                android:paddingBottom="12dp"
+                android:lineSpacingMultiplier="1.25"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textSize="18sp"
                 android:text="" />
 
             <TextView
@@ -63,10 +65,12 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:paddingTop="8dp"
+                android:paddingTop="12dp"
                 android:paddingBottom="16dp"
+                android:lineSpacingMultiplier="1.25"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/medium"
+                android:textSize="18sp"
                 android:text="* Percent Daily Values are based on a 2,000 calorie diet. Your Daily Values may be higher or lower depending on your calorie needs." />
 
         </LinearLayout>

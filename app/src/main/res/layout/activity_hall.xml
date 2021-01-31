@@ -87,6 +87,7 @@
                 android:layout_weight="1"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
+                android:textSize="18sp"
                 style="?android:attr/borderlessButtonStyle"
                 android:onClick="chooseDate" />
 

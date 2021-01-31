@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="item"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <ImageButton
         android:id="@+id/followItemRemove"
