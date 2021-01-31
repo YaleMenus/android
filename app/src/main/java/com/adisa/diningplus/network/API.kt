@@ -64,7 +64,7 @@ class API(ctx: Context?) {
         val items = ArrayList<Item>()
         for (i in 0 until itemsRaw.length()) {
             val itemRaw = itemsRaw.getJSONObject(i)
-            val item = Item.fromJSON(itemRaw)
+            val item = Item(itemRaw)
             items.add(item)
         }
         return items
@@ -72,7 +72,7 @@ class API(ctx: Context?) {
 
     fun getItem(itemId: Int): Item {
         val itemRaw = JSONObject(getJSON("items/$itemId"))
-        return Item.fromJSON(itemRaw)
+        return Item(itemRaw)
     }
 
     fun getItemNutrition(itemId: Int): Nutrition {
