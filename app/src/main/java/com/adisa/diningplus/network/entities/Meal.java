@@ -9,17 +9,12 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-@Entity(tableName = "meals")
-public class Meal implements Serializable {
-    @PrimaryKey
+public class Meal {
     public int id;
     public String name;
     public String date;
-    @ColumnInfo(name = "start_time")
     public String startTime;
-    @ColumnInfo(name = "end_time")
     public String endTime;
-    @ColumnInfo(name = "hall_id")
     public String hallId;
 
     public static Meal fromJSON(JSONObject raw) throws JSONException {
