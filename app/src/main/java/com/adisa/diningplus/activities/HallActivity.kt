@@ -188,8 +188,10 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
         override fun onPreExecute() {
             super.onPreExecute()
             Log.d("get", "start")
-            expandableListView!!.emptyView = findViewById(R.id.loader)
+            meals = null
+            loadingView!!.visibility = View.VISIBLE
             emptyView!!.visibility = View.GONE
+            expandableListView!!.visibility = View.GONE
         }
 
         override fun doInBackground(vararg params: Void?): Void? {
@@ -252,6 +254,7 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
 
         override fun onPostExecute(result: Void?) {
             menuAdapter!!.updateItems(mealItems!!)
+            expandableListView!!.visibility = View.VISIBLE
             loadingView!!.visibility = View.GONE
         }
     }
