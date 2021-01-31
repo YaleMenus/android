@@ -1,13 +1,7 @@
 package com.adisa.diningplus.network.entities;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 
 public class Meal {
     public int id;
