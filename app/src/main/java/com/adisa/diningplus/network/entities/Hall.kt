@@ -23,7 +23,8 @@ class Hall(raw: JSONObject) {
             loc.latitude = latitude
             loc.longitude = longitude
             // Convert m -> km
-            distance = location.distanceTo(loc) / 1000.toDouble()
+            val newDistance = location.distanceTo(loc) / 1000.toDouble()
+            if (newDistance != 0.0) distance = newDistance
         }
     }
 }
