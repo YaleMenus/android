@@ -34,70 +34,49 @@ class API(ctx: Context?) {
         while (reader.readLine().also { line = it } != null) {
             buffer.append(line).append("\n")
         }
-        //Log.d("API", buffer.toString());
         return buffer.toString()
     }
 
     fun getHalls(): List<Hall> {
         val hallsRaw = JSONArray(getJSON("halls"))
-        val halls =
+        val halls = ArrayList<Hall>()
         for (i in 0 until hallsRaw.length()) {
             val hallRaw = hallsRaw.getJSONObject(i)
-            val hall = Hall.fromJSON(hallRaw)
+            halls.add(Hall.fromJSON(hallRaw))
         }
-        return db.hallDao().getAll()
+        return halls
     }
 
     fun getHallMeals(hallId: String, date: Calendar): List<Meal> {
         val query = "date=" + DateFormatProvider.date.format(date.time)
         val mealsRaw = JSONArray(getJSON("halls/$hallId/meals?$query"))
-        db.mealDao().clearHall(hallId)
+        val meals = ArrayList<Meal>()
         for (i in 0 until mealsRaw.length()) {
             val mealRaw = mealsRaw.getJSONObject(i)
-            val meal = Meal.fromJSON(mealRaw)
-            db.mealDao().insert(meal)
+            meals.add(Meal.fromJSON(mealRaw))
         }
-        return db.mealDao().getHall(hallId)
+        return meals
     }
 
     fun getMealItems(mealId: Int): List<Item> {
-//        val items = db.itemDao().getMeal(mealId)
-//        if (!items.isEmpty()) {
-//            return items
-//        }
         val fetchedItems = ArrayList<Item>()
         val itemsRaw = JSONArray(getJSON("meals/$mealId/items"))
+        val items = ArrayList<Item>()
         for (i in 0 until itemsRaw.length()) {
             val itemRaw = itemsRaw.getJSONObject(i)
             val item = Item.fromJSON(itemRaw)
-            fetchedItems.add(item)
-            // db.itemDao().insert(item);
+            items.add(item)
         }
-        return fetchedItems
-        // return db.itemDao().getMeal(mealId);
+        return items
     }
 
     fun getItem(itemId: Int): Item {
-        var item = db.itemDao().get(itemId)
-        if (item == null) {
-            val itemRaw = JSONObject(getJSON("items/$itemId"))
-            item = Item.fromJSON(itemRaw)
-            db.itemDao().insert(item)
-        }
-        return item!!
+        val itemRaw = JSONObject(getJSON("items/$itemId"))
+        return Item.fromJSON(itemRaw)
     }
 
     fun getItemNutrition(itemId: Int): Nutrition {
-        var nutrition = db.nutritionDao().get(itemId)
-        if (nutrition == null) {
-            val nutritionRaw = JSONObject(getJSON("items/$itemId/nutrition"))
-            nutrition = Nutrition.fromJSON(nutritionRaw);
-        }
-        return nutrition!!
-    }
-
-    init {
-        val dbClient = DatabaseClient(ctx)
-        db = dbClient.db
+        val nutritionRaw = JSONObject(getJSON("items/$itemId/nutrition"))
+        return Nutrition.fromJSON(nutritionRaw)
     }
 }
