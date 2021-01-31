@@ -59,7 +59,6 @@ class API(ctx: Context?) {
     }
 
     fun getMealItems(mealId: Int): List<Item> {
-        val fetchedItems = ArrayList<Item>()
         val itemsRaw = JSONArray(getJSON("meals/$mealId/items"))
         val items = ArrayList<Item>()
         for (i in 0 until itemsRaw.length()) {
@@ -77,6 +76,6 @@ class API(ctx: Context?) {
 
     fun getItemNutrition(itemId: Int): Nutrition {
         val nutritionRaw = JSONObject(getJSON("items/$itemId/nutrition"))
-        return Nutrition.fromJSON(nutritionRaw)
+        return Nutrition(nutritionRaw)
     }
 }
