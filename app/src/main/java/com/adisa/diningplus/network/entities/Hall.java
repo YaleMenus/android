@@ -2,20 +2,10 @@ package com.adisa.diningplus.network.entities;
 
 import android.location.Location;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-
-@Entity(tableName = "halls")
-public class Hall implements Serializable {
-    @PrimaryKey
-    @NonNull
+public class Hall {
     public String id;
     public String name;
     public String nickname;
@@ -26,7 +16,6 @@ public class Hall implements Serializable {
     public String address;
     public String phone;
 
-    @Ignore
     public double distance;
 
     public static Hall fromJSON(JSONObject raw) throws JSONException {

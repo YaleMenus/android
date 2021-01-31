@@ -1,22 +1,13 @@
 package com.adisa.diningplus.network.entities;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-
-@Entity(tableName = "items")
-public class Item implements Serializable {
-    @PrimaryKey
+public class Item {
     public int id;
     public String name;
     public String ingredients;
     public String course;
-
     public boolean meat;
     public boolean animalProducts;
     public boolean alcohol;
@@ -32,7 +23,6 @@ public class Item implements Serializable {
     public boolean gluten;
     public boolean coconut;
 
-    @Ignore
     public boolean restricted;
 
     public static Item fromJSON(JSONObject raw) throws JSONException {
