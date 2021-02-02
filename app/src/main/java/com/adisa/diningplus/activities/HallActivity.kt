@@ -188,7 +188,6 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
         override fun onPreExecute() {
             super.onPreExecute()
             Log.d("get", "start")
-            meals = null
             loadingView!!.visibility = View.VISIBLE
             emptyView!!.visibility = View.GONE
             expandableListView!!.visibility = View.GONE
