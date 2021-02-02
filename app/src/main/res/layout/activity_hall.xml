@@ -67,12 +67,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:layout_width="wrap_content"
+                android:minWidth="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:drawableStart="@drawable/ic_baseline_arrow_back_24"
                 android:gravity="center"
                 android:textColor="@color/primary"
@@ -82,7 +87,8 @@
 
             <Button
                 android:id="@+id/dateButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:minWidth="0dp"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                 android:gravity="center"
@@ -98,7 +104,10 @@
 
             <Button
                 android:layout_width="wrap_content"
+                android:minWidth="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
                 android:drawableEnd="@drawable/ic_baseline_arrow_forward_24"
                 android:gravity="center"
                 android:textColor="@color/primary"
