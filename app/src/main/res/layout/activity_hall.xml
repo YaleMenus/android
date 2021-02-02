@@ -88,6 +88,9 @@
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:textSize="18sp"
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:tint="@color/primary"
                 style="?android:attr/borderlessButtonStyle"
                 android:onClick="chooseDate" />
 
