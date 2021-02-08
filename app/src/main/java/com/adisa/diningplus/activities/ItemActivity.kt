@@ -110,7 +110,7 @@ class ItemActivity : AppCompatActivity() {
             if (item!!.meat) traits.add(Trait(R.drawable.trait_meat, "Meat"))
             if (item!!.animalProducts) traits.add(Trait(R.drawable.trait_animal_products, "Animal Products"))
             if (item!!.alcohol) traits.add(Trait(R.drawable.trait_alcohol, "Alcohol"))
-            if (item!!.nuts) traits.add(Trait(R.drawable.trait_nuts, "Nuts"))
+            if (item!!.treeNut) traits.add(Trait(R.drawable.trait_tree_nut, "Tree Nut"))
             if (item!!.shellfish) traits.add(Trait(R.drawable.trait_shellfish, "Shellfish"))
             if (item!!.peanuts) traits.add(Trait(R.drawable.trait_peanuts, "Peanuts"))
             if (item!!.dairy) traits.add(Trait(R.drawable.trait_dairy, "Dairy"))

@@ -10,7 +10,7 @@ class Item(raw: JSONObject) {
     var meat: Boolean = raw.getBoolean("meat")
     var animalProducts: Boolean = raw.getBoolean("animal_products")
     var alcohol: Boolean = raw.getBoolean("alcohol")
-    var nuts: Boolean = raw.getBoolean("nuts")
+    var treeNut: Boolean = raw.getBoolean("tree_nut")
     var shellfish: Boolean = raw.getBoolean("shellfish")
     var peanuts: Boolean = raw.getBoolean("peanuts")
     var dairy: Boolean = raw.getBoolean("dairy")

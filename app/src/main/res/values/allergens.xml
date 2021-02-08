@@ -4,7 +4,7 @@
         <item>meat</item>
         <item>animal_products</item>
         <item>alcohol</item>
-        <item>nuts</item>
+        <item>tree_nuts</item>
         <item>shellfish</item>
         <item>peanuts</item>
         <item>dairy</item>
@@ -20,7 +20,7 @@
         <item>Meat (I\'m Vegetarian)</item>
         <item>Animal Products (I\'m Vegan)</item>
         <item>Alcohol</item>
-        <item>Nuts</item>
+        <item>Tree Nuts</item>
         <item>Shellfish</item>
         <item>Peanuts</item>
         <item>Dairy</item>
