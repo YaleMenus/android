@@ -194,21 +194,11 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
         }
 
         override fun doInBackground(vararg params: Void?): Void? {
-//            try {
             meals = api!!.getHallMeals(hallId!!, this.date!!)
-            //            } catch (JSONException | IOException e) {
-//                Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
-//                e.printStackTrace();
-//            }
             mealItems = HashMap()
             for (meal in meals!!) {
                 var items: List<Item>
-                //                try {
                 items = api!!.getMealItems(meal.id)
-                //                } catch (JSONException | IOException e) {
-//                    Snackbar.make(coordinatorLayout, R.string.web_error, Snackbar.LENGTH_LONG).show();
-//                    e.printStackTrace();
-//                }
                 mealItems!![meal.name] = items
             }
             return null
