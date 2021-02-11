@@ -116,7 +116,7 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_hall, menu)
-        if (preferences!!.getString("default_hall_id", "") === hallId) {
+        if (preferences!!.getString("default_hall_id", "") == hallId) {
             menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_favorite_black_24dp)
         }
         return super.onCreateOptionsMenu(menu)
@@ -126,13 +126,14 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
         return when (item.itemId) {
             R.id.action_favorite -> {
                 val editor = preferences!!.edit()
-                if (preferences!!.getString("default_hall_id", "") !== hallId) {
+                if (preferences!!.getString("default_hall_id", "") != hallId) {
                     item.setIcon(R.drawable.ic_favorite_black_24dp)
                     editor.putString("default_hall_id", hallId)
                     editor.putString("default_hall_name", hallName)
                 } else {
                     item.setIcon(R.drawable.ic_favorite_border_black_24dp)
-                    editor.putString("default_hall_id", "")
+                    editor.remove("default_hall_id")
+                    editor.remove("default_hall_name")
                 }
                 editor.apply()
                 true
