@@ -8,8 +8,8 @@ android {
         applicationId "com.adisa.diningplus"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 4
-        versionName "2.1"
+        versionCode 5
+        versionName "2.1.1"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary true
     }
