@@ -234,15 +234,9 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
                 if (items != null) {
                     for (item in items) {
                         for (restriction in dietaryRestrictions!!) {
-                            try {
-                                if (item.javaClass.getField(restriction)[item] as Boolean) {
-                                    item.restricted = true
-                                    break
-                                }
-                            } catch (e: NoSuchFieldException) {
-                                // Should never happen
-                            } catch (e: IllegalAccessException) {
-                                // Should never happen
+                            if (item.hasTrait(restriction)) {
+                                item.restricted = true
+                                break
                             }
                         }
                     }

@@ -3,6 +3,7 @@ package com.adisa.diningplus.network.entities
 import org.json.JSONObject
 
 class Item(raw: JSONObject) {
+    var raw: JSONObject = raw;
     var id: Int = raw.getInt("id")
     var name: String = raw.getString("name")
     var ingredients: String = raw.getString("course")
@@ -23,4 +24,8 @@ class Item(raw: JSONObject) {
     var coconut: Boolean = raw.getBoolean("coconut")
 
     var restricted = false
+
+    fun hasTrait(trait: String): Boolean {
+        return raw.optBoolean(trait)
+    }
 }
