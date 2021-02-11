@@ -6,8 +6,8 @@ class Item(raw: JSONObject) {
     var raw: JSONObject = raw;
     var id: Int = raw.getInt("id")
     var name: String = raw.getString("name")
-    var ingredients: String = raw.getString("course")
-    var course: String = raw.getString("ingredients")
+    var ingredients: String = raw.getString("ingredients")
+    var course: String = raw.getString("course")
     var meat: Boolean = raw.getBoolean("meat")
     var animalProducts: Boolean = raw.getBoolean("animal_products")
     var alcohol: Boolean = raw.getBoolean("alcohol")
