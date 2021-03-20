@@ -219,12 +219,15 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
     private inner class DietaryRestrictionTask : AsyncTask<Void?, Void?, Void?>() {
 
         override fun doInBackground(vararg params: Void?): Void? {
-            val dietaryRestrictions = preferences!!.getStringSet("dietary_restrictions", HashSet()) as HashSet<String>?
+            val dietaryRestrictions = preferences!!.getStringSet("dietary_restrictions", HashSet()) as HashSet<String>
+            if (dietaryRestrictions.isEmpty()) {
+                return null
+            }
             for (meal in meals!!) {
                 val items = mealItems!![meal.name]
                 if (items != null) {
                     for (item in items) {
-                        for (restriction in dietaryRestrictions!!) {
+                        for (restriction in dietaryRestrictions) {
                             if (item.hasTrait(restriction)) {
                                 item.restricted = true
                                 break
