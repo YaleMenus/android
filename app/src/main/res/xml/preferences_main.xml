@@ -16,4 +16,8 @@
         android:key="units"
         android:summary="System of measurement to use for representing distances."
         android:title="Units" />
+    <SwitchPreference
+        android:key="show_nutrition"
+        android:title="Show Nutrition Facts"
+        android:defaultValue="true" />
 </PreferenceScreen>
