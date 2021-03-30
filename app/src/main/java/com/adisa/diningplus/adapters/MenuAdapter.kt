@@ -47,7 +47,7 @@ class MenuAdapter(private val context: Context, var meals: List<Meal>,
             expandedListTextView.setTextColor(context.resources.getColor(R.color.colorMarked))
         } else {
             expandedListTextView.setBackgroundColor(context.resources.getColor(R.color.transparent))
-            expandedListTextView.setTextColor(context.resources.getColor(android.R.color.primary_text_light))
+            expandedListTextView.setTextColor(context.resources.getColor(R.color.primary))
         }
         return convertView
     }
@@ -90,7 +90,7 @@ class MenuAdapter(private val context: Context, var meals: List<Meal>,
             e.printStackTrace()
         }
         mealTimeTextView.text = DateFormatProvider.hour.format(startTime) + "–" + DateFormatProvider.hour.format(endTime)
-        val groupIndicator: ImageView = convertView!!.findViewById(R.id.help_group_indicator)
+        val groupIndicator: ImageView = convertView.findViewById(R.id.help_group_indicator)
         if (isExpanded) {
             groupIndicator.setImageResource(R.drawable.ic_expand_less_black_24dp)
         } else {

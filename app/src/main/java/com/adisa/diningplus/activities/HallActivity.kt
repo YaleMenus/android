@@ -45,6 +45,7 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
     var preferences: SharedPreferences? = null
     var emptyView: View? = null
     var loadingView: View? = null
+    var today: Calendar? = null
     var date: Calendar? = null
     var dateButton: Button? = null
 
@@ -103,6 +104,7 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
         loadingView = findViewById(R.id.loader)
         expandableListView!!.emptyView = emptyView
         dateButton = findViewById(R.id.dateButton)
+        today = Calendar.getInstance()
         date = Calendar.getInstance()
         getMeals()
     }
@@ -208,7 +210,19 @@ class HallActivity : AppCompatActivity(), OnDateSetListener {
         override fun onPostExecute(result: Void?) {
             menuAdapter = MenuAdapter(this@HallActivity, meals!!, mealItems!!)
             expandableListView!!.setAdapter(menuAdapter)
-            if (menuAdapter!!.groupCount > 0) expandableListView!!.expandGroup(0)
+
+            // Expand current/upcoming meals
+            if (date!![Calendar.YEAR] == today!![Calendar.YEAR] &&
+                date!![Calendar.MONTH] == today!![Calendar.MONTH] &&
+                date!![Calendar.DAY_OF_MONTH] == today!![Calendar.DAY_OF_MONTH]) {
+
+                val hour = DateFormatProvider.hour24.format(date!!.time)
+                for (mealIndex in meals!!.indices) {
+                    if (hour.compareTo(meals!![mealIndex].endTime) < 0) {
+                        expandableListView!!.expandGroup(mealIndex)
+                    }
+                }
+            }
             expandableListView!!.emptyView = findViewById(R.id.hall_empty)
             val dietaryRestrictionTask = DietaryRestrictionTask()
             dietaryRestrictionTask.execute()
