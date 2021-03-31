@@ -34,6 +34,11 @@ class API(ctx: Context?) {
         return buffer.toString()
     }
 
+    fun status(): Status {
+        val statusRaw = JSONObject(getJSON("status"))
+        return Status(statusRaw)
+    }
+
     fun getHalls(): List<Hall> {
         val hallsRaw = JSONArray(getJSON("halls"))
         val halls = ArrayList<Hall>()
