@@ -1,10 +1,7 @@
 package com.adisa.diningplus.network
 
 import android.content.Context
-import com.adisa.diningplus.network.entities.Item
-import com.adisa.diningplus.network.entities.Hall
-import com.adisa.diningplus.network.entities.Meal
-import com.adisa.diningplus.network.entities.Nutrition
+import com.adisa.diningplus.network.entities.*
 import com.adisa.diningplus.utils.DateFormatProvider
 import org.json.JSONArray
 import org.json.JSONObject
