@@ -28,16 +28,6 @@
                 android:headerDividersEnabled="false">
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nutrition Facts"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
             <LinearLayout
                 android:orientation="vertical"
                 android:id="@+id/nutrients"
@@ -45,6 +35,17 @@
                 android:layout_height="match_parent"
                 android:footerDividersEnabled="true"
                 android:headerDividersEnabled="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nutrition Facts"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
             </LinearLayout>
 
             <TextView

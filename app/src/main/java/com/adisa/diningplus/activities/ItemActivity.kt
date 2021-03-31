@@ -25,6 +25,7 @@ class ItemActivity : AppCompatActivity() {
     var preferences: SharedPreferences? = null
     var itemName: String? = null
     var itemId = 0
+    var showNutrition: Boolean = false
     var item: Item? = null
     var loaderView: View? = null
     var bodyView: View? = null
@@ -88,6 +89,7 @@ class ItemActivity : AppCompatActivity() {
                 followDialog.show(supportFragmentManager, "follow")
             }
         }
+        showNutrition = preferences.getBoolean("show_nutrition", true);
         val itemTask = ItemTask()
         itemTask.execute()
     }
@@ -122,24 +124,26 @@ class ItemActivity : AppCompatActivity() {
             if (item!!.gluten) traits.add(Trait(R.drawable.trait_gluten, "Gluten"))
             if (item!!.coconut) traits.add(Trait(R.drawable.trait_coconut, "Coconut"))
 
-            nutrition = api!!.getItemNutrition(itemId)
-            nutrients.add(Nutrient(NutrientType.HEADER, "Serving Size", nutrition!!.servingSize))
-            nutrients.add(Nutrient(NutrientType.HEADER, "Calories", nutrition!!.calories.toString()))
-            nutrients.add(Nutrient(NutrientType.MAIN,"Total Fat", nutrition!!.totalFat, nutrition!!.totalFatPDV))
-            nutrients.add(Nutrient(NutrientType.SUB, "Saturated Fat", nutrition!!.saturatedFat, nutrition!!.saturatedFatPDV))
-            nutrients.add(Nutrient(NutrientType.SUB, "Trans Fat", nutrition!!.transFat, nutrition!!.transFatPDV))
-            nutrients.add(Nutrient(NutrientType.MAIN, "Cholesterol", nutrition!!.cholesterol, nutrition!!.cholesterolPDV))
-            nutrients.add(Nutrient(NutrientType.MAIN, "Sodium", nutrition!!.sodium, nutrition!!.sodiumPDV))
-            nutrients.add(Nutrient(NutrientType.MAIN, "Total Carbohydrate", nutrition!!.totalCarbohydrate, nutrition!!.totalCarbohydratePDV))
-            nutrients.add(Nutrient(NutrientType.SUB, "Dietary Fiber", nutrition!!.dietaryFiber, nutrition!!.dietaryFiberPDV))
-            nutrients.add(Nutrient(NutrientType.SUB, "Total Sugars", nutrition!!.totalSugars, nutrition!!.totalSugarsPDV))
-            nutrients.add(Nutrient(NutrientType.MAIN, "Protein", nutrition!!.protein, nutrition!!.proteinPDV))
-            nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin D", nutrition!!.vitaminD, nutrition!!.vitaminDPDV))
-            nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin A", nutrition!!.vitaminA, nutrition!!.vitaminAPDV))
-            nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin C", nutrition!!.vitaminC, nutrition!!.vitaminCPDV))
-            nutrients.add(Nutrient(NutrientType.PLAIN, "Calcium", nutrition!!.calcium, nutrition!!.calciumPDV))
-            nutrients.add(Nutrient(NutrientType.PLAIN, "Iron", nutrition!!.iron, nutrition!!.ironPDV))
-            nutrients.add(Nutrient(NutrientType.PLAIN, "Potassium", nutrition!!.potassium, nutrition!!.potassiumPDV))
+            if (showNutrition) {
+                nutrition = api!!.getItemNutrition(itemId)
+                nutrients.add(Nutrient(NutrientType.HEADER, "Serving Size", nutrition!!.servingSize))
+                nutrients.add(Nutrient(NutrientType.HEADER, "Calories", nutrition!!.calories.toString()))
+                nutrients.add(Nutrient(NutrientType.MAIN, "Total Fat", nutrition!!.totalFat, nutrition!!.totalFatPDV))
+                nutrients.add(Nutrient(NutrientType.SUB, "Saturated Fat", nutrition!!.saturatedFat, nutrition!!.saturatedFatPDV))
+                nutrients.add(Nutrient(NutrientType.SUB, "Trans Fat", nutrition!!.transFat, nutrition!!.transFatPDV))
+                nutrients.add(Nutrient(NutrientType.MAIN, "Cholesterol", nutrition!!.cholesterol, nutrition!!.cholesterolPDV))
+                nutrients.add(Nutrient(NutrientType.MAIN, "Sodium", nutrition!!.sodium, nutrition!!.sodiumPDV))
+                nutrients.add(Nutrient(NutrientType.MAIN, "Total Carbohydrate", nutrition!!.totalCarbohydrate, nutrition!!.totalCarbohydratePDV))
+                nutrients.add(Nutrient(NutrientType.SUB, "Dietary Fiber", nutrition!!.dietaryFiber, nutrition!!.dietaryFiberPDV))
+                nutrients.add(Nutrient(NutrientType.SUB, "Total Sugars", nutrition!!.totalSugars, nutrition!!.totalSugarsPDV))
+                nutrients.add(Nutrient(NutrientType.MAIN, "Protein", nutrition!!.protein, nutrition!!.proteinPDV))
+                nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin D", nutrition!!.vitaminD, nutrition!!.vitaminDPDV))
+                nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin A", nutrition!!.vitaminA, nutrition!!.vitaminAPDV))
+                nutrients.add(Nutrient(NutrientType.PLAIN, "Vitamin C", nutrition!!.vitaminC, nutrition!!.vitaminCPDV))
+                nutrients.add(Nutrient(NutrientType.PLAIN, "Calcium", nutrition!!.calcium, nutrition!!.calciumPDV))
+                nutrients.add(Nutrient(NutrientType.PLAIN, "Iron", nutrition!!.iron, nutrition!!.ironPDV))
+                nutrients.add(Nutrient(NutrientType.PLAIN, "Potassium", nutrition!!.potassium, nutrition!!.potassiumPDV))
+            }
             return null
         }
 
@@ -150,8 +154,12 @@ class ItemActivity : AppCompatActivity() {
                 traitsView!!.addView(traitAdapter.getView(position, null, null))
             }
             val nutritionAdapter = NutritionAdapter(this@ItemActivity, nutrients)
-            for (position in 0 until nutritionAdapter.count) {
-                nutrientsView!!.addView(nutritionAdapter.getView(position, null, null))
+            if (showNutrition) {
+                for (position in 0 until nutritionAdapter.count) {
+                    nutrientsView!!.addView(nutritionAdapter.getView(position, null, null))
+                }
+            } else {
+                nutrientsView!!.visibility = View.GONE
             }
             ingredientsView!!.text = "Ingredients: " + item!!.ingredients
             bodyView!!.visibility = View.VISIBLE
