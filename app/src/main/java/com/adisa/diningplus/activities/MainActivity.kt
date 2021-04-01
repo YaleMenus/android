@@ -182,8 +182,6 @@ class MainActivity : AppCompatActivity(), ConnectionCallbacks, OnConnectionFaile
             }
             // TODO: JSONObject.getString returns "null" for null values. Figure out how to convert to plain null.
             if (status.message != null && status.message!! != "null" && status.message!!.isNotEmpty()) {
-                System.out.println(status.message!!.substring(2))
-                System.out.println(status.message != null)
                 val statusDialog: DialogFragment = StatusDialogFragment(status.message!!)
                 statusDialog.show(supportFragmentManager, "statusMessage")
             }
