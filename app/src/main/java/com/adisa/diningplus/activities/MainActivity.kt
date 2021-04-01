@@ -21,9 +21,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.adisa.diningplus.R
 import com.adisa.diningplus.adapters.MainListAdapter
 import com.adisa.diningplus.db.DatabaseUpdateService
-import com.adisa.diningplus.network.entities.Hall
 import com.adisa.diningplus.fragments.DietaryRestrictionDialogFragment
+import com.adisa.diningplus.fragments.FollowDialogFragment
+import com.adisa.diningplus.fragments.StatusDialogFragment
 import com.adisa.diningplus.network.API
+import com.adisa.diningplus.network.entities.Hall
 import com.firebase.jobdispatcher.*
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity(), ConnectionCallbacks, OnConnectionFaile
     var mGoogleApiClient: GoogleApiClient? = null
     private var fused: FusedLocationProviderClient? = null
     var currentLocation: Location? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -100,6 +103,8 @@ class MainActivity : AppCompatActivity(), ConnectionCallbacks, OnConnectionFaile
                 traitDialog.show(supportFragmentManager, "traits")
             }
         }
+        val statusTask = StatusTask()
+        statusTask.execute()
     }
 
     override fun onStart() {
@@ -164,6 +169,25 @@ class MainActivity : AppCompatActivity(), ConnectionCallbacks, OnConnectionFaile
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private inner class StatusTask : AsyncTask<Void?, Void?, Void?>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            val status = api!!.getStatus()
+            val version = 1
+            if (version < status.minVersion!!) {
+                val statusDialog: DialogFragment = StatusDialogFragment("You're using an outdated version of Yale Menus that is no longer supported. Please update the app through the Play Store to avoid unexpected behavior.")
+                statusDialog.show(supportFragmentManager, "statusVersion")
+            }
+            // TODO: JSONObject.getString returns "null" for null values. Figure out how to convert to plain null.
+            if (status.message != null && status.message!! != "null" && status.message!!.isNotEmpty()) {
+                System.out.println(status.message!!.substring(2))
+                System.out.println(status.message != null)
+                val statusDialog: DialogFragment = StatusDialogFragment(status.message!!)
+                statusDialog.show(supportFragmentManager, "statusMessage")
+            }
+            return null
         }
     }
 

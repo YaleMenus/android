@@ -34,7 +34,7 @@ class API(ctx: Context?) {
         return buffer.toString()
     }
 
-    fun status(): Status {
+    fun getStatus(): Status {
         val statusRaw = JSONObject(getJSON("status"))
         return Status(statusRaw)
     }
