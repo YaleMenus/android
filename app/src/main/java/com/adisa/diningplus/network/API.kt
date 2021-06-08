@@ -14,7 +14,7 @@ import java.util.*
 import kotlin.jvm.Throws
 
 class API(ctx: Context?) {
-    private val API_ROOT = "https://yaledine.com/api/"
+    private val API_ROOT = "https://api.yalemenus.com/"
 
     @Throws(IOException::class)
     fun getJSON(endpoint: String): String {
